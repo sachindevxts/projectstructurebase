@@ -3,7 +3,7 @@ import { STORAGE_KEYS } from '@/constants/storage.constants';
 import { storage } from '@/utils/storage.utils';
 import { normalizeApiError } from '@/api/errorHandler';
 import { store } from '@/redux/store/configureStore';
-import { logout } from '@/redux/slices/authSlice';
+import { AUTH_ACTION_TYPES } from '@/redux/actionTypes';
 
 export const responseInterceptor = (client: AxiosInstance) => {
   client.interceptors.response.use(
@@ -14,7 +14,7 @@ export const responseInterceptor = (client: AxiosInstance) => {
         storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
         storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
         storage.remove(STORAGE_KEYS.USER);
-        store.dispatch(logout());
+        store.dispatch({ type: AUTH_ACTION_TYPES.LOGOUT });
       }
       return Promise.reject(normalized);
     },

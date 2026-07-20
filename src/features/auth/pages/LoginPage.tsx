@@ -9,7 +9,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const authState = useAppSelector((state) => state.auth);
-  const [form, setForm] = useState({ email: 'admin@example.com', password: 'password' });
+  const [form, setForm] = useState({ username: 'emilys', password: 'emilyspass' });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,16 +28,20 @@ export default function LoginPage() {
         <h1>Welcome back</h1>
         <p>Use the demo account to continue.</p>
         <label>
-          Email
+          Username
           <input
-            value={form.email}
-            onChange={(event) => setForm({ ...form, email: event.target.value })}
+            name="username"
+            autoComplete="username"
+            value={form.username}
+            onChange={(event) => setForm({ ...form, username: event.target.value })}
           />
         </label>
         <label>
           Password
           <input
             type="password"
+            name="password"
+            autoComplete="current-password"
             value={form.password}
             onChange={(event) => setForm({ ...form, password: event.target.value })}
           />

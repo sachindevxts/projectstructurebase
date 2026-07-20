@@ -1,4 +1,5 @@
 import { USER_ACTION_TYPES } from '@/redux/actionTypes/user.actionTypes';
+import { AUTH_ACTION_TYPES } from '@/redux/actionTypes/auth.actionTypes';
 import type { ApiError } from '@/types/common.types';
 import type { UserSummary } from '@/types/user.types';
 
@@ -39,6 +40,7 @@ export function userReducer(state = initialState, action: any): UserState {
     case USER_ACTION_TYPES.DELETE_USER_FAILURE:
       return { ...state, submitting: false, error: action.payload };
     case USER_ACTION_TYPES.CLEAR_USERS:
+    case AUTH_ACTION_TYPES.LOGOUT:
       return initialState;
     default:
       return state;

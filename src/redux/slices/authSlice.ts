@@ -6,7 +6,7 @@ import { STORAGE_KEYS } from '@/constants/storage.constants';
 import { storage } from '@/utils/storage.utils';
 
 interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 

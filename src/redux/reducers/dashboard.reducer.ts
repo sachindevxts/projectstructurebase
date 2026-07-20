@@ -1,4 +1,5 @@
 import { DASHBOARD_ACTION_TYPES } from '../actionTypes';
+import { AUTH_ACTION_TYPES } from '../actionTypes';
 import type { ApiError } from '@/types/common.types';
 export interface DashboardReduxState {
   data: { totalProducts: number; totalUsers: number };
@@ -21,6 +22,7 @@ export default function dashboardReducer(state = initialState, action: any): Das
     case DASHBOARD_ACTION_TYPES.FETCH_FAILURE:
       return { ...state, loading: false, initialized: true, error: action.payload };
     case DASHBOARD_ACTION_TYPES.CLEAR:
+    case AUTH_ACTION_TYPES.LOGOUT:
       return initialState;
     default:
       return state;

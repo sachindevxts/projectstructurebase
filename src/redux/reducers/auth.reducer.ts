@@ -1,5 +1,7 @@
 import { AUTH_ACTION_TYPES } from '../actionTypes';
 import type { AuthUser, ApiError } from '@/types/common.types';
+import { STORAGE_KEYS } from '@/constants/storage.constants';
+import { storage } from '@/utils/storage.utils';
 export interface AuthReduxState {
   user: AuthUser | null;
   loading: boolean;
@@ -8,14 +10,18 @@ export interface AuthReduxState {
   initialized: boolean;
   error: ApiError | null;
 }
-const initialState: AuthReduxState = {
+const storedUser = storage.get<AuthUser | null>(STORAGE_KEYS.USER, null);
+const signedOutState: AuthReduxState = {
   user: null,
   loading: false,
   isLoading: false,
   isAuthenticated: false,
-  initialized: false,
+  initialized: true,
   error: null,
 };
+const initialState: AuthReduxState = storedUser
+  ? { ...signedOutState, user: storedUser, isAuthenticated: true }
+  : signedOutState;
 export default function authReducer(state = initialState, action: any): AuthReduxState {
   switch (action.type) {
     case AUTH_ACTION_TYPES.LOGIN_REQUEST:
@@ -41,7 +47,7 @@ export default function authReducer(state = initialState, action: any): AuthRedu
         error: action.payload,
       };
     case AUTH_ACTION_TYPES.LOGOUT:
-      return initialState;
+      return signedOutState;
     default:
       return state;
   }

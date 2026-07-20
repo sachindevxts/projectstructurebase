@@ -1,9 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { logout } from '@/redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { Switch } from '@/components/common';
-import { setTheme } from '@/redux/actions';
+import { logout, setTheme } from '@/redux/actions';
 import { selectTheme } from '@/redux/selectors';
 
 function SunIcon() {
