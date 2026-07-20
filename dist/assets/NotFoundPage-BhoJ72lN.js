@@ -1,1 +1,0 @@
-import{j as e}from"./index-DSbKH4kK.js";function r(){return e.jsxs("div",{className:"page page--centered",children:[e.jsx("h1",{children:"404"}),e.jsx("p",{children:"The page you are looking for does not exist."})]})}export{r as default};

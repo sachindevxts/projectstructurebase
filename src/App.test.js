@@ -12,8 +12,8 @@ const TestApp = () =>
     React.createElement(MemoryRouter, null, React.createElement(App)),
   );
 
-test('renders the app shell by default', () => {
+test('redirects unauthenticated users to the login page', async () => {
   render(React.createElement(TestApp));
-  expect(screen.getByText(/project structure/i)).toBeInTheDocument();
-  expect(screen.getByText(/guest/i)).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /welcome back/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
 });

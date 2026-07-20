@@ -1,1 +1,0 @@
-import{j as e}from"./index-DSbKH4kK.js";function n(){return e.jsxs("div",{className:"page page--centered",children:[e.jsx("h1",{children:"Server Error"}),e.jsx("p",{children:"Something went wrong on our side. Please try again later."})]})}export{n as default};
