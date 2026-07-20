@@ -5,7 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:development": "vite --mode development",
+    "dev:qa": "vite --mode qa",
+    "dev:production": "vite --mode production",
     "build": "tsc -b && vite build",
+    "build:development": "tsc -b && vite build --mode development",
+    "build:qa": "tsc -b && vite build --mode qa",
+    "build:production": "tsc -b && vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
