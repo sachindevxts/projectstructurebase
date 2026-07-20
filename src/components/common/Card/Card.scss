@@ -1,17 +1,20 @@
 @use '../styles/tokens' as *;
 
 .card {
-  background: #fff;
+  color: var(--color-text-primary);
+  background: var(--surface-glass);
   border-radius: $radius-md;
   padding: $spacing-md;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(16px);
 
   &--outlined {
     border-style: solid;
     box-shadow: none;
   }
   &--elevated {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-card);
   }
   &--interactive {
     cursor: pointer;
@@ -26,7 +29,7 @@
     font-weight: 600;
   }
   &-description {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--color-text-secondary);
     font-size: $font-size-sm;
   }
 }

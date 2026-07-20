@@ -5,12 +5,33 @@
   display: grid;
   place-items: center;
   padding: abstracts.spacing(4);
+  background: transparent;
   &__card {
-    @include abstracts.card-surface;
+    position: relative;
+    overflow: hidden;
     width: min(100%, 420px);
-    padding: abstracts.spacing(5);
+    padding: clamp(1.5rem, 5vw, 2.5rem);
     display: grid;
     gap: abstracts.spacing(3);
+    color: var(--color-text-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: abstracts.radius(xl);
+    background: var(--surface-glass);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(22px);
+  }
+  &__card::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    content: '';
+    background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  }
+  h1 {
+    margin: 0;
+  }
+  p {
+    margin: 0 0 abstracts.spacing(2);
   }
 }
 
@@ -24,8 +45,36 @@ button {
   border: 1px solid var(--color-border);
   padding: abstracts.spacing(3);
 }
+input,
+select,
+textarea {
+  width: 100%;
+  color: var(--color-text-primary);
+  background: var(--input-background);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgb(38 190 218 / 18%);
+}
 button {
-  background: var(--color-primary);
-  color: white;
+  background: linear-gradient(135deg, var(--color-accent-strong), var(--color-primary));
+  color: var(--color-on-accent);
   cursor: pointer;
+}
+.login-page button[type='submit'] {
+  min-height: 46px;
+  margin-top: abstracts.spacing(2);
+  border: 0;
+  box-shadow: var(--shadow-accent);
+  font-weight: 700;
+}
+.login-page button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

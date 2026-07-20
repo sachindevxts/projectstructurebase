@@ -40,7 +40,7 @@ export default function UsersPage() {
       key: 'actions',
       title: 'Actions',
       render: (row: any) => (
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div className="table-actions">
           <Button variant="secondary" size="sm">
             Edit
           </Button>
@@ -62,7 +62,7 @@ export default function UsersPage() {
           <CardDescription>List of users</CardDescription>
         </CardHeader>
         <CardBody>
-          <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'space-between' }}>
+          <div className="page-actions">
             <Button variant="primary">Add User</Button>
             <Button variant="secondary">Export</Button>
           </div>

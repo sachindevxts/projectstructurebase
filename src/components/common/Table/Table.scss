@@ -3,13 +3,39 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  color: var(--color-text-primary);
+  background: transparent;
 }
 .table th,
 .table td {
   padding: $spacing-sm;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--glass-border);
+}
+.table th {
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.table tbody tr {
+  transition: background-color 150ms ease;
+}
+.table tbody tr:hover {
+  background: var(--surface-hover);
 }
 .table--empty {
   text-align: center;
   padding: $spacing-lg;
+}
+@media (max-width: 720px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .table th,
+  .table td {
+    padding: $spacing-md;
+  }
 }

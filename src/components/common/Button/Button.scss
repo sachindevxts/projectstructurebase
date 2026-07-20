@@ -24,12 +24,14 @@
   }
 
   &--primary {
-    background: $button-bg-primary;
-    color: $button-color-primary;
+    background: linear-gradient(135deg, var(--color-accent-strong), var(--color-primary));
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-accent);
   }
   &--secondary {
-    background: $button-bg-secondary;
-    color: $button-color-secondary;
+    color: var(--color-text-primary);
+    border-color: var(--glass-border);
+    background: var(--surface-glass);
   }
   &--danger {
     background: $button-bg-danger;

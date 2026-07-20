@@ -1,9 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/constants';
 import { Switch } from '@/components/common';
-import { logout, setTheme } from '@/redux/actions';
-import { selectTheme } from '@/redux/selectors';
+import { setSidebarOpen, setTheme } from '@/redux/actions';
+import { selectSidebarOpen, selectTheme } from '@/redux/selectors';
 
 function SunIcon() {
   return (
@@ -24,21 +22,26 @@ function MoonIcon() {
 
 export function Topbar() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth?.user ?? null);
-  const navigate = useNavigate();
   const theme = useAppSelector(selectTheme);
+  const sidebarOpen = useAppSelector(selectSidebarOpen);
   const darkModeEnabled =
     theme === 'dark' ||
     (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  const onLogout = () => {
-    dispatch(logout());
-    navigate(ROUTES.LOGIN);
-  };
-
   return (
     <header className="topbar">
-      <div className="topbar__brand">Project Structure</div>
+      <button
+        className="topbar__menu-toggle"
+        type="button"
+        aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+        aria-expanded={sidebarOpen}
+        onClick={() => dispatch(setSidebarOpen(!sidebarOpen))}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+      <div className="topbar__brand">Dashboard</div>
       <div className="topbar__actions">
         <Switch
           aria-label="Use dark theme"
@@ -47,8 +50,6 @@ export function Topbar() {
           checkedIcon={<MoonIcon />}
           onChange={(event) => dispatch(setTheme(event.target.checked ? 'dark' : 'light'))}
         />
-        <span>{user?.name ?? 'Guest'}</span>
-        <button onClick={onLogout}>Logout</button>
       </div>
     </header>
   );

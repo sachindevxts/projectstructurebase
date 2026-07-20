@@ -18,6 +18,36 @@
   --color-overlay: rgb(15 23 42 / 55%);
   --shadow-md: 0 8px 24px rgb(15 23 42 / 14%);
   --z-modal: 1000;
+  --color-accent: #19bdd8;
+  --color-accent-strong: #138ecf;
+  --color-on-accent: #ffffff;
+  --surface-glass: rgb(255 255 255 / 78%);
+  --surface-glass-strong: rgb(255 255 255 / 92%);
+  --surface-hover: rgb(37 99 235 / 7%);
+  --input-background: rgb(255 255 255 / 72%);
+  --shadow-card: 0 18px 45px rgb(15 42 80 / 12%);
+  --shadow-accent: 0 10px 25px rgb(23 151 207 / 25%);
+  --topbar-height: 64px;
+  --layout-gap: 1rem;
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 76px;
+  --sidebar-text: #e8eef9;
+  --sidebar-text-muted: rgb(255 255 255 / 70%);
+  --sidebar-border: rgb(255 255 255 / 22%);
+  --sidebar-hover: rgb(255 255 255 / 9%);
+  --sidebar-active: linear-gradient(90deg, rgb(48 177 232 / 34%), rgb(255 255 255 / 6%));
+  --sidebar-background: linear-gradient(
+    145deg,
+    rgb(33 174 231 / 86%) 0%,
+    rgb(26 61 133 / 86%) 24%,
+    rgb(16 18 38 / 94%) 55%,
+    rgb(8 10 14 / 97%) 100%
+  );
+  --glass-border: rgb(37 99 235 / 16%);
+  --topbar-background: rgb(255 255 255 / 76%);
+  --app-background-art:
+    linear-gradient(135deg, rgb(54 156 225 / 13%) 0 18%, transparent 18% 55%),
+    linear-gradient(315deg, rgb(49 46 129 / 10%) 0 19%, transparent 19%);
 }
 
 [data-theme='dark'] {
@@ -39,4 +69,34 @@
   --color-overlay: rgb(0 0 0 / 70%);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 35%);
   --z-modal: 1000;
+  --color-accent: #42d7e8;
+  --color-accent-strong: #279bdb;
+  --color-on-accent: #06111f;
+  --surface-glass: rgb(15 23 42 / 76%);
+  --surface-glass-strong: rgb(10 16 31 / 92%);
+  --surface-hover: rgb(66 215 232 / 9%);
+  --input-background: rgb(15 23 42 / 68%);
+  --shadow-card: 0 20px 50px rgb(0 0 0 / 32%);
+  --shadow-accent: 0 10px 28px rgb(39 155 219 / 28%);
+  --topbar-height: 64px;
+  --layout-gap: 1rem;
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 76px;
+  --sidebar-text: #e8eef9;
+  --sidebar-text-muted: rgb(255 255 255 / 70%);
+  --sidebar-border: rgb(255 255 255 / 22%);
+  --sidebar-hover: rgb(255 255 255 / 9%);
+  --sidebar-active: linear-gradient(90deg, rgb(48 177 232 / 34%), rgb(255 255 255 / 6%));
+  --sidebar-background: linear-gradient(
+    145deg,
+    rgb(33 174 231 / 86%) 0%,
+    rgb(26 61 133 / 86%) 24%,
+    rgb(16 18 38 / 94%) 55%,
+    rgb(8 10 14 / 97%) 100%
+  );
+  --glass-border: rgb(255 255 255 / 15%);
+  --topbar-background: rgb(15 23 42 / 72%);
+  --app-background-art:
+    linear-gradient(135deg, rgb(31 164 222 / 22%) 0 18%, transparent 18% 55%),
+    linear-gradient(315deg, rgb(30 27 104 / 42%) 0 19%, transparent 19%);
 }
