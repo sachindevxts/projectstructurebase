@@ -1,0 +1,45 @@
+@use '../abstracts/index' as abstracts;
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+a {
+  color: var(--color-primary);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.page {
+  padding: abstracts.spacing(4);
+}
+.page--centered {
+  display: grid;
+  place-items: center;
+  min-height: 60vh;
+}
+.card-grid {
+  display: grid;
+  gap: abstracts.spacing(4);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  @include abstracts.card-surface;
+  padding: abstracts.spacing(4);
+}
+.state--error {
+  color: var(--color-error);
+}
+.text-error {
+  color: var(--color-error);
+}

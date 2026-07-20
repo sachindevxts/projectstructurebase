@@ -1,0 +1,36 @@
+@use '../abstracts/index' as abstracts;
+
+.skeleton {
+  display: grid;
+  gap: abstracts.spacing(3);
+  padding: abstracts.spacing(4);
+  &__block {
+    height: 1rem;
+    border-radius: abstracts.radius(md);
+    background: linear-gradient(
+      90deg,
+      var(--color-border) 25%,
+      var(--color-surface) 50%,
+      var(--color-border) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+  }
+  &__block--title {
+    height: 1.5rem;
+    width: 45%;
+  }
+  &__block--card {
+    height: 7rem;
+  }
+  &__block--line {
+    height: 0.85rem;
+    width: 80%;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}

@@ -1,0 +1,31 @@
+@use '../abstracts/index' as abstracts;
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: abstracts.spacing(4);
+  &__card {
+    @include abstracts.card-surface;
+    width: min(100%, 420px);
+    padding: abstracts.spacing(5);
+    display: grid;
+    gap: abstracts.spacing(3);
+  }
+}
+
+label {
+  display: grid;
+  gap: abstracts.spacing(2);
+}
+input,
+button {
+  border-radius: abstracts.radius(md);
+  border: 1px solid var(--color-border);
+  padding: abstracts.spacing(3);
+}
+button {
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+@use '../styles/tokens' as *;
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  padding: $spacing-sm;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.table--empty {
+  text-align: center;
+  padding: $spacing-lg;
+}

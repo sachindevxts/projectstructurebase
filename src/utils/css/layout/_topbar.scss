@@ -1,0 +1,18 @@
+@use '../abstracts/index' as abstracts;
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: abstracts.spacing(4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  &__brand {
+    font-weight: 700;
+  }
+  &__actions {
+    display: flex;
+    gap: abstracts.spacing(3);
+    align-items: center;
+  }
+}

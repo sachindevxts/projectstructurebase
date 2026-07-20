@@ -1,0 +1,32 @@
+@use '../styles/tokens' as *;
+
+.card {
+  background: #fff;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  &--outlined {
+    border-style: solid;
+    box-shadow: none;
+  }
+  &--elevated {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  &--interactive {
+    cursor: pointer;
+  }
+
+  &-header,
+  &-body,
+  &-footer {
+    padding: $spacing-sm 0;
+  }
+  &-title {
+    font-weight: 600;
+  }
+  &-description {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: $font-size-sm;
+  }
+}

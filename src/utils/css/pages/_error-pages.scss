@@ -1,0 +1,13 @@
+@use '../abstracts/index' as abstracts;
+
+.error-fallback {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: abstracts.spacing(4);
+  &__actions {
+    display: flex;
+    gap: abstracts.spacing(3);
+    margin-top: abstracts.spacing(4);
+  }
+}

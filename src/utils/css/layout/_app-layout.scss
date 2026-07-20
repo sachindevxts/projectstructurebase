@@ -1,0 +1,17 @@
+@use '../abstracts/index' as abstracts;
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  &__body {
+    display: flex;
+    flex: 1;
+  }
+  &__content {
+    flex: 1;
+    padding: abstracts.spacing(4);
+  }
+}

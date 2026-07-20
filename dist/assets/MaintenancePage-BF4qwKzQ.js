@@ -1,0 +1,1 @@
+import{j as e}from"./index-DSbKH4kK.js";function a(){return e.jsxs("div",{className:"page page--centered",children:[e.jsx("h1",{children:"Maintenance"}),e.jsx("p",{children:"The application is currently under maintenance."})]})}export{a as default};

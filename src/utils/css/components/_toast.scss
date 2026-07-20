@@ -1,0 +1,16 @@
+@use '../abstracts/index' as abstracts;
+
+.toast-stack {
+  position: fixed;
+  right: abstracts.spacing(4);
+  bottom: abstracts.spacing(4);
+  display: grid;
+  gap: abstracts.spacing(2);
+}
+
+.toast {
+  padding: abstracts.spacing(3) abstracts.spacing(4);
+  border-radius: abstracts.radius(md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}

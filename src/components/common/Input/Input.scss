@@ -1,0 +1,35 @@
+@use '../styles/tokens' as *;
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.input {
+  padding: 8px 10px;
+  border-radius: $radius-sm;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+.input--sm {
+  padding: 6px 8px;
+  font-size: $font-size-sm;
+}
+.input--md {
+  padding: 8px 10px;
+  font-size: $font-size-md;
+}
+.input--lg {
+  padding: 12px 14px;
+  font-size: $font-size-lg;
+}
+.input--error {
+  border-color: $button-bg-danger;
+}
+.helper {
+  font-size: $font-size-sm;
+  color: rgba(0, 0, 0, 0.6);
+}
+.error-text {
+  color: $button-bg-danger;
+  font-size: $font-size-sm;
+}

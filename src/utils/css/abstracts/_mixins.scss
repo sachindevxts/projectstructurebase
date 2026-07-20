@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use 'variables' as variables;
+@use 'functions' as functions;
+
+@mixin respond-to($breakpoint) {
+  $value: map.get(variables.$breakpoints, $breakpoint);
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: functions.radius(lg);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,51 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: $button-bg-secondary;
+  color: $button-color-secondary;
+  @include transition(all);
+
+  &--full-width {
+    width: 100%;
+  }
+  &--loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &--primary {
+    background: $button-bg-primary;
+    color: $button-color-primary;
+  }
+  &--secondary {
+    background: $button-bg-secondary;
+    color: $button-color-secondary;
+  }
+  &--danger {
+    background: $button-bg-danger;
+    color: $button-color-danger;
+  }
+
+  &--sm {
+    padding: 6px 8px;
+    font-size: $font-size-sm;
+  }
+  &--md {
+    padding: 8px 12px;
+    font-size: $font-size-md;
+  }
+  &--lg {
+    padding: 12px 16px;
+    font-size: $font-size-lg;
+  }
+}

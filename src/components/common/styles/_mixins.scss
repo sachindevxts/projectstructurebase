@@ -1,0 +1,10 @@
+@mixin focus-ring($color: #3b82f6) {
+  &:focus {
+    outline: 3px solid rgba(59, 130, 246, 0.2);
+    outline-offset: 2px;
+  }
+}
+
+@mixin transition($props...) {
+  transition: $props 0.15s ease-in-out;
+}

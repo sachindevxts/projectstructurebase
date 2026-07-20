@@ -1,0 +1,1 @@
+import{j as e}from"./index-DSbKH4kK.js";function l(){return e.jsxs("div",{className:"skeleton skeleton--card","aria-hidden":"true",children:[e.jsx("div",{className:"skeleton__block skeleton__block--title"}),e.jsx("div",{className:"skeleton__block skeleton__block--line"}),e.jsx("div",{className:"skeleton__block skeleton__block--line"})]})}export{l as C};

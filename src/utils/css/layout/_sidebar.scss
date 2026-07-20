@@ -1,0 +1,19 @@
+@use '../abstracts/index' as abstracts;
+
+.sidebar {
+  width: 240px;
+  padding: abstracts.spacing(4);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  &__link {
+    display: block;
+    padding: abstracts.spacing(3) abstracts.spacing(2);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-radius: abstracts.radius(md);
+    &.active {
+      background: var(--color-primary);
+      color: white;
+    }
+  }
+}

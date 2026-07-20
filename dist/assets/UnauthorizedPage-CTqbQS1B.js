@@ -1,0 +1,1 @@
+import{j as e}from"./index-DSbKH4kK.js";function s(){return e.jsxs("div",{className:"page page--centered",children:[e.jsx("h1",{children:"Unauthorized"}),e.jsx("p",{children:"You do not have access to this page."})]})}export{s as default};
