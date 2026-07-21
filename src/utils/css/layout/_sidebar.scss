@@ -15,9 +15,7 @@
   border: 1px solid var(--sidebar-border);
   border-radius: abstracts.radius(lg);
   background: var(--sidebar-background);
-  box-shadow:
-    0 22px 54px rgb(2 8 23 / 40%),
-    inset 0 1px 0 rgb(255 255 255 / 12%);
+  box-shadow: var(--sidebar-shadow);
   backdrop-filter: blur(18px);
   transition:
     width 220ms ease,
@@ -28,7 +26,7 @@
     inset: 0;
     pointer-events: none;
     content: '';
-    background: linear-gradient(125deg, rgb(76 232 241 / 28%), transparent 43%);
+    background: var(--sidebar-overlay);
   }
 
   &__window-controls {
@@ -86,10 +84,10 @@
     height: 38px;
     place-items: center;
     border-radius: 50%;
-    color: #101a2a;
+    color: var(--sidebar-text-active);
     font-size: 0.7rem;
     font-weight: 800;
-    background: repeating-linear-gradient(45deg, #4ad5ee 0 2px, #111827 2px 5px);
+    background: var(--sidebar-avatar-background);
   }
   &__profile-copy {
     display: grid;
@@ -102,7 +100,7 @@
     white-space: nowrap;
   }
   &__profile-copy small {
-    color: #9fe6fa;
+    color: var(--sidebar-profile-accent);
     font-size: 0.72rem;
   }
   &__nav {
@@ -136,12 +134,12 @@
   }
   &__link:hover,
   &__logout:hover {
-    color: #fff;
+    color: var(--sidebar-text-active);
     background: var(--sidebar-hover);
     transform: translateX(2px);
   }
   &__link.active {
-    color: #fff;
+    color: var(--sidebar-text-active);
     border-color: rgb(99 225 246 / 26%);
     background: var(--sidebar-active);
     box-shadow: inset 3px 0 #57e1f1;

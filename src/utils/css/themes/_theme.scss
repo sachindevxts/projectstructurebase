@@ -31,18 +31,23 @@
   --layout-gap: 1rem;
   --sidebar-width: 260px;
   --sidebar-width-collapsed: 76px;
-  --sidebar-text: #e8eef9;
-  --sidebar-text-muted: rgb(255 255 255 / 70%);
-  --sidebar-border: rgb(255 255 255 / 22%);
-  --sidebar-hover: rgb(255 255 255 / 9%);
-  --sidebar-active: linear-gradient(90deg, rgb(48 177 232 / 34%), rgb(255 255 255 / 6%));
+  --sidebar-text: #17324d;
+  --sidebar-text-active: #08243b;
+  --sidebar-text-muted: rgb(23 50 77 / 66%);
+  --sidebar-border: rgb(32 113 164 / 20%);
+  --sidebar-hover: rgb(31 157 202 / 10%);
+  --sidebar-active: linear-gradient(90deg, rgb(58 202 224 / 30%), rgb(255 255 255 / 30%));
   --sidebar-background: linear-gradient(
     145deg,
-    rgb(33 174 231 / 86%) 0%,
-    rgb(26 61 133 / 86%) 24%,
-    rgb(16 18 38 / 94%) 55%,
-    rgb(8 10 14 / 97%) 100%
+    rgb(210 249 250 / 94%) 0%,
+    rgb(167 224 241 / 92%) 27%,
+    rgb(235 244 252 / 96%) 58%,
+    rgb(255 255 255 / 98%) 100%
   );
+  --sidebar-overlay: linear-gradient(125deg, rgb(76 232 241 / 25%), transparent 43%);
+  --sidebar-shadow: 0 22px 54px rgb(15 74 110 / 18%), inset 0 1px 0 rgb(255 255 255 / 70%);
+  --sidebar-profile-accent: #147fa8;
+  --sidebar-avatar-background: repeating-linear-gradient(45deg, #4ad5ee 0 2px, #d9f6fa 2px 5px);
   --glass-border: rgb(37 99 235 / 16%);
   --topbar-background: rgb(255 255 255 / 76%);
   --app-background-art:
@@ -83,6 +88,7 @@
   --sidebar-width: 260px;
   --sidebar-width-collapsed: 76px;
   --sidebar-text: #e8eef9;
+  --sidebar-text-active: #ffffff;
   --sidebar-text-muted: rgb(255 255 255 / 70%);
   --sidebar-border: rgb(255 255 255 / 22%);
   --sidebar-hover: rgb(255 255 255 / 9%);
@@ -94,6 +100,10 @@
     rgb(16 18 38 / 94%) 55%,
     rgb(8 10 14 / 97%) 100%
   );
+  --sidebar-overlay: linear-gradient(125deg, rgb(76 232 241 / 28%), transparent 43%);
+  --sidebar-shadow: 0 22px 54px rgb(2 8 23 / 40%), inset 0 1px 0 rgb(255 255 255 / 12%);
+  --sidebar-profile-accent: #9fe6fa;
+  --sidebar-avatar-background: repeating-linear-gradient(45deg, #4ad5ee 0 2px, #111827 2px 5px);
   --glass-border: rgb(255 255 255 / 15%);
   --topbar-background: rgb(15 23 42 / 72%);
   --app-background-art:
