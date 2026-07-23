@@ -324,6 +324,7 @@ export const PageHeader = ({
   actions,
 }: {
   title: string;
+  subtitle?: ReactNode;
   description?: string;
   actions?: ReactNode;
 }) => (
@@ -487,12 +488,14 @@ export const Drawer = ({
   open,
   onClose,
   title,
+  subtitle,
   children,
   side = 'right',
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
+  subtitle?: ReactNode;
   children: ReactNode;
   side?: 'left' | 'right';
 }) => {
@@ -510,7 +513,10 @@ export const Drawer = ({
         className={classNames('ds-drawer', `ds-drawer--${side}`)}
       >
         <header>
-          <h2>{title}</h2>
+          <div>
+            <h2>{title}</h2>
+            {subtitle && <small>{subtitle}</small>}
+          </div>
           <button aria-label="Close" onClick={onClose}>
             ×
           </button>

@@ -5,7 +5,10 @@
 @use 'components/skeleton';
 @use 'components/forms';
 @use 'components/toast';
+@use 'components/data-table';
 @use 'layout/app-layout';
 @use 'layout/topbar';
 @use 'layout/sidebar';
 @use 'pages/error-pages';
+@use 'pages/peopleflow';
+@use 'pages/skills';

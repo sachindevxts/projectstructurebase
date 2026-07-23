@@ -48,8 +48,10 @@ export const Modal: React.FC<ModalProps> = ({
       <div className={classes} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>{title}</div>
-          <button aria-label="Close" className="modal-close" onClick={onClose}>
-            ✕
+          <button type="button" aria-label="Close" className="modal-close" onClick={onClose}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
           </button>
         </div>
         <div className="modal-body">{children}</div>

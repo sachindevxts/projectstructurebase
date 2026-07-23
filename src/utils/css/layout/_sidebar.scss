@@ -8,12 +8,12 @@
   flex: 0 0 var(--sidebar-width);
   flex-direction: column;
   width: var(--sidebar-width);
-  height: calc(100% - var(--layout-gap) * 2);
-  margin: var(--layout-gap) 0 var(--layout-gap) var(--layout-gap);
+  height: 100dvh;
+  margin: 0;
   overflow: hidden;
   color: var(--sidebar-text);
   border: 1px solid var(--sidebar-border);
-  border-radius: abstracts.radius(lg);
+  border-radius: 0;
   background: var(--sidebar-background);
   box-shadow: var(--sidebar-shadow);
   backdrop-filter: blur(18px);
@@ -214,14 +214,14 @@
   .sidebar {
     position: fixed;
     z-index: 40;
-    top: calc(var(--topbar-height) + 8px);
-    left: 8px;
-    height: calc(100dvh - var(--topbar-height) - 16px);
+    top: 0;
+    left: 0;
+    height: 100dvh;
     margin: 0;
-    transform: translateX(0);
-  }
-  .sidebar--collapsed {
     transform: translateX(calc(-100% - 1rem));
+  }
+  .sidebar--mobile-open {
+    transform: translateX(0);
   }
 }
 

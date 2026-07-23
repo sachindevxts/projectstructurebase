@@ -1,0 +1,107 @@
+{
+  "skills": [
+    {
+      "id": "skill-1",
+      "name": "React.js",
+      "category": "Frontend",
+      "employees": 48,
+      "demand": "High",
+      "coverage": 82,
+      "gap": "Covered",
+      "aliases": "React, ReactJS",
+      "description": "Modern frontend user-interface development.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-2",
+      "name": "Node.js",
+      "category": "Backend",
+      "employees": 36,
+      "demand": "High",
+      "coverage": 74,
+      "gap": "Covered",
+      "aliases": "Node, NodeJS",
+      "description": "Server-side JavaScript services.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-3",
+      "name": "AWS",
+      "category": "DevOps",
+      "employees": 22,
+      "demand": "Medium",
+      "coverage": 58,
+      "gap": "Partial",
+      "aliases": "Amazon Web Services",
+      "description": "Cloud infrastructure and managed services.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-4",
+      "name": "Kubernetes",
+      "category": "DevOps",
+      "employees": 2,
+      "demand": "Critical",
+      "coverage": 12,
+      "gap": "Gap",
+      "aliases": "K8s",
+      "description": "Container orchestration and platform operations.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-5",
+      "name": "Figma",
+      "category": "Design",
+      "employees": 18,
+      "demand": "Medium",
+      "coverage": 90,
+      "gap": "Covered",
+      "aliases": "",
+      "description": "Interface design and prototyping.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-6",
+      "name": "TypeScript",
+      "category": "Frontend",
+      "employees": 28,
+      "demand": "High",
+      "coverage": 68,
+      "gap": "Partial",
+      "aliases": "TS",
+      "description": "Strongly typed JavaScript application development.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-7",
+      "name": "Java",
+      "category": "Backend",
+      "employees": 31,
+      "demand": "Medium",
+      "coverage": 76,
+      "gap": "Covered",
+      "aliases": "",
+      "description": "Enterprise application development.",
+      "status": "Active"
+    },
+    {
+      "id": "skill-8",
+      "name": "Selenium",
+      "category": "QA",
+      "employees": 19,
+      "demand": "Medium",
+      "coverage": 63,
+      "gap": "Partial",
+      "aliases": "WebDriver",
+      "description": "Web application test automation.",
+      "status": "Active"
+    }
+  ],
+  "categories": [
+    { "name": "Frontend", "count": 14, "color": "#2563eb" },
+    { "name": "Backend", "count": 16, "color": "#60a5fa" },
+    { "name": "DevOps", "count": 10, "color": "#34d399" },
+    { "name": "Design", "count": 9, "color": "#fbbf24" },
+    { "name": "Other", "count": 19, "color": "#a78bfa" }
+  ]
+}

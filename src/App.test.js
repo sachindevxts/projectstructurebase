@@ -12,8 +12,8 @@ const TestApp = () =>
     React.createElement(MemoryRouter, null, React.createElement(App)),
   );
 
-test('redirects unauthenticated users to the login page', async () => {
+test('renders the UI-only dashboard without requiring a backend session', async () => {
   render(React.createElement(TestApp));
-  expect(await screen.findByRole('heading', { name: /welcome back/i })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /^dashboard$/i })).toBeInTheDocument();
+  expect(screen.getByText(/total employees/i)).toBeInTheDocument();
 });

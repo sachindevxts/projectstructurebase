@@ -1,0 +1,12 @@
+{
+  "stats": [
+    { "label": "Total Employees", "value": "247", "tone": "blue" },
+    { "label": "Active Employees", "value": "231", "tone": "green" },
+    { "label": "Active Projects", "value": "18", "tone": "blue" },
+    { "label": "Billable Employees", "value": "181", "tone": "green" },
+    { "label": "On Bench", "value": "50", "tone": "slate" },
+    { "label": "Ending This Month", "value": "23", "tone": "orange" },
+    { "label": "Overallocated", "value": "7", "tone": "red" },
+    { "label": "Upcoming Releases", "value": "14", "tone": "orange" }
+  ]
+}

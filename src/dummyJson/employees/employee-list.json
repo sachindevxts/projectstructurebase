@@ -1,0 +1,95 @@
+{
+  "employees": [
+    {
+      "id": "EMP-001",
+      "name": "Aditi Mehra",
+      "email": "aditi.mehra@acmecorp.com",
+      "department": "Engineering",
+      "designation": "Senior React Developer",
+      "manager": "Arjun Kapoor",
+      "type": "Full-Time",
+      "joined": "Jan 12, 2022",
+      "allocation": 100,
+      "billability": "Billable",
+      "status": "Active"
+    },
+    {
+      "id": "EMP-002",
+      "name": "Rahul Verma",
+      "email": "rahul.verma@acmecorp.com",
+      "department": "Engineering",
+      "designation": "Backend Engineer",
+      "manager": "Arjun Kapoor",
+      "type": "Full-Time",
+      "joined": "Mar 5, 2021",
+      "allocation": 100,
+      "billability": "Billable",
+      "status": "Active"
+    },
+    {
+      "id": "EMP-003",
+      "name": "Priya Singh",
+      "email": "priya.singh@acmecorp.com",
+      "department": "QA",
+      "designation": "QA Lead",
+      "manager": "Arjun Kapoor",
+      "type": "Full-Time",
+      "joined": "Jun 20, 2022",
+      "allocation": 50,
+      "billability": "Billable",
+      "status": "Active"
+    },
+    {
+      "id": "EMP-004",
+      "name": "Amit Dubey",
+      "email": "amit.dubey@acmecorp.com",
+      "department": "Engineering",
+      "designation": "Java Developer",
+      "manager": "Vikram Sharma",
+      "type": "Full-Time",
+      "joined": "Sep 3, 2020",
+      "allocation": 0,
+      "billability": "Non-Billable",
+      "status": "Active"
+    },
+    {
+      "id": "EMP-005",
+      "name": "Neha Joshi",
+      "email": "neha.joshi@acmecorp.com",
+      "department": "Design",
+      "designation": "UI/UX Designer",
+      "manager": "Arjun Kapoor",
+      "type": "Contract",
+      "joined": "Feb 14, 2023",
+      "allocation": 130,
+      "billability": "Billable",
+      "status": "Overallocated"
+    },
+    {
+      "id": "EMP-006",
+      "name": "Karan Malhotra",
+      "email": "karan.m@acmecorp.com",
+      "department": "Engineering",
+      "designation": "Tech Lead",
+      "manager": "Arjun Kapoor",
+      "type": "Full-Time",
+      "joined": "Jul 10, 2019",
+      "allocation": 100,
+      "billability": "Non-Billable",
+      "status": "Releasing Soon"
+    },
+    {
+      "id": "EMP-013",
+      "name": "Meera Nair",
+      "email": "meera.nair@acmecorp.com",
+      "department": "Engineering",
+      "designation": "React Developer",
+      "manager": "Arjun Kapoor",
+      "type": "Full-Time",
+      "joined": "Jul 14, 2025",
+      "allocation": 50,
+      "billability": "Billable",
+      "status": "Active"
+    }
+  ]
+}

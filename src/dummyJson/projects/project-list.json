@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "id": "PRJ-001",
+      "name": "NovaBank Customer Portal",
+      "client": "NovaBank",
+      "manager": "Arjun Kapoor",
+      "start": "May 1, 2025",
+      "end": "Aug 15, 2025",
+      "team": 12,
+      "billable": 10,
+      "billing": "T&M",
+      "status": "Active"
+    },
+    {
+      "id": "PRJ-002",
+      "name": "BrightRetail Commerce Platform",
+      "client": "BrightRetail",
+      "manager": "Vikram Sharma",
+      "start": "Jan 15, 2025",
+      "end": "Dec 31, 2025",
+      "team": 8,
+      "billable": 7,
+      "billing": "Fixed",
+      "status": "Active"
+    },
+    {
+      "id": "PRJ-003",
+      "name": "HealthBridge Mobile App",
+      "client": "HealthBridge",
+      "manager": "Rahul Verma",
+      "start": "Mar 1, 2025",
+      "end": "Sep 30, 2025",
+      "team": 6,
+      "billable": 5,
+      "billing": "T&M",
+      "status": "At Risk"
+    },
+    {
+      "id": "PRJ-004",
+      "name": "Internal HR Automation",
+      "client": "Internal",
+      "manager": "Arjun Kapoor",
+      "start": "Jan 1, 2025",
+      "end": "Dec 31, 2025",
+      "team": 4,
+      "billable": 0,
+      "billing": "Internal",
+      "status": "Active"
+    },
+    {
+      "id": "PRJ-005",
+      "name": "UrbanFleet Logistics Portal",
+      "client": "UrbanFleet",
+      "manager": "Saurabh Tiwari",
+      "start": "Oct 1, 2024",
+      "end": "Jun 30, 2025",
+      "team": 5,
+      "billable": 5,
+      "billing": "Retainer",
+      "status": "Completed"
+    }
+  ]
+}

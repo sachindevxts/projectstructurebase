@@ -8,9 +8,9 @@ export function AppLayout({ children }: { children?: ReactNode }) {
   return (
     <ToastProvider>
       <div className="app-shell">
-        <Topbar />
+        <Sidebar />
         <div className="app-shell__body">
-          <Sidebar />
+          <Topbar />
           <main className="app-shell__content">{children ?? <Outlet />}</main>
         </div>
       </div>

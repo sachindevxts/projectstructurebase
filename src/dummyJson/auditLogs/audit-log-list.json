@@ -1,0 +1,58 @@
+{
+  "logs": [
+    {
+      "id": "ALLOC-0142",
+      "date": "Jul 15, 2025 · 14:32:08",
+      "user": "Arjun Kapoor",
+      "entity": "Allocation",
+      "action": "Override",
+      "summary": "Created allocation for Neha Joshi on NovaBank Portal at 130%",
+      "reason": "Project deadline requires immediate additional capacity"
+    },
+    {
+      "id": "EMP-001",
+      "date": "Jul 14, 2025 · 11:18:44",
+      "user": "Arjun Kapoor",
+      "entity": "Employee",
+      "action": "Updated",
+      "summary": "Updated designation for Aditi Mehra to Senior React Developer",
+      "reason": "Annual performance promotion"
+    },
+    {
+      "id": "ALLOC-0140",
+      "date": "Jul 14, 2025 · 09:45:01",
+      "user": "Vikram Sharma",
+      "entity": "Allocation",
+      "action": "Created",
+      "summary": "Allocated Meera Nair to HealthBridge Mobile at 50%",
+      "reason": "—"
+    },
+    {
+      "id": "PRJ-003",
+      "date": "Jul 13, 2025 · 16:22:33",
+      "user": "Arjun Kapoor",
+      "entity": "Project",
+      "action": "Status Change",
+      "summary": "Changed project status for HealthBridge Mobile from Active to At Risk",
+      "reason": "Resource shortage and timeline slippage"
+    },
+    {
+      "id": "EMP-013",
+      "date": "Jul 12, 2025 · 10:00:00",
+      "user": "Vikram Sharma",
+      "entity": "Employee",
+      "action": "Created",
+      "summary": "Added new employee Meera Nair to Engineering dept.",
+      "reason": "New hire onboarding"
+    },
+    {
+      "id": "ROLE-003",
+      "date": "Jul 10, 2025 · 14:55:21",
+      "user": "Arjun Kapoor",
+      "entity": "Role",
+      "action": "Updated",
+      "summary": "Updated permission matrix for Resource Manager role — enabled Override permission",
+      "reason": "Operational requirement"
+    }
+  ]
+}

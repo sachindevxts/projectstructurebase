@@ -1,0 +1,82 @@
+{
+  "departments": [
+    {
+      "id": "dep-1",
+      "name": "Engineering",
+      "code": "ENG",
+      "head": "Vikram Sharma",
+      "employees": 110,
+      "billable": 101,
+      "bench": 5,
+      "billability": 92,
+      "skills": ["React.js", "Node.js", "Java"],
+      "status": "Active",
+      "description": "Product engineering and platform delivery."
+    },
+    {
+      "id": "dep-2",
+      "name": "Backend",
+      "code": "BACK",
+      "head": "Sneha Rao",
+      "employees": 48,
+      "billable": 42,
+      "bench": 6,
+      "billability": 88,
+      "skills": ["Node.js", "PostgreSQL", "AWS"],
+      "status": "Active",
+      "description": "Backend services and integrations."
+    },
+    {
+      "id": "dep-3",
+      "name": "QA",
+      "code": "QA",
+      "head": "Ravi Pillai",
+      "employees": 22,
+      "billable": 16,
+      "bench": 4,
+      "billability": 72,
+      "skills": ["Selenium", "JIRA"],
+      "status": "Active",
+      "description": "Quality engineering and automation."
+    },
+    {
+      "id": "dep-4",
+      "name": "Design",
+      "code": "DES",
+      "head": "Ananya Gupta",
+      "employees": 18,
+      "billable": 15,
+      "bench": 2,
+      "billability": 83,
+      "skills": ["Figma", "UX Research"],
+      "status": "Active",
+      "description": "Product design and user research."
+    },
+    {
+      "id": "dep-5",
+      "name": "Product",
+      "code": "PROD",
+      "head": "Nisha Mehta",
+      "employees": 20,
+      "billable": 15,
+      "bench": 2,
+      "billability": 75,
+      "skills": ["Roadmapping", "Agile"],
+      "status": "Active",
+      "description": "Product strategy and planning."
+    },
+    {
+      "id": "dep-6",
+      "name": "DevOps",
+      "code": "DEVOPS",
+      "head": "Karan Malhotra",
+      "employees": 15,
+      "billable": 12,
+      "bench": 2,
+      "billability": 80,
+      "skills": ["AWS", "Docker"],
+      "status": "Active",
+      "description": "Cloud infrastructure and operations."
+    }
+  ]
+}

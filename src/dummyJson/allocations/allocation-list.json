@@ -1,0 +1,59 @@
+{
+  "allocations": [
+    {
+      "employee": "Aditi Mehra",
+      "project": "NovaBank Customer Portal",
+      "role": "Senior Developer",
+      "start": "May 1, 2025",
+      "end": "Aug 15, 2025",
+      "allocation": 70,
+      "capacity": "30%",
+      "billability": "Billable",
+      "status": "Active"
+    },
+    {
+      "employee": "Aditi Mehra",
+      "project": "Internal HR Automation",
+      "role": "Tech Lead",
+      "start": "Jan 1, 2025",
+      "end": "Dec 31, 2025",
+      "allocation": 30,
+      "capacity": "70%",
+      "billability": "Non-Billable",
+      "status": "Active"
+    },
+    {
+      "employee": "Rahul Verma",
+      "project": "BrightRetail Commerce",
+      "role": "Backend Lead",
+      "start": "Jan 15, 2025",
+      "end": "Dec 31, 2025",
+      "allocation": 100,
+      "capacity": "0%",
+      "billability": "Billable",
+      "status": "Active"
+    },
+    {
+      "employee": "Neha Joshi",
+      "project": "HealthBridge Mobile",
+      "role": "UI Lead",
+      "start": "Mar 1, 2025",
+      "end": "Sep 30, 2025",
+      "allocation": 80,
+      "capacity": "-30%",
+      "billability": "Billable",
+      "status": "Overallocated"
+    },
+    {
+      "employee": "Priya Singh",
+      "project": "HealthBridge Mobile",
+      "role": "QA Engineer",
+      "start": "May 15, 2025",
+      "end": "Aug 15, 2025",
+      "allocation": 50,
+      "capacity": "50%",
+      "billability": "Billable",
+      "status": "Releasing Soon"
+    }
+  ]
+}
