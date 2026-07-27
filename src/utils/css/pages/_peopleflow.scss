@@ -3003,6 +3003,18 @@
   gap: 8px;
   padding: 8px;
   color: inherit;
+  &-arrow {
+    display: grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    color: var(--pf-muted);
+    border-radius: 6px;
+    background: transparent;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: end;
+  }
 }
 .pf-company b {
   background: var(--pf-primary);

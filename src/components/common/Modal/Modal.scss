@@ -4,8 +4,8 @@
   position: fixed;
   inset: 0;
   padding: $spacing-md;
-  background: var(--color-overlay);
-  backdrop-filter: blur(8px);
+  background: rgb(15 23 42 / 42%);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,20 +14,20 @@
 .modal {
   position: relative;
   color: var(--color-text-primary);
-  background: var(--surface-glass-strong);
-  border-radius: $radius-md;
+  background: #fff;
+  border-radius: 8px;
   max-width: 90%;
   width: 600px;
   max-height: 90%;
   overflow: auto;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-card);
+  border: 1px solid #dbe3ef;
+  box-shadow: 0 18px 50px rgb(15 23 42 / 18%);
 }
 .modal--sm {
-  width: 320px;
+  width: 420px;
 }
 .modal--md {
-  width: 600px;
+  width: 480px;
 }
 .modal--lg {
   width: 960px;
@@ -46,14 +46,15 @@
   display: flex;
   min-height: 56px;
   align-items: center;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid #dbe3ef;
   font-weight: 700;
 }
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: $spacing-sm;
-  border-top: 1px solid var(--glass-border);
+  background: #f8fafc;
+  border-top: 1px solid #dbe3ef;
 }
 .modal-close {
   position: absolute;

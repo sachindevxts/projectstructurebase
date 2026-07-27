@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { NAVIGATION_LABELS, SIDEBAR_ITEMS } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setSidebarOpen } from '@/redux/actions';
+import { ChevronDown } from 'lucide-react';
 
 const icons: Record<string, string> = {
   dashboard: '◉',
@@ -72,7 +73,8 @@ export function Sidebar() {
         <button className="pf-company" type="button">
           <b>AC</b>
           <span>{NAVIGATION_LABELS.COMPANY}</span>
-          <i>⌄</i>
+
+          <ChevronDown className="pf-company-arrow" size={16} strokeWidth={2} aria-hidden="true" />
         </button>
         <nav>
           {SIDEBAR_ITEMS.map((group) => (
