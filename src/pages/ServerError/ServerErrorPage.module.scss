@@ -1,0 +1,37 @@
+@import '../../utils/css/abstracts/variables';
+@import '../../utils/css/abstracts/mixins';
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  background-image: var(--app-background-art);
+}
+
+.card {
+  padding: $spacing-3xl;
+  text-align: center;
+  border-radius: $radius-xl !important;
+  background: var(--surface-glass) !important;
+  backdrop-filter: blur(24px);
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-lg;
+}
+
+.icon {
+  font-size: 64px !important;
+  color: var(--color-warning) !important;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: center;
+  margin-top: $spacing-md;
+}

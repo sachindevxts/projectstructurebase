@@ -1,112 +1,344 @@
 :root,
 [data-theme='light'] {
-  --color-primary: #2563eb;
+  color-scheme: light;
+
+  /* Brand colors */
+  --color-primary: #6d5dfc;
+  --color-primary-hover: #5848e8;
   --color-secondary: #64748b;
-  --color-background: #f8fafc;
-  --color-surface: #ffffff;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-border: #e2e8f0;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
-  --color-focus: #2563eb;
+
+  --color-accent: #0ea5e9;
+  --color-accent-strong: #0284c7;
+  --color-accent-secondary: #14b8a6;
+  --color-accent-purple: #8b5cf6;
+  --color-accent-pink: #ec4899;
+  --color-on-accent: #ffffff;
+
+  /* Main application colors */
+  --color-background: #eef2ff;
+  --color-surface: rgb(255 255 255 / 72%);
+  --color-surface-muted: rgb(246 248 255 / 76%);
+
+  --color-text-primary: #172033;
+  --color-text-secondary: #667085;
   --color-text: var(--color-text-primary);
   --color-text-muted: var(--color-text-secondary);
-  --color-surface-muted: var(--color-background);
+
+  --color-border: rgb(118 128 168 / 18%);
+  --glass-border: rgb(255 255 255 / 64%);
+
+  /* Semantic colors */
+  --color-success: #16a36a;
+  --color-warning: #d99114;
+  --color-error: #e5484d;
   --color-danger: var(--color-error);
-  --color-overlay: rgb(15 23 42 / 55%);
-  --shadow-md: 0 8px 24px rgb(15 23 42 / 14%);
+  --color-focus: #6d5dfc;
+
+  /* Glass surfaces */
+  --surface-glass: rgb(255 255 255 / 58%);
+  --surface-glass-strong: rgb(255 255 255 / 78%);
+  --surface-glass-subtle: rgb(255 255 255 / 38%);
+  --surface-hover: rgb(109 93 252 / 9%);
+
+  /* Form controls */
+  --input-background: rgb(255 255 255 / 62%);
+  --dropdown-arrow-color: #718096;
+  --dropdown-border-hover: rgb(109 93 252 / 45%);
+  --dropdown-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 90%),
+    0 8px 24px rgb(73 84 140 / 7%);
+
+  /* Overlays */
+  --color-overlay: rgb(22 28 45 / 52%);
   --z-modal: 1000;
-  --color-accent: #19bdd8;
-  --color-accent-strong: #138ecf;
-  --color-on-accent: #ffffff;
-  --surface-glass: rgb(255 255 255 / 78%);
-  --surface-glass-strong: rgb(255 255 255 / 92%);
-  --surface-hover: rgb(37 99 235 / 7%);
-  --input-background: rgb(255 255 255 / 72%);
-  --shadow-card: 0 18px 45px rgb(15 42 80 / 12%);
-  --shadow-accent: 0 10px 25px rgb(23 151 207 / 25%);
-  --topbar-height: 64px;
+
+  /* Shadows */
+  --shadow-sm:
+    0 4px 14px rgb(63 72 130 / 7%),
+    inset 0 1px 0 rgb(255 255 255 / 72%);
+
+  --shadow-md:
+    0 14px 35px rgb(61 70 128 / 12%),
+    0 4px 12px rgb(61 70 128 / 6%),
+    inset 0 1px 0 rgb(255 255 255 / 75%);
+
+  --shadow-card:
+    0 24px 55px rgb(61 70 128 / 13%),
+    0 8px 20px rgb(61 70 128 / 7%),
+    inset 0 1px 0 rgb(255 255 255 / 86%);
+
+  --shadow-card-hover:
+    0 28px 70px rgb(72 63 170 / 18%),
+    0 10px 28px rgb(61 70 128 / 10%),
+    inset 0 1px 0 rgb(255 255 255 / 92%);
+
+  --shadow-accent:
+    0 16px 35px rgb(109 93 252 / 28%),
+    0 6px 18px rgb(14 165 233 / 16%);
+
+  /* Layout */
+  --topbar-height: 68px;
   --layout-gap: 1rem;
-  --sidebar-width: 260px;
-  --sidebar-width-collapsed: 76px;
-  --sidebar-text: #17324d;
-  --sidebar-text-active: #08243b;
-  --sidebar-text-muted: rgb(23 50 77 / 66%);
-  --sidebar-border: rgb(32 113 164 / 20%);
-  --sidebar-hover: rgb(31 157 202 / 10%);
-  --sidebar-active: linear-gradient(90deg, rgb(58 202 224 / 30%), rgb(255 255 255 / 30%));
-  --sidebar-background: linear-gradient(
-    145deg,
-    rgb(210 249 250 / 94%) 0%,
-    rgb(167 224 241 / 92%) 27%,
-    rgb(235 244 252 / 96%) 58%,
-    rgb(255 255 255 / 98%) 100%
-  );
-  --sidebar-overlay: linear-gradient(125deg, rgb(76 232 241 / 25%), transparent 43%);
-  --sidebar-shadow: 0 22px 54px rgb(15 74 110 / 18%), inset 0 1px 0 rgb(255 255 255 / 70%);
-  --sidebar-profile-accent: #147fa8;
-  --sidebar-avatar-background: repeating-linear-gradient(45deg, #4ad5ee 0 2px, #d9f6fa 2px 5px);
-  --glass-border: rgb(37 99 235 / 16%);
-  --topbar-background: rgb(255 255 255 / 76%);
+  --sidebar-width: 272px;
+  --sidebar-width-collapsed: 80px;
+
+  /* Sidebar */
+  --sidebar-text: rgb(241 245 255 / 83%);
+  --sidebar-text-active: #ffffff;
+  --sidebar-text-muted: rgb(222 228 248 / 54%);
+
+  --sidebar-border: rgb(255 255 255 / 11%);
+  --sidebar-hover: rgb(255 255 255 / 8%);
+
+  --sidebar-active:
+    linear-gradient(
+      90deg,
+      rgb(129 110 255 / 32%),
+      rgb(14 165 233 / 14%)
+    );
+
+  --sidebar-background:
+    linear-gradient(
+      165deg,
+      rgb(32 35 69 / 97%) 0%,
+      rgb(42 39 92 / 96%) 38%,
+      rgb(25 30 66 / 98%) 72%,
+      rgb(18 23 49 / 99%) 100%
+    );
+
+  --sidebar-overlay:
+    radial-gradient(
+      circle at 12% 5%,
+      rgb(139 92 246 / 34%),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 28%,
+      rgb(14 165 233 / 20%),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgb(20 184 166 / 14%),
+      transparent 36%
+    );
+
+  --sidebar-shadow:
+    20px 0 55px rgb(20 23 49 / 20%),
+    inset -1px 0 rgb(255 255 255 / 5%);
+
+  --sidebar-profile-accent: #8be5f3;
+
+  --sidebar-avatar-background:
+    linear-gradient(
+      145deg,
+      #8b5cf6 0%,
+      #6366f1 46%,
+      #0ea5e9 100%
+    );
+
+  /* Topbar */
+  --topbar-background: rgb(255 255 255 / 54%);
+
+  /* Decorative app background */
   --app-background-art:
-    linear-gradient(135deg, rgb(54 156 225 / 13%) 0 18%, transparent 18% 55%),
-    linear-gradient(315deg, rgb(49 46 129 / 10%) 0 19%, transparent 19%);
+    radial-gradient(
+      circle at 7% 8%,
+      rgb(139 92 246 / 18%),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 88% 14%,
+      rgb(14 165 233 / 17%),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 80% 88%,
+      rgb(20 184 166 / 13%),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 35% 90%,
+      rgb(236 72 153 / 8%),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #f6f5ff 0%,
+      #edf4ff 42%,
+      #f3fbff 72%,
+      #f7f5ff 100%
+    );
 }
 
 [data-theme='dark'] {
-  --color-primary: #60a5fa;
+  color-scheme: dark;
+
+  /* Brand colors */
+  --color-primary: #9b8cff;
+  --color-primary-hover: #b1a6ff;
   --color-secondary: #94a3b8;
-  --color-background: #0f172a;
-  --color-surface: #111827;
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #cbd5e1;
-  --color-border: #334155;
-  --color-success: #4ade80;
-  --color-warning: #fbbf24;
-  --color-error: #f87171;
-  --color-focus: #60a5fa;
+
+  --color-accent: #38bdf8;
+  --color-accent-strong: #0ea5e9;
+  --color-accent-secondary: #2dd4bf;
+  --color-accent-purple: #a78bfa;
+  --color-accent-pink: #f472b6;
+  --color-on-accent: #08111f;
+
+  /* Main application colors */
+  --color-background: #090d1a;
+  --color-surface: rgb(20 27 49 / 72%);
+  --color-surface-muted: rgb(16 23 42 / 76%);
+
+  --color-text-primary: #f4f7ff;
+  --color-text-secondary: #aab4cb;
   --color-text: var(--color-text-primary);
   --color-text-muted: var(--color-text-secondary);
-  --color-surface-muted: var(--color-background);
+
+  --color-border: rgb(151 163 202 / 16%);
+  --glass-border: rgb(255 255 255 / 10%);
+
+  /* Semantic colors */
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-error: #fb7185;
   --color-danger: var(--color-error);
-  --color-overlay: rgb(0 0 0 / 70%);
-  --shadow-md: 0 8px 24px rgb(0 0 0 / 35%);
+  --color-focus: #a78bfa;
+
+  /* Glass surfaces */
+  --surface-glass: rgb(18 25 47 / 58%);
+  --surface-glass-strong: rgb(15 21 40 / 79%);
+  --surface-glass-subtle: rgb(255 255 255 / 4%);
+  --surface-hover: rgb(155 140 255 / 11%);
+
+  /* Form controls */
+  --input-background: rgb(12 19 37 / 66%);
+  --dropdown-arrow-color: #9ca8c2;
+  --dropdown-border-hover: rgb(155 140 255 / 54%);
+  --dropdown-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    0 8px 28px rgb(0 0 0 / 18%);
+
+  /* Overlays */
+  --color-overlay: rgb(2 6 23 / 76%);
   --z-modal: 1000;
-  --color-accent: #42d7e8;
-  --color-accent-strong: #279bdb;
-  --color-on-accent: #06111f;
-  --surface-glass: rgb(15 23 42 / 76%);
-  --surface-glass-strong: rgb(10 16 31 / 92%);
-  --surface-hover: rgb(66 215 232 / 9%);
-  --input-background: rgb(15 23 42 / 68%);
-  --shadow-card: 0 20px 50px rgb(0 0 0 / 32%);
-  --shadow-accent: 0 10px 28px rgb(39 155 219 / 28%);
-  --topbar-height: 64px;
+
+  /* Shadows */
+  --shadow-sm:
+    0 5px 18px rgb(0 0 0 / 24%),
+    inset 0 1px 0 rgb(255 255 255 / 4%);
+
+  --shadow-md:
+    0 16px 40px rgb(0 0 0 / 34%),
+    0 5px 14px rgb(0 0 0 / 22%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+
+  --shadow-card:
+    0 24px 60px rgb(0 0 0 / 38%),
+    0 8px 24px rgb(0 0 0 / 24%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+
+  --shadow-card-hover:
+    0 30px 75px rgb(0 0 0 / 48%),
+    0 12px 30px rgb(81 69 190 / 18%),
+    inset 0 1px 0 rgb(255 255 255 / 7%);
+
+  --shadow-accent:
+    0 18px 40px rgb(139 92 246 / 28%),
+    0 7px 20px rgb(14 165 233 / 16%);
+
+  /* Layout */
+  --topbar-height: 68px;
   --layout-gap: 1rem;
-  --sidebar-width: 260px;
-  --sidebar-width-collapsed: 76px;
-  --sidebar-text: #e8eef9;
+  --sidebar-width: 272px;
+  --sidebar-width-collapsed: 80px;
+
+  /* Sidebar */
+  --sidebar-text: rgb(240 244 255 / 84%);
   --sidebar-text-active: #ffffff;
-  --sidebar-text-muted: rgb(255 255 255 / 70%);
-  --sidebar-border: rgb(255 255 255 / 22%);
-  --sidebar-hover: rgb(255 255 255 / 9%);
-  --sidebar-active: linear-gradient(90deg, rgb(48 177 232 / 34%), rgb(255 255 255 / 6%));
-  --sidebar-background: linear-gradient(
-    145deg,
-    rgb(33 174 231 / 86%) 0%,
-    rgb(26 61 133 / 86%) 24%,
-    rgb(16 18 38 / 94%) 55%,
-    rgb(8 10 14 / 97%) 100%
-  );
-  --sidebar-overlay: linear-gradient(125deg, rgb(76 232 241 / 28%), transparent 43%);
-  --sidebar-shadow: 0 22px 54px rgb(2 8 23 / 40%), inset 0 1px 0 rgb(255 255 255 / 12%);
-  --sidebar-profile-accent: #9fe6fa;
-  --sidebar-avatar-background: repeating-linear-gradient(45deg, #4ad5ee 0 2px, #111827 2px 5px);
-  --glass-border: rgb(255 255 255 / 15%);
-  --topbar-background: rgb(15 23 42 / 72%);
+  --sidebar-text-muted: rgb(220 226 247 / 50%);
+
+  --sidebar-border: rgb(255 255 255 / 9%);
+  --sidebar-hover: rgb(255 255 255 / 7%);
+
+  --sidebar-active:
+    linear-gradient(
+      90deg,
+      rgb(155 140 255 / 31%),
+      rgb(56 189 248 / 13%)
+    );
+
+  --sidebar-background:
+    linear-gradient(
+      165deg,
+      rgb(25 26 57 / 98%) 0%,
+      rgb(31 29 69 / 98%) 37%,
+      rgb(17 23 50 / 99%) 72%,
+      rgb(10 15 34 / 100%) 100%
+    );
+
+  --sidebar-overlay:
+    radial-gradient(
+      circle at 10% 5%,
+      rgb(139 92 246 / 31%),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 92% 26%,
+      rgb(14 165 233 / 17%),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgb(45 212 191 / 10%),
+      transparent 36%
+    );
+
+  --sidebar-shadow:
+    22px 0 60px rgb(0 0 0 / 34%),
+    inset -1px 0 rgb(255 255 255 / 4%);
+
+  --sidebar-profile-accent: #8de8f4;
+
+  --sidebar-avatar-background:
+    linear-gradient(
+      145deg,
+      #a78bfa 0%,
+      #818cf8 45%,
+      #38bdf8 100%
+    );
+
+  /* Topbar */
+  --topbar-background: rgb(10 15 31 / 58%);
+
+  /* Decorative app background */
   --app-background-art:
-    linear-gradient(135deg, rgb(31 164 222 / 22%) 0 18%, transparent 18% 55%),
-    linear-gradient(315deg, rgb(30 27 104 / 42%) 0 19%, transparent 19%);
+    radial-gradient(
+      circle at 6% 7%,
+      rgb(139 92 246 / 19%),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 13%,
+      rgb(14 165 233 / 15%),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 82% 90%,
+      rgb(45 212 191 / 10%),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 34% 92%,
+      rgb(236 72 153 / 7%),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #090d1a 0%,
+      #0b1123 40%,
+      #0b1527 70%,
+      #0d1021 100%
+    );
 }

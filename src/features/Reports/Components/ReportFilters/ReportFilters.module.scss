@@ -1,0 +1,22 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
+.filterItem {
+  min-width: 180px;
+}
+
+.filtersEnd {
+  margin-left: auto !important;
+}

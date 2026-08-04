@@ -1,28 +1,56 @@
 @use '../abstracts/index' as abstracts;
 
 .app-shell {
+  position: relative;
+  isolation: isolate;
   height: 100dvh;
   display: flex;
-  flex-direction: row;
-  background: var(--color-background);
+
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
   background-image: var(--app-background-art);
   background-attachment: fixed;
-  color: var(--color-text-primary);
-  &__body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 0;
-    height: 100dvh;
-    min-height: 0;
-    overflow: hidden;
+  background-size: cover;
+
+  &::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    content: '';
+
+    background:
+      radial-gradient(
+        circle at 22% 30%,
+        rgb(139 92 246 / 8%),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 75% 68%,
+        rgb(14 165 233 / 7%),
+        transparent 27%
+      );
+
+    filter: blur(12px);
   }
-  &__content {
+}
+
+.app-shell__body {
+    display: flex;
     flex: 1;
-    padding: abstracts.spacing(4);
+    flex-direction: column;
     min-width: 0;
     min-height: 0;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.app-shell__content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: clamp(.75rem, 1.4vw, 1.35rem);
     overflow: auto;
     overscroll-behavior: contain;
-  }
+    scrollbar-gutter: stable;
 }

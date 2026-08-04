@@ -4,6 +4,7 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type InputHTMLAttributes,
   type ReactNode,
@@ -12,6 +13,7 @@ import {
 } from 'react';
 import { classNames } from './classNames';
 import './primitives.scss';
+import { ChevronDown } from 'lucide-react';
 
 export type FieldSize = 'sm' | 'md' | 'lg';
 export type FieldStatus = 'default' | 'error' | 'success' | 'warning';
@@ -23,6 +25,19 @@ type FieldMeta = {
   fieldSize?: FieldSize;
   fullWidth?: boolean;
 };
+type SelectOption = {
+  label: string;
+  value?: string | number;
+  disabled?: boolean;
+};
+
+type SelectWidthVariant =
+  | 'auto'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | 'xxl';
 
 export const FormField = ({
   label,
@@ -35,10 +50,12 @@ export const FormField = ({
   const id = useId();
   return (
     <div className={classNames('ds-field', className)}>
-      <div className="ds-field__label">
-        {label}
-        {required && <span aria-hidden="true"> *</span>}
-      </div>
+      {label && (
+        <div className="ds-field__label">
+          {label}
+          {required && <span aria-hidden="true"> *</span>}
+        </div>
+      )}
       {children}
       {error ? (
         <div id={`${id}-error`} role="alert" className="ds-field__error">
@@ -121,23 +138,91 @@ SearchInput.displayName = 'SearchInput';
 export const Select = forwardRef<
   HTMLSelectElement,
   SelectHTMLAttributes<HTMLSelectElement> &
-    FieldMeta & { options?: Array<{ label: string; value: string | number }> }
->(({ label, helperText, error, options = [], className, ...props }, ref) => (
-  <FormField label={label} helperText={helperText} error={error} required={props.required}>
-    <select
-      ref={ref}
-      aria-invalid={!!error}
-      className={classNames('ds-control', className)}
-      {...props}
-    >
-      {options.map((o) => (
-        <option key={o.value} value={o.value}>
-          {o.label}
-        </option>
-      ))}
-    </select>
-  </FormField>
-));
+    FieldMeta & {
+      options?: SelectOption[];
+      width?: CSSProperties['width'];
+      widthVariant?: SelectWidthVariant;
+      wrapperClassName?: string;
+    }
+>(
+  (
+    {
+      label,
+      helperText,
+      error,
+      options,
+      fieldSize = 'md',
+      fullWidth,
+      width,
+      widthVariant = 'auto',
+      wrapperClassName,
+      className,
+      children,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    const control = (
+      <div
+        className={classNames(
+          'ds-select-wrapper',
+          `ds-select-wrapper--${widthVariant}`,
+          fullWidth && 'ds-select-wrapper--full',
+        )}
+        style={width ? { width } : undefined}
+      >
+        <select
+          ref={ref}
+          aria-invalid={!!error}
+          className={classNames(
+            'ds-control',
+            'ds-control--select',
+            `ds-control--${fieldSize}`,
+            className,
+          )}
+          style={style}
+          {...props}
+        >
+          {options
+            ? options.map((option) => (
+                <option
+                  key={option.value ?? option.label}
+                  value={option.value ?? option.label}
+                  disabled={option.disabled}
+                >
+                  {option.label}
+                </option>
+              ))
+            : children}
+        </select>
+
+        <ChevronDown
+          className="ds-select-chevron"
+          size={18}
+          aria-hidden
+        />
+      </div>
+    );
+
+    if (!label && !helperText && !error) {
+      return control;
+    }
+
+    return (
+      <FormField
+        label={label}
+        helperText={helperText}
+        error={error}
+        required={props.required}
+        className={wrapperClassName}
+      >
+        {control}
+      </FormField>
+    );
+  },
+);
+
 Select.displayName = 'Select';
 
 const Choice = forwardRef<

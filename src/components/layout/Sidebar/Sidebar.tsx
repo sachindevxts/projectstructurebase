@@ -1,9 +1,12 @@
-import { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
-import { NAVIGATION_LABELS, SIDEBAR_ITEMS } from '@/constants';
+import React, { useEffect, useRef } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Box, Typography, IconButton, Avatar, Stack, Divider } from '@mui/material';
+import { ChevronDown, LogOut, Settings } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setSidebarOpen } from '@/redux/actions';
-import { ChevronDown } from 'lucide-react';
+import { SIDEBAR_ITEMS, NAVIGATION_LABELS } from '@/constants/navigation.constants';
+import { useAuth } from '@/Features/Auth/Hooks/useAuth';
+import styles from './Sidebar.module.scss';
 
 const icons: Record<string, string> = {
   dashboard: '◉',
@@ -21,8 +24,10 @@ const icons: Record<string, string> = {
   audit: '⟳',
 };
 
-export function Sidebar() {
+export const Sidebar = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { logout, user } = useAuth();
   const mobileOpen = useAppSelector((state) => state.ui.sidebarOpen);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -43,10 +48,15 @@ export function Sidebar() {
 
   const closeMobileSidebar = () => dispatch(setSidebarOpen(false));
 
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
   return (
     <>
       <button
-        className={`sidebar-backdrop${mobileOpen ? ' is-visible' : ''}`}
+        className={`${styles.backdrop}${mobileOpen ? ` ${styles.visible}` : ''}`}
         type="button"
         aria-label={NAVIGATION_LABELS.CLOSE_MENU}
         tabIndex={mobileOpen ? 0 : -1}
@@ -54,49 +64,82 @@ export function Sidebar() {
       />
       <aside
         id="primary-navigation"
-        className={`sidebar pf-sidebar${mobileOpen ? ' sidebar--mobile-open' : ''}`}
+        className={`${styles.sidebar}${mobileOpen ? ` ${styles.mobileOpen}` : ''}`}
         aria-label="Primary navigation"
       >
-        <div className="pf-sidebar__brand">
-          <span>♟</span>
-          <strong>{NAVIGATION_LABELS.APP_NAME}</strong>
-          <button
+        <Box className={styles.brand}>
+          <Box className={styles.logo}>
+            <Typography variant="h6" fontWeight={700}>
+              ♟ PeopleFlow HR
+            </Typography>
+          </Box>
+          <IconButton
             ref={closeButtonRef}
-            type="button"
-            className="pf-sidebar__close"
+            className={styles.closeButton}
             aria-label={NAVIGATION_LABELS.CLOSE_MENU}
             onClick={closeMobileSidebar}
           >
             ×
-          </button>
-        </div>
-        <button className="pf-company" type="button">
-          <b>AC</b>
-          <span>{NAVIGATION_LABELS.COMPANY}</span>
+          </IconButton>
+        </Box>
 
-          <ChevronDown className="pf-company-arrow" size={16} strokeWidth={2} aria-hidden="true" />
-        </button>
-        <nav>
+        <Box className={styles.company}>
+          <Box className={styles.companyName}>
+            <Avatar className={styles.companyAvatar}>AC</Avatar>
+            <Typography variant="body2" fontWeight={600}>
+              {NAVIGATION_LABELS.COMPANY}
+            </Typography>
+          </Box>
+          <ChevronDown className={styles.companyArrow} size={16} />
+        </Box>
+
+        <Box component="nav" className={styles.nav}>
           {SIDEBAR_ITEMS.map((group) => (
-            <section key={group.section}>
-              <h3>{group.section}</h3>
+            <Box key={group.section} className={styles.navSection}>
+              <Typography variant="caption" className={styles.sectionLabel}>
+                {group.section}
+              </Typography>
               {group.items.map(([id, title, path]) => (
-                <NavLink key={id} to={path} onClick={closeMobileSidebar}>
-                  <span>{icons[id]}</span>
-                  <b>{title}</b>
+                <NavLink
+                  key={id}
+                  to={path}
+                  className={({ isActive }) =>
+                    `${styles.navLink}${isActive ? ` ${styles.active}` : ''}`
+                  }
+                  onClick={closeMobileSidebar}
+                >
+                  <span className={styles.navIcon}>{icons[id]}</span>
+                  <Typography variant="body2" fontWeight={500}>
+                    {title}
+                  </Typography>
                 </NavLink>
               ))}
-            </section>
+            </Box>
           ))}
-        </nav>
-        <div className="pf-sidebar__user">
-          <span className="pf-avatar">A</span>
-          <span>
-            <b>Arjun Kapoor</b>
-            <small>Super Admin</small>
-          </span>
-        </div>
+        </Box>
+
+        <Box className={styles.userSection}>
+          <Divider className={styles.divider} />
+          <Box className={styles.userInfo}>
+            <Avatar className={styles.userAvatar}>{user?.name?.charAt(0) || 'A'}</Avatar>
+            <Box>
+              <Typography variant="body2" fontWeight={600}>
+                {user?.name || 'Arjun Kapoor'}
+              </Typography>
+              <Typography variant="caption" className={styles.userRole}>
+                {user?.role || 'Super Admin'}
+              </Typography>
+            </Box>
+            <IconButton size="small" className={styles.settingsButton}>
+              <Settings size={16} />
+            </IconButton>
+          </Box>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <LogOut size={16} />
+            <Typography variant="body2">Logout</Typography>
+          </button>
+        </Box>
       </aside>
     </>
   );
-}
+};

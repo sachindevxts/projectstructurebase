@@ -1,18 +1,29 @@
-import type { InternalAxiosRequestConfig } from 'axios';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
+import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { storage } from '@/utils/storage.utils';
-import { env } from '@/config/env';
+import { STORAGE_KEYS } from '@/constants/storage.constants';
 
-export const requestInterceptor = (client: any) => {
-  client.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-    const isPublic =
-      (config.url ?? '').includes('/auth/') || (config.url ?? '').includes('/public/');
-    if (!isPublic && token) {
-      config.headers.set?.('Authorization', `Bearer ${token}`);
+export const requestInterceptor = (client: AxiosInstance) => {
+  client.interceptors.request.use(
+    (config: InternalAxiosRequestConfig) => {
+      const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+      
+      // Check if the request is public (login, register, etc.)
+      const isPublic =
+        (config.url ?? '').includes('/auth/') ||
+        (config.url ?? '').includes('/public/') ||
+        (config.url ?? '').includes('/login');
+
+      if (!isPublic && token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      // Add request ID for tracking
+      config.headers['X-Request-Id'] = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+      
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
     }
-    config.headers.set?.('X-App-Version', env.appVersion);
-    config.headers.set?.('X-Request-Id', crypto.randomUUID?.() ?? `${Date.now()}`);
-    return config;
-  });
+  );
 };

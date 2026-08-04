@@ -1,0 +1,38 @@
+@import '../../utils/css/abstracts/variables';
+@import '../../utils/css/abstracts/mixins';
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  background-image: var(--app-background-art);
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  padding: $spacing-xl;
+  border-radius: $radius-xl !important;
+  background: var(--surface-glass) !important;
+  backdrop-filter: blur(24px);
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.backLink {
+  display: block;
+  text-align: center;
+  margin-top: $spacing-lg;
+}

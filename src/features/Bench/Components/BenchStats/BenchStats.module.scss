@@ -1,0 +1,77 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.statCard {
+  min-height: 120px;
+  padding: 18px 20px;
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  background: #fff !important;
+}
+
+.statIcon {
+  width: 34px !important;
+  height: 34px !important;
+  margin-bottom: 12px;
+
+  svg {
+    font-size: 18px;
+  }
+}
+
+.greenTone {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.blueTone {
+  background: #dbeafe !important;
+  color: #2557f5 !important;
+}
+
+.orangeTone {
+  background: #ffedd5 !important;
+  color: #ea580c !important;
+}
+
+.yellowTone {
+  background: #fef3c7 !important;
+  color: #d97706 !important;
+}
+
+.redTone {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+}
+
+.statValue {
+  color: #0f172a;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.statLabel {
+  margin-top: 8px !important;
+  color: #64748b;
+  font-size: 13px !important;
+}
+
+@media (max-width: 1180px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

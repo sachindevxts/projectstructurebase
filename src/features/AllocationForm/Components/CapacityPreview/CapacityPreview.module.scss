@@ -1,0 +1,113 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.preview {
+  padding: 24px;
+  margin-top: 24px;
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  background: #fff !important;
+}
+
+.title {
+  margin-bottom: 24px !important;
+  color: #0f172a;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.metrics {
+  max-width: 980px;
+  margin: 0 auto 18px;
+}
+
+.metric {
+  min-width: 140px;
+  text-align: center;
+
+  p {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  span {
+    color: #64748b;
+    font-size: 14px;
+  }
+}
+
+.currentValue {
+  color: #0f172a;
+}
+
+.requestedValue {
+  color: #d97706;
+}
+
+.resultValue,
+.overValue {
+  color: #dc2626;
+}
+
+.capacityBar {
+  display: flex;
+  max-width: 820px;
+  height: 18px;
+  margin: 0 auto 12px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: #eef2f7;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.novaSegment {
+  width: 54%;
+  background: #3f63e8;
+}
+
+.internalSegment {
+  width: 23%;
+  background: #679df7;
+}
+
+.newSegment {
+  width: 23%;
+  background: #f59ca3;
+  color: #7f1d1d;
+}
+
+.legend {
+  max-width: 820px;
+  margin: 0 auto;
+  color: #64748b;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  i {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+.novaDot {
+  background: #3f63e8;
+}
+
+.internalDot {
+  background: #679df7;
+}
+
+.newDot {
+  background: #f59ca3;
+}

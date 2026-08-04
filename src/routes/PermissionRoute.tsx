@@ -10,8 +10,8 @@ interface PermissionRouteProps {
 }
 
 export function PermissionRoute({ children, permissions, mode = 'all' }: PermissionRouteProps) {
-  const user = useAppSelector((state) => state.auth.user);
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const user = useAppSelector((state :any) => state.auth.user);
+  const isAuthenticated = useAppSelector((state :any) => state.auth.isAuthenticated);
 
   if (!isAuthenticated || !user) {
     return <Navigate to={ROUTES.LOGIN} replace />;

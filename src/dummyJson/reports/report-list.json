@@ -1,0 +1,27 @@
+{
+  "metrics": {
+    "headcount": 7,
+    "billable": 5,
+    "bench": 1,
+    "utilization": 78
+  },
+  "departmentUtilization": [
+    { "department": "Engineering", "utilization": 84, "employees": 5 },
+    { "department": "QA", "utilization": 72, "employees": 1 },
+    { "department": "Design", "utilization": 88, "employees": 1 },
+    { "department": "HR", "utilization": 45, "employees": 1 }
+  ],
+  "monthlyTrend": [
+    { "month": "Mar", "billable": 65, "bench": 20, "overallocated": 4 },
+    { "month": "Apr", "billable": 69, "bench": 18, "overallocated": 3 },
+    { "month": "May", "billable": 74, "bench": 14, "overallocated": 5 },
+    { "month": "Jun", "billable": 78, "bench": 11, "overallocated": 6 },
+    { "month": "Jul", "billable": 76, "bench": 12, "overallocated": 5 },
+    { "month": "Aug", "billable": 81, "bench": 9, "overallocated": 4 }
+  ],
+  "allocationMix": [
+    { "name": "Billable", "value": 68 },
+    { "name": "Internal", "value": 18 },
+    { "name": "Bench", "value": 14 }
+  ]
+}

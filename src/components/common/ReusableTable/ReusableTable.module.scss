@@ -1,0 +1,109 @@
+.container {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid #dbe3ef !important;
+  background: #fff !important;
+  overflow: hidden;
+}
+
+.tableScroller {
+  overflow: auto;
+}
+
+.table {
+  min-width: 920px;
+
+  :global(.MuiTableCell-root) {
+    border-bottom-color: #dbe3ef;
+    color: #0f172a;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  :global(.MuiTableHead-root .MuiTableCell-root) {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+    height: 44px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  :global(.MuiCheckbox-root) {
+    color: #64748b;
+    padding: 4px;
+  }
+}
+
+.filtersRow {
+  :global(.MuiTableCell-root) {
+    background: #fff;
+    padding: 8px 12px;
+  }
+}
+
+.filterControl {
+  min-width: 120px !important;
+}
+
+.loadingCell,
+.emptyCell {
+  padding: 44px 24px !important;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  text-align: center;
+}
+
+.emptyTitle {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.emptyDescription {
+  max-width: 360px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-top: 1px solid #dbe3ef;
+  color: #64748b;
+}
+
+.resultText {
+  color: #64748b !important;
+
+  strong {
+    color: #0f172a;
+  }
+}
+
+.paginationActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rowsSelect {
+  min-width: 72px !important;
+}
+
+@media (max-width: 700px) {
+  .footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .paginationActions {
+    justify-content: space-between;
+  }
+}

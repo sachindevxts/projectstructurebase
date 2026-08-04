@@ -1,0 +1,54 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.chartCard {
+  height: 100%;
+  border: 1px solid var(--color-border) !important;
+  border-radius: $radius-lg !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.pieContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.pieCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.departmentBars {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  padding-top: $spacing-sm;
+}
+
+.departmentBar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.departmentLabel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.barTrack {
+  height: 8px;
+  overflow: hidden;
+  border-radius: $radius-full;
+  background: var(--color-border);
+}
+
+.barFill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.6s ease;
+}

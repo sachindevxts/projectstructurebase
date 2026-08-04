@@ -1,0 +1,44 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.metricCard {
+  padding: $spacing-md !important;
+  border-radius: $radius-md !important;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  background: var(--color-surface-muted) !important;
+  transition: all 0.15s ease;
+  border: 1px solid var(--color-border) !important;
+  height: 100%;
+  
+  &:hover {
+    background: var(--color-surface) !important;
+    border-color: var(--color-border-strong) !important;
+  }
+}
+
+.metricIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-surface);
+  border-radius: $radius-full;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  
+  .MuiTypography-root {
+    line-height: 1;
+  }
+}
+
+.metricValue {
+  color: var(--color-text-primary) !important;
+}
+
+.metricLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}

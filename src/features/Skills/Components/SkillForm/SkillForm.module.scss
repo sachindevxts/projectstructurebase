@@ -1,0 +1,14 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.modalTitle {
+  font-weight: $font-weight-semibold !important;
+}
+
+.critical {
+  color: var(--color-error) !important;
+}
+
+.form {
+  padding: $spacing-sm 0;
+}

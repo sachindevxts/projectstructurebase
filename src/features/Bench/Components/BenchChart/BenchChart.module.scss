@@ -1,0 +1,74 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.chartCard {
+  min-width: 0;
+  height: 178px;
+  padding: 18px 18px 14px;
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  background: #fff !important;
+  overflow: hidden;
+}
+
+.title {
+  margin-bottom: 10px !important;
+  color: #0f172a;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.chartViewport {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  width: 100%;
+  height: 118px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  color: #94a3b8;
+
+  span {
+    font-size: 10px;
+    line-height: 1;
+  }
+}
+
+.chart {
+  height: 100%;
+  min-width: 0;
+  padding-top: 8px;
+  border-bottom: 1px solid #cbd5e1;
+  background-image: linear-gradient(#edf2f7 1px, transparent 1px);
+  background-size: 100% 24px;
+}
+
+.bar {
+  display: flex;
+  width: 28px;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.barFill {
+  width: 28px;
+  min-height: 6px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: #3f63e8;
+}
+
+.barLabel {
+  color: #94a3b8 !important;
+  font-size: 10px !important;
+  line-height: 1 !important;
+}

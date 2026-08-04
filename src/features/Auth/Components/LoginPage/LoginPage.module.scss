@@ -1,0 +1,106 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  background: var(--color-background);
+  background-image: var(--app-background-art);
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero {
+  background: linear-gradient(135deg, #111827 0%, #202a44 52%, #0f766e 140%);
+  color: #fff;
+  padding: 42px 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    right: -160px;
+    bottom: -180px;
+    width: 440px;
+    height: 440px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    content: '';
+    box-shadow: 0 0 0 70px rgba(255, 255, 255, 0.03), 0 0 0 140px rgba(255, 255, 255, 0.02);
+  }
+
+  @include respond-to(lg) {
+    display: none;
+  }
+}
+
+.brand {
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.formContainer {
+  padding: 25px 13%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(18px);
+
+  @include respond-to(lg) {
+    padding: 25px 5%;
+    background: var(--color-surface);
+  }
+}
+
+.support {
+  text-align: right;
+  color: var(--color-text-secondary);
+  margin-bottom: $spacing-lg;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submitButton {
+  min-height: 46px;
+  border-radius: $radius-lg !important;
+}
+
+.divider {
+  margin: $spacing-md 0 !important;
+}
+
+.socialButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-sm;
+}

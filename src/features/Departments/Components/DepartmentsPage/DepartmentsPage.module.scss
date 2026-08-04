@@ -1,0 +1,104 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.page {
+  padding: $spacing-lg;
+  
+  @include respond-to(md) {
+    padding: $spacing-xl;
+  }
+}
+
+.filtersWrapper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-lg;
+  border-radius: $radius-lg !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+.searchInput {
+  flex: 1;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  background: var(--input-background);
+  color: var(--color-text-primary);
+  
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 79, 70, 229), 0.1);
+  }
+}
+
+.resultCount {
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.departmentCard {
+  height: 100%;
+  border-radius: $radius-lg !important;
+  border: 1px solid var(--color-border) !important;
+  transition: all 0.25s ease;
+  
+  &:hover {
+    box-shadow: var(--shadow-md) !important;
+    transform: translateY(-2px);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-md;
+}
+
+.cardActions {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-sm;
+  margin: $spacing-md 0;
+  padding: $spacing-sm 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metric {
+  text-align: center;
+}
+
+.billabilitySection {
+  margin: $spacing-md 0;
+}
+
+.skillsSection {
+  margin: $spacing-sm 0;
+}
+
+.skills {
+  display: flex;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+  margin-top: $spacing-xs;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $spacing-md;
+  padding-top: $spacing-sm;
+  border-top: 1px solid var(--color-border);
+}

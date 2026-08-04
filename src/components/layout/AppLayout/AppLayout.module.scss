@@ -1,0 +1,47 @@
+@import '../../../utils/css/abstracts/variables';
+@import '../../../utils/css/abstracts/mixins';
+
+.appShell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-background);
+  background-image: var(--app-background-art);
+  background-attachment: fixed;
+  background-size: cover;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at 22% 30%, rgba(139, 92, 246, 0.08), transparent 25%),
+      radial-gradient(circle at 75% 68%, rgba(14, 165, 233, 0.07), transparent 27%);
+    filter: blur(12px);
+  }
+}
+
+.appBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appContent {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  // padding: $spacing-md;
+  scrollbar-gutter: stable;
+
+  @include respond-to(md) {
+    // padding: $spacing-lg;
+  }
+}

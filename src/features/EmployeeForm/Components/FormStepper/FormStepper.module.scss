@@ -1,0 +1,10 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.stepper {
+  padding: $spacing-md 0 $spacing-lg !important;
+}
+
+.step {
+  cursor: pointer;
+}

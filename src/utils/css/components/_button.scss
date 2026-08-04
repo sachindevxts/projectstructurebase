@@ -1,10 +1,9 @@
 @use '../abstracts/index' as abstracts;
-
-.button,
-button {
-  padding: abstracts.spacing(3) abstracts.spacing(4);
-  border-radius: abstracts.radius(md);
-  border: 1px solid var(--color-border);
-  background: var(--color-primary);
-  color: white;
-}
+.button, .pf-button { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; gap: 8px; padding: 0 15px; color: #fff; border: 1px solid transparent; border-radius: abstracts.radius(md); background: linear-gradient(135deg, var(--color-primary), #5b5bd6); box-shadow: 0 7px 16px rgb(79 70 229 / 16%); font-weight: 680; cursor: pointer; transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease; }
+.button:hover, .pf-button:hover { background: linear-gradient(135deg, var(--color-primary-hover), #4f46e5); box-shadow: 0 10px 22px rgb(79 70 229 / 22%); transform: translateY(-1px); }
+.button:active, .pf-button:active { transform: translateY(0); }
+.button:disabled, .pf-button:disabled { opacity: .52; box-shadow: none; cursor: not-allowed; transform: none; }
+.button--secondary, .pf-button--ghost { color: var(--color-text-primary); border-color: var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-xs); }
+.button--secondary:hover, .pf-button--ghost:hover { border-color: var(--color-border-strong); background: var(--color-surface-muted); box-shadow: var(--shadow-sm); }
+.button--danger { background: linear-gradient(135deg, #be3b54, #a72d45); }
+.button--icon, .pf-button--icon { width: 38px; padding: 0; color: var(--color-text-secondary); border-color: var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-xs); }

@@ -1,0 +1,67 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.page {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: calc(100vh - 52px);
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  color: #0f172a;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.subtitle {
+  margin-top: 4px !important;
+  color: #64748b;
+  font-size: 16px !important;
+}
+
+.actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  :global(.MuiButton-root) {
+    min-height: 36px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+  }
+}
+
+.filtersWrapper {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid #dbe3ef;
+  background: #fff !important;
+}
+
+@include respond-to(sm) {
+  .page {
+    padding: 24px 26px;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 24px !important;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}

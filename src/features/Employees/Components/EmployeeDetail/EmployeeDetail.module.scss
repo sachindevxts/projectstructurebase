@@ -1,0 +1,457 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.page {
+  background: #f8fafc;
+  min-height: calc(100vh - 52px);
+}
+
+.profileHeader {
+  padding: 24px 26px 20px;
+  background: #fff;
+  border-bottom: 1px solid #dbe3ef;
+}
+
+.avatarWrap {
+  position: relative;
+
+  span {
+    position: absolute;
+    right: 3px;
+    bottom: 6px;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    border-radius: var(--radius-full);
+    background: #22a65a;
+  }
+}
+
+.avatar {
+  width: 72px !important;
+  height: 72px !important;
+  background: #cbd5e1 !important;
+  color: #0f172a !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 0 0 3px #e2e8f0;
+}
+
+.profileInfo {
+  min-width: 0;
+}
+
+.employeeName {
+  color: #0f172a;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+}
+
+.employeeId,
+.muted {
+  color: #64748b !important;
+}
+
+.metaLine,
+.allocationLine {
+  margin-top: 10px;
+  color: #64748b;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+  }
+
+  svg {
+    color: #64748b;
+  }
+}
+
+.allocationLine {
+  margin-top: 14px;
+
+  p {
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 12px;
+  }
+}
+
+.allocationBar {
+  display: flex;
+  width: 320px;
+  max-width: 42vw;
+  height: 7px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: #e2e8f0;
+}
+
+.primaryBar {
+  width: 70%;
+  background: #3f63e8;
+}
+
+.secondaryBar {
+  width: 30%;
+  background: #7fb2ff;
+}
+
+.primaryDot,
+.secondaryDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-xs);
+}
+
+.primaryDot {
+  background: #3f63e8;
+}
+
+.secondaryDot {
+  background: #7fb2ff;
+}
+
+.outlineButton,
+.editButton,
+.moreButton,
+.addButton {
+  border-radius: var(--radius-md) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+}
+
+.outlineButton {
+  height: 40px;
+  color: #0f172a !important;
+  border-color: #dbe3ef !important;
+  background: #fff !important;
+}
+
+.editButton {
+  height: 40px;
+  padding-inline: 18px !important;
+}
+
+.moreButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dbe3ef !important;
+  color: #64748b !important;
+}
+
+.tabsWrap {
+  background: #fff;
+  border-bottom: 1px solid #dbe3ef;
+}
+
+.tabs {
+  min-height: 48px !important;
+  padding-inline: 26px;
+
+  :global(.MuiTab-root) {
+    min-height: 48px;
+    padding-inline: 18px;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  :global(.Mui-selected) {
+    color: #2557f5 !important;
+  }
+}
+
+.panel {
+  padding: 26px;
+}
+
+.card,
+.sideCard,
+.cardNarrow,
+.tableCard {
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  background: #fff !important;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.cardNarrow {
+  max-width: 700px;
+}
+
+.cardTitle {
+  margin-bottom: 22px !important;
+  color: #0f172a;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.cardHeader .cardTitle {
+  margin-bottom: 0 !important;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 56px;
+}
+
+.detailPair {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf2f7;
+
+  :global(.MuiButton-root) {
+    min-width: 0;
+    padding: 0;
+    color: #2557f5;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+  }
+}
+
+.detailLabel {
+  color: #94a3b8;
+}
+
+.detailValue {
+  color: #0f172a;
+  font-weight: 600 !important;
+}
+
+.activeChip,
+.billableChip,
+.nonBillableChip,
+.blueSkill,
+.greenSkill,
+.orangeSkill {
+  height: 26px !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.activeChip,
+.greenSkill {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.billableChip,
+.blueSkill {
+  background: #dbeafe !important;
+  color: #2557f5 !important;
+}
+
+.nonBillableChip {
+  background: #eef2f7 !important;
+  color: #0f172a !important;
+}
+
+.orangeSkill {
+  background: #fef3c7 !important;
+  color: #d97706 !important;
+}
+
+.allocationCard {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  border: 1px solid #dbe3ef;
+  border-radius: var(--radius-md) !important;
+}
+
+.allocationTitle {
+  color: #0f172a;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
+
+.allocationMeta,
+.allocationDate {
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.allocationValue {
+  min-width: 72px;
+  text-align: right;
+
+  p {
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  span {
+    color: #64748b;
+    font-size: 12px;
+  }
+}
+
+.capacityRing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 108px;
+  margin: 22px auto 18px;
+  border: 8px solid #3f63e8;
+  border-radius: var(--radius-full);
+
+  p {
+    color: #0f172a;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  span {
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 10px;
+  }
+}
+
+.capacityText {
+  color: #64748b;
+  text-align: center;
+}
+
+.releaseDate {
+  color: #d97706 !important;
+  font-weight: 600 !important;
+}
+
+.contactList {
+  color: #64748b;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+}
+
+.skillLabel {
+  margin: 20px 0 10px !important;
+  color: #64748b;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.skillRow {
+  margin-bottom: 10px;
+}
+
+.tableCard {
+  overflow: auto;
+
+  :global(.MuiTable-root) {
+    min-width: 900px;
+  }
+
+  :global(.MuiTableCell-root) {
+    border-bottom-color: #dbe3ef;
+    padding: 14px 18px;
+    color: #0f172a;
+    font-size: 14px;
+  }
+
+  :global(.MuiTableHead-root .MuiTableCell-root) {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+.boldCell {
+  font-weight: 700 !important;
+}
+
+.greenText {
+  color: #15803d !important;
+  font-weight: 700 !important;
+}
+
+.documentRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border: 1px solid #dbe3ef;
+  border-radius: var(--radius-md) !important;
+}
+
+.skeleton,
+.notFound {
+  border-radius: var(--radius-md) !important;
+}
+
+.notFound {
+  padding: 48px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .allocationBar {
+    width: 220px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .profileHeader,
+  .panel {
+    padding: 16px;
+  }
+
+  .tabs {
+    padding-inline: 16px;
+  }
+
+  .employeeName {
+    font-size: 24px !important;
+  }
+
+  .detailPair {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .allocationCard {
+    flex-direction: column;
+  }
+
+  .allocationValue {
+    text-align: left;
+  }
+}

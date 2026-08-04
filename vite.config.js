@@ -1,24 +1,33 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 export default defineConfig({
-  envDir: 'env',
   plugins: [react()],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern-compiler',
-      },
-    },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
-    css: true,
-  },
   resolve: {
     alias: {
-      '@': '/src',
+      '@': path.resolve(__dirname, './src'),
+      '@/features': path.resolve(__dirname, './src/features'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/pages': path.resolve(__dirname, './src/pages'),
+      '@/hooks': path.resolve(__dirname, './src/Hooks'),
+      '@/utils': path.resolve(__dirname, './src/Utils'),
+      '@/types': path.resolve(__dirname, './src/Types'),
+      '@/constants': path.resolve(__dirname, './src/Constants'),
+      '@/redux': path.resolve(__dirname, './src/redux'),
+      '@/api': path.resolve(__dirname, './src/api'),
+      '@/config': path.resolve(__dirname, './src/config'),
+      '@/providers': path.resolve(__dirname, './src/providers'),
+      '@/routes': path.resolve(__dirname, './src/routes'),
+      '@/dummyJson': path.resolve(__dirname, './src/dummyJson'),
+      '@/styles': path.resolve(__dirname, './src/styles'),
     },
+  },
+  server: {
+    port: 3000,
+    open: true,
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
   },
 });

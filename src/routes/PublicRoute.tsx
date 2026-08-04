@@ -1,11 +1,28 @@
-import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { ROUTES } from '@/constants';
+import { Navigate, Outlet } from 'react-router-dom';
+import { ROUTES } from '@/constants/route.constants';
+import { useAuth } from '@/Features/Auth/Hooks/useAuth';
 
-export function PublicRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+export const PublicRoute = () => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
   if (isAuthenticated) {
     return <Navigate to={ROUTES.DASHBOARD} replace />;
   }
-  return <>{children}</>;
-}
+
+  return <Outlet />;
+};

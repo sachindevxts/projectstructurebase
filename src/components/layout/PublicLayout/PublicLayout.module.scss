@@ -1,0 +1,10 @@
+@import '../../../utils/css/abstracts/variables';
+@import '../../../utils/css/abstracts/mixins';
+
+.publicLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background);
+  background-image: var(--app-background-art);
+}

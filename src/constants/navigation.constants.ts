@@ -3,11 +3,15 @@ import { ROUTES } from './route.constants';
 export const NAVIGATION_LABELS = {
   APP_NAME: 'PeopleFlow HR',
   COMPANY: 'Acme Corp',
+  
+  // Sections
   MAIN: 'MAIN',
   PEOPLE: 'PEOPLE',
   WORK: 'WORK',
   INSIGHTS: 'INSIGHTS',
   ADMINISTRATION: 'ADMINISTRATION',
+  
+  // Navigation Items
   DASHBOARD: 'Dashboard',
   EMPLOYEES: 'Employees',
   BENCH: 'Bench & Availability',
@@ -21,6 +25,8 @@ export const NAVIGATION_LABELS = {
   SKILLS: 'Skills',
   ROLES: 'Roles & Permissions',
   AUDIT_LOGS: 'Audit Logs',
+  
+  // Actions
   CLOSE_MENU: 'Close navigation menu',
   OPEN_MENU: 'Open navigation menu',
 } as const;
@@ -28,7 +34,9 @@ export const NAVIGATION_LABELS = {
 export const SIDEBAR_ITEMS = [
   {
     section: NAVIGATION_LABELS.MAIN,
-    items: [['dashboard', NAVIGATION_LABELS.DASHBOARD, ROUTES.DASHBOARD]],
+    items: [
+      ['dashboard', NAVIGATION_LABELS.DASHBOARD, ROUTES.DASHBOARD],
+    ],
   },
   {
     section: NAVIGATION_LABELS.PEOPLE,
@@ -48,7 +56,9 @@ export const SIDEBAR_ITEMS = [
   },
   {
     section: NAVIGATION_LABELS.INSIGHTS,
-    items: [['reports', NAVIGATION_LABELS.REPORTS, ROUTES.REPORTS]],
+    items: [
+      ['reports', NAVIGATION_LABELS.REPORTS, ROUTES.REPORTS],
+    ],
   },
   {
     section: NAVIGATION_LABELS.ADMINISTRATION,

@@ -1,19 +1,29 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Topbar } from '@/components/layout/Topbar/Topbar';
-import { Sidebar } from '@/components/layout/Sidebar/Sidebar';
+import { Box } from '@mui/material';
+import { Topbar } from '../Topbar/Topbar';
+import { Sidebar } from '../Sidebar/Sidebar';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
-import type { ReactNode } from 'react';
+import styles from './AppLayout.module.scss';
 
-export function AppLayout({ children }: { children?: ReactNode }) {
+interface AppLayoutProps {
+  children?: React.ReactNode;
+}
+
+export const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <ToastProvider>
-      <div className="app-shell">
+      <Box className={styles.appShell}>
         <Sidebar />
-        <div className="app-shell__body">
+        <Box className={styles.appBody}>
           <Topbar />
-          <main className="app-shell__content">{children ?? <Outlet />}</main>
-        </div>
-      </div>
+          <Box component="main" className={styles.appContent}>
+            {children ?? <Outlet />}
+          </Box>
+        </Box>
+      </Box>
     </ToastProvider>
   );
-}
+};
+
+export default AppLayout;

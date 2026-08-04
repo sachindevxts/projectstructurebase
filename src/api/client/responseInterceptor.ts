@@ -1,22 +1,30 @@
-import type { AxiosError, AxiosInstance } from 'axios';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
+import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { storage } from '@/utils/storage.utils';
+import { STORAGE_KEYS } from '@/constants/storage.constants';
 import { normalizeApiError } from '@/api/errorHandler';
-import { store } from '@/redux/store/configureStore';
-import { AUTH_ACTION_TYPES } from '@/redux/actionTypes';
 
 export const responseInterceptor = (client: AxiosInstance) => {
   client.interceptors.response.use(
-    (response) => response,
+    (response: AxiosResponse) => {
+      // You can transform response data here if needed
+      return response;
+    },
     (error: AxiosError) => {
-      const normalized = normalizeApiError(error);
-      if (normalized.status === 401) {
+      const normalizedError = normalizeApiError(error);
+      
+      // Handle 401 Unauthorized
+      if (normalizedError.status === 401) {
         storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
         storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
         storage.remove(STORAGE_KEYS.USER);
-        store.dispatch({ type: AUTH_ACTION_TYPES.LOGOUT });
+        
+        // Redirect to login if not already there
+        if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+          window.location.href = '/login';
+        }
       }
-      return Promise.reject(normalized);
-    },
+
+      return Promise.reject(normalizedError);
+    }
   );
 };

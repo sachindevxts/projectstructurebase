@@ -5,9 +5,7 @@
 @mixin respond-to($breakpoint) {
   $value: map.get(variables.$breakpoints, $breakpoint);
   @if $value {
-    @media (min-width: $value) {
-      @content;
-    }
+    @media (min-width: $value) { @content; }
   }
 }
 
@@ -18,15 +16,15 @@
 }
 
 @mixin card-surface {
-  background: var(--color-surface);
+  background: var(--surface-raised);
   border: 1px solid var(--color-border);
   border-radius: functions.radius(lg);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-card);
 }
 
 @mixin focus-ring {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 @mixin text-truncate {

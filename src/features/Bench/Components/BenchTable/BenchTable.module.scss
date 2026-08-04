@@ -1,0 +1,142 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.container {
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  background: #fff !important;
+  overflow: hidden;
+}
+
+.tableTitle {
+  padding: 18px 20px;
+  color: #0f172a;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #dbe3ef;
+}
+
+.tableScroller {
+  overflow: auto;
+}
+
+.table {
+  min-width: 1120px;
+
+  :global(.MuiTableCell-root) {
+    padding: 14px 16px;
+    border-bottom-color: #dbe3ef;
+    color: #0f172a;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  :global(.MuiTableHead-root .MuiTableCell-root) {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+.avatar {
+  width: 34px !important;
+  height: 34px !important;
+  background: #cbd5e1 !important;
+  color: #0f172a !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.employeeName {
+  color: #0f172a;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.employeeId,
+.mutedCell {
+  color: #64748b !important;
+}
+
+.skillChip,
+.availableChip,
+.partialChip,
+.releaseChip {
+  height: 24px !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.skillChip {
+  border: 1px solid #9ec0ff !important;
+  background: #eaf2ff !important;
+  color: #2557f5 !important;
+}
+
+.capacityText {
+  color: #16a34a;
+  font-weight: 700 !important;
+}
+
+.releaseCapacity {
+  color: #d97706;
+  font-weight: 700 !important;
+}
+
+.dangerDays {
+  color: #dc2626;
+  font-weight: 700 !important;
+}
+
+.warningDays {
+  color: #d97706;
+  font-weight: 700 !important;
+}
+
+.availableChip {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.partialChip {
+  background: #dbeafe !important;
+  color: #2557f5 !important;
+}
+
+.releaseChip {
+  background: #fef3c7 !important;
+  color: #d97706 !important;
+}
+
+.actionText {
+  color: #2557f5;
+  font-weight: 600 !important;
+  white-space: nowrap;
+}
+
+.footer {
+  padding: 14px 18px;
+  border-top: 1px solid #dbe3ef;
+}
+
+.footerText {
+  color: #64748b;
+}
+
+.pageArrow {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+  color: #64748b !important;
+}
+
+.loadingState {
+  padding: $spacing-3xl;
+  text-align: center;
+  border: 1px solid #dbe3ef !important;
+  border-radius: var(--radius-md) !important;
+}

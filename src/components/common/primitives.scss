@@ -31,14 +31,89 @@
   padding: $spacing-sm $spacing-md;
   border: 1px solid var(--color-border);
   border-radius: $radius-md;
-  background: var(--color-surface);
+  background: var(--input-background, var(--color-surface));
   color: var(--color-text);
+  position: relative;
+}
+
+.ds-control--select {
+  min-width: 120px;
+  width: 100%;
+  padding-right: 2.5rem;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  cursor: pointer;
+  background: var(--input-background, var(--color-surface));
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  box-shadow: var(--dropdown-shadow, none);
+}
+
+.ds-control--select:hover {
+  border-color: var(--dropdown-border-hover);
+}
+.ds-control--select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 .ds-control:focus,
 .ds-icon-button:focus-visible,
 .ds-pagination button:focus-visible {
   @include focus-ring;
 }
+.ds-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+
+  &--auto {
+    width: fit-content;
+  }
+
+  &--sm {
+    width: 120px;
+  }
+
+  &--md {
+    width: 180px;
+  }
+
+  &--lg {
+    width: 240px;
+  }
+
+  &--xl {
+    width: 320px;
+  }
+
+  &--xxl {
+    width: 420px;
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+.ds-select-wrapper .ds-control--full {
+  width: 100%;
+}
+
+.ds-select-chevron {
+  position: absolute;
+  right: $spacing-md;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--dropdown-arrow-color);
+}
+
 .ds-control--sm {
   min-height: 32px;
 }
@@ -81,7 +156,7 @@
   order: -1;
   width: 48px;
   height: 26px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: var(--color-border);
   position: relative;
 }
@@ -93,7 +168,7 @@
   height: 20px;
   left: 3px;
   top: 3px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-surface);
   color: var(--color-warning);
   transition: transform 0.2s;
@@ -136,7 +211,7 @@
   display: inline-flex;
   gap: $spacing-sm;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   padding: 2px $spacing-sm;
   background: var(--color-surface-muted);
   color: var(--color-text);
@@ -189,7 +264,7 @@
   width: 36px;
   height: 36px;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-surface-muted);
 }
 .ds-avatar img {
@@ -211,7 +286,7 @@
   height: 1em;
   border: 2px solid var(--color-border);
   border-top-color: var(--color-primary);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   animation: spin 0.8s linear infinite;
 }
 .ds-skeleton {

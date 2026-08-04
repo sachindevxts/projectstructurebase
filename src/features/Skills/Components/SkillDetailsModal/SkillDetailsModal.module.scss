@@ -1,0 +1,91 @@
+@import '../../../../utils/css/abstracts/variables';
+@import '../../../../utils/css/abstracts/mixins';
+
+.dialogTitle {
+  padding: $spacing-lg $spacing-xl !important;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.skillName {
+  font-weight: $font-weight-semibold !important;
+  color: var(--color-text-primary) !important;
+  margin: 0 0 $spacing-sm 0 !important;
+  letter-spacing: -0.5px;
+}
+
+.skillMeta {
+  margin-top: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.closeButton {
+  margin: -$spacing-sm !important;
+  
+  &:hover {
+    background: var(--color-surface-muted) !important;
+  }
+}
+
+.modalBody {
+  padding: $spacing-sm 0;
+}
+
+.metricsGrid {
+  margin-bottom: $spacing-2xl;
+}
+
+.aboutSection {
+  margin-bottom: $spacing-2xl;
+}
+
+.designationsSection {
+  margin-bottom: $spacing-2xl;
+}
+
+.aliasesSection {
+  margin-bottom: $spacing-lg;
+}
+
+.sectionTitle {
+  display: block;
+  margin-bottom: $spacing-md;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.description {
+  line-height: 1.6;
+  color: var(--color-text-secondary) !important;
+}
+
+.designationsList {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.aliasesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.dialogFooter {
+  padding: $spacing-lg $spacing-xl !important;
+  display: flex;
+  justify-content: space-between !important;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+.footerActions {
+  display: flex;
+  gap: $spacing-sm;
+}

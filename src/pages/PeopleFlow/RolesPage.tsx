@@ -1,253 +1,440 @@
-import { useState } from 'react';
-import { PfBadge, PfPageHeader } from './shared';
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Chip,
+  InputAdornment,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  Assessment as AssessmentIcon,
+  Dashboard as DashboardIcon,
+  ExpandMore as ExpandMoreIcon,
+  Groups as GroupsIcon,
+  Info as InfoIcon,
+  Lock as LockIcon,
+  Search as SearchIcon,
+  WarningAmber as WarningAmberIcon,
+  AccountTree as AllocationIcon,
+} from '@mui/icons-material';
+import { ReusableTable, type TableColumn } from '@/components/common';
+import styles from './RolesPage.module.scss';
 
-type PermissionRow = {
+interface RoleRow {
   name: string;
+  tag: 'System' | 'Custom';
   description: string;
-  checked: number[];
-  warning?: boolean;
-  sensitive?: boolean;
-};
+  users: number;
+  permissions: string;
+  featured?: boolean;
+}
 
-type PermissionGroup = {
+interface PermissionRow {
   name: string;
-  icon: string;
-  rows: PermissionRow[];
-};
+  detail?: string;
+  checked: boolean[];
+  warning?: string;
+  locked?: string;
+  highlight?: boolean;
+}
 
-const roleRows = [
+interface PermissionGroup {
+  title: string;
+  icon: React.ReactNode;
+  action?: string;
+  rows: PermissionRow[];
+}
+
+const roles: RoleRow[] = [
   {
     name: 'Super Admin',
-    type: 'System',
-    tone: 'purple',
+    tag: 'System',
     description: 'Full platform access including org setup, audit logs',
     users: 2,
     permissions: 'All (48)',
   },
   {
     name: 'HR Admin',
-    type: 'Custom',
-    tone: 'blue',
+    tag: 'Custom',
     description: 'Manage employees, departments, designations',
     users: 5,
     permissions: '32',
   },
   {
     name: 'Resource Manager',
-    type: 'Custom',
-    tone: 'blue',
+    tag: 'Custom',
     description: 'Manage allocations, capacity, bench, releases',
     users: 8,
     permissions: '28',
+    featured: true,
   },
   {
     name: 'Project Manager',
-    type: 'Custom',
-    tone: 'blue',
+    tag: 'Custom',
     description: 'View assigned projects, team, request resources',
     users: 14,
     permissions: '18',
   },
   {
     name: 'Management Viewer',
-    type: 'Custom',
-    tone: 'blue',
+    tag: 'Custom',
     description: 'Read-only access to dashboard, reports, insights',
     users: 6,
     permissions: '12',
   },
   {
     name: 'Employee',
-    type: 'Custom',
-    tone: 'slate',
-    description: 'Limited Phase 1 access — self-service ready',
+    tag: 'Custom',
+    description: 'Limited Phase 1 access - self-service ready',
     users: 198,
     permissions: '4',
   },
 ];
 
+const permissionHeaders = ['View', 'Create', 'Update', 'Delete', 'Export', 'Override'];
+
 const permissionGroups: PermissionGroup[] = [
   {
-    name: 'Dashboard',
-    icon: '◉',
+    title: 'Dashboard',
+    icon: <DashboardIcon fontSize="small" />,
+    action: 'Select all',
     rows: [
-      { name: 'Organization Dashboard', description: 'View KPIs, charts, widgets', checked: [0] },
+      {
+        name: 'Organization Dashboard',
+        detail: 'View KPIs, charts, widgets',
+        checked: [true, false, false, false, false, false],
+      },
     ],
   },
   {
-    name: 'Employees',
-    icon: '♟',
+    title: 'Employees',
+    icon: <GroupsIcon fontSize="small" />,
     rows: [
-      { name: 'View Employees', description: 'List and detail view', checked: [0, 4] },
-      { name: 'Manage Employees', description: 'Create, update, status change', checked: [0] },
+      {
+        name: 'View Employees',
+        detail: 'List and detail view',
+        checked: [true, false, false, false, true, false],
+      },
+      {
+        name: 'Manage Employees',
+        detail: 'Create, update, status change',
+        checked: [true, false, false, false, false, false],
+      },
     ],
   },
   {
-    name: 'Allocations',
-    icon: '↗',
+    title: 'Allocations',
+    icon: <AllocationIcon fontSize="small" />,
     rows: [
-      { name: 'View Allocations', description: 'List and details', checked: [0, 4] },
+      {
+        name: 'View Allocations',
+        detail: 'List and details',
+        checked: [true, false, false, false, true, false],
+      },
       {
         name: 'Create Allocations',
-        description: 'Assign employees to projects',
-        checked: [0, 1, 2],
+        detail: 'Assign employees to projects',
+        checked: [true, true, true, false, false, false],
       },
       {
         name: 'Override Overallocation',
-        description: '⚠ Requires override permission',
-        checked: [0, 1, 2, 5],
-        warning: true,
+        warning: 'Requires override permission',
+        checked: [true, true, true, false, false, true],
+        highlight: true,
       },
-      { name: 'Release Allocations', description: '', checked: [0, 2] },
-      { name: 'Extend Allocations', description: '', checked: [0, 2] },
+      {
+        name: 'Release Allocations',
+        checked: [true, false, true, false, false, false],
+      },
+      {
+        name: 'Extend Allocations',
+        checked: [true, false, true, false, false, false],
+      },
     ],
   },
   {
-    name: 'Reports',
-    icon: '▤',
+    title: 'Reports',
+    icon: <AssessmentIcon fontSize="small" />,
     rows: [
-      { name: 'Allocation Reports', description: '', checked: [0, 4] },
-      { name: 'Bench & Availability Reports', description: '', checked: [0, 4] },
+      {
+        name: 'Allocation Reports',
+        checked: [true, false, false, false, true, false],
+      },
+      {
+        name: 'Bench & Availability Reports',
+        checked: [true, false, false, false, true, false],
+      },
       {
         name: 'Financial Reports',
-        description: '🔒 Sensitive access required',
-        checked: [],
-        sensitive: true,
+        locked: 'Sensitive access required',
+        checked: [false, false, false, false, false, false],
       },
     ],
   },
 ];
 
-export default function RolesPage() {
-  const [checks, setChecks] = useState<Record<string, boolean>>({});
-  const toggle = (key: string, fallback: boolean) =>
-    setChecks((current) => ({ ...current, [key]: !(current[key] ?? fallback) }));
+const PermissionCheck = ({ checked, override }: { checked: boolean; override?: boolean }) => (
+  <Checkbox
+    size="small"
+    defaultChecked={checked}
+    className={override ? styles.overrideCheck : styles.permissionCheck}
+  />
+);
+
+const RolesPage = () => {
+  // State for expanded groups - all expanded by default
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    permissionGroups.forEach(group => {
+      initial[group.title] = true;
+    });
+    return initial;
+  });
+
+  const toggleGroup = (groupTitle: string) => {
+    setExpandedGroups(prev => ({
+      ...prev,
+      [groupTitle]: !prev[groupTitle]
+    }));
+  };
+
+  const roleColumns: TableColumn<RoleRow>[] = [
+    {
+      id: 'name',
+      label: 'Role Name',
+      renderCell: (role) => (
+        <>
+          <Typography className={role.featured ? styles.linkRole : styles.roleName}>
+            {role.name}
+          </Typography>
+          <Chip
+            label={role.tag}
+            size="small"
+            className={role.tag === 'System' ? styles.systemTag : styles.customTag}
+          />
+        </>
+      ),
+    },
+    { id: 'description', label: 'Description', field: 'description' },
+    { id: 'users', label: 'Users', field: 'users' },
+    { id: 'permissions', label: 'Permissions', field: 'permissions' },
+    {
+      id: 'actions',
+      label: 'Actions',
+      renderCell: () => (
+        <Stack direction="row" spacing={1.25}>
+          <Button variant="text" className={styles.textAction}>
+            Edit
+          </Button>
+          <Button variant="text" className={styles.secondaryAction}>
+            Assign Users
+          </Button>
+        </Stack>
+      ),
+    },
+  ];
+
   return (
-    <div className="pf-page pf-roles-page">
-       <div className="pf-planner-toolbar">
-      <PfPageHeader
-        title="Roles & Permissions"
-        subtitle="Manage role-based access control across the platform"
+    <Box className={styles.page}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        alignItems={{ xs: 'stretch', sm: 'flex-start' }}
+        justifyContent="space-between"
+        spacing={2}
+        className={styles.header}
       >
-        <button className="pf-button">＋ Create Role</button>
-      </PfPageHeader>
-      </div>
-      <section className="pf-card pf-table-card pf-roles-table-card">
-        <div className="pf-table-wrap">
-          <table className="pf-table pf-roles-table">
-            <thead>
-              <tr>
-                <th>Role Name</th>
-                <th>Description</th>
-                <th>Users</th>
-                <th>Permissions</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {roleRows.map((role) => (
-                <tr key={role.name}>
-                  <td>
-                    <strong>{role.name}</strong>
-                    <PfBadge tone={role.tone}>{role.type}</PfBadge>
-                  </td>
-                  <td>{role.description}</td>
-                  <td>
-                    <b>{role.users}</b>
-                  </td>
-                  <td>
-                    <b>{role.permissions}</b>
-                  </td>
-                  <td>
-                    <span className="pf-role-actions">
-                      <button>Edit</button>
-                      <button>Assign Users</button>
-                    </span>
-                  </td>
-                </tr>
+        <Box>
+          <Typography variant="h4" className={styles.title}>
+            Roles & Permissions
+          </Typography>
+          <Typography variant="body2" className={styles.subtitle}>
+            Manage role-based access control across the platform
+          </Typography>
+        </Box>
+        <Button variant="contained" startIcon={<AddIcon />} className={styles.createButton}>
+          Create Role
+        </Button>
+      </Stack>
+
+      <ReusableTable
+        rows={roles}
+        columns={roleColumns}
+        getRowId={(role) => role.name}
+      />
+
+      <Paper elevation={0} className={styles.roleEditor}>
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          justifyContent="space-between"
+          alignItems={{ xs: 'stretch', md: 'flex-start' }}
+          spacing={2}
+          className={styles.editorHeader}
+        >
+          <Box>
+            <Stack direction="row" spacing={1.25} alignItems="center" flexWrap="wrap">
+              <Typography variant="h5" className={styles.editorTitle}>
+                Resource Manager
+              </Typography>
+              <Chip label="Custom Role" size="small" className={styles.customTag} />
+              <Chip label="Active" size="small" className={styles.activeTag} />
+            </Stack>
+            <Typography variant="body2" className={styles.editorSubtitle}>
+              Manage allocations, capacity planning, bench employees, upcoming releases, and overallocations.
+            </Typography>
+            <Stack direction="row" spacing={1.5} alignItems="center" className={styles.searchRow}>
+              <TextField
+                size="small"
+                placeholder="Search permissions..."
+                className={styles.searchInput}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon fontSize="small" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Typography variant="body2" className={styles.enabledText}>
+                28 permissions enabled
+              </Typography>
+            </Stack>
+          </Box>
+          <ButtonGroup variant="outlined" className={styles.editGroup}>
+            <Button variant="contained">Edit</Button>
+            <Button>Duplicate</Button>
+          </ButtonGroup>
+        </Stack>
+      </Paper>
+
+      <TableContainer component={Paper} elevation={0} className={styles.permissionsTable}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Permission</TableCell>
+              {permissionHeaders.map((header) => (
+                <TableCell key={header} align="center">
+                  {header}
+                </TableCell>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {permissionGroups.map((group) => {
+              const isExpanded = expandedGroups[group.title] !== false;
 
-      <section className="pf-card pf-role-summary">
-        <div className="pf-role-summary__heading">
-          <div>
-            <h2>
-              Resource Manager <PfBadge>Custom Role</PfBadge> <PfBadge tone="green">Active</PfBadge>
-            </h2>
-            <p>
-              Manage allocations, capacity planning, bench employees, upcoming releases, and
-              overallocations.
-            </p>
-          </div>
-          <div className="pf-actions">
-            <button className="pf-button">Edit</button>
-            <button className="pf-button pf-button--ghost">Duplicate</button>
-          </div>
-        </div>
-        <div className="pf-role-summary__search">
-          <input placeholder="⌕  Search permissions..." />
-          <span>28 permissions enabled</span>
-        </div>
-      </section>
+              return (
+                <React.Fragment key={group.title}>
+                  {/* Group Header - Clickable to toggle */}
+                  <TableRow 
+                    className={styles.groupRow}
+                    onClick={() => toggleGroup(group.title)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={1.25}>
+                        <Box className={styles.groupIcon}>{group.icon}</Box>
+                        <Typography className={styles.groupTitle}>{group.title}</Typography>
+                        <Chip 
+                          label={`${group.rows.length} permissions`} 
+                          size="small" 
+                          variant="outlined"
+                          sx={{ ml: 1, height: 20, fontSize: '0.65rem' }}
+                        />
+                      </Stack>
+                    </TableCell>
+                    <TableCell colSpan={permissionHeaders.length} align="right">
+                      <Stack direction="row" spacing={1.25} justifyContent="flex-end" alignItems="center">
+                        {group.action && (
+                          <Button 
+                            variant="text" 
+                            className={styles.selectAll}
+                            onClick={(e) => e.stopPropagation()} // Prevent group toggle
+                          >
+                            {group.action}
+                          </Button>
+                        )}
+                        <ExpandMoreIcon 
+                          fontSize="small" 
+                          className={`${styles.expandIcon} ${isExpanded ? styles.expanded : ''}`}
+                          sx={{ 
+                            transition: 'transform 0.25s ease',
+                            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'
+                          }}
+                        />
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
 
-      <section className="pf-card pf-permissions">
-        <div className="pf-permission-head">
-          <strong>Permission</strong>
-          <div>
-            {['View', 'Create', 'Update', 'Delete', 'Export', 'Override'].map((label) => (
-              <span key={label}>{label}</span>
-            ))}
-          </div>
-        </div>
-        {permissionGroups.map((group) => (
-          <details open key={group.name}>
-            <summary>
-              <span>
-                <i>{group.icon}</i>
-                {group.name}
-              </span>
-              <span>Select all　⌄</span>
-            </summary>
-            {group.rows.map((permission) => (
-              <label className={permission.warning ? 'warning' : ''} key={permission.name}>
-                <span>
-                  <strong>{permission.name}</strong>
-                  {permission.description && (
-                    <small className={permission.sensitive ? 'sensitive' : ''}>
-                      {permission.description}
-                    </small>
-                  )}
-                </span>
-                <span className="pf-permission-checks">
-                  {Array.from({ length: 6 }, (_, index) => {
-                    const key = `${permission.name}-${index}`;
-                    const fallback = permission.checked.includes(index);
-                    return (
-                      <input
-                        key={key}
-                        type="checkbox"
-                        aria-label={`${permission.name}: ${['View', 'Create', 'Update', 'Delete', 'Export', 'Override'][index]}`}
-                        checked={checks[key] ?? fallback}
-                        onChange={() => toggle(key, fallback)}
-                      />
-                    );
-                  })}
-                </span>
-              </label>
-            ))}
-          </details>
-        ))}
-      </section>
-      <footer className="pf-card pf-savebar">
-        <span>
-          ⓘ　Changes will affect all users assigned to the Resource Manager role (8 users).
-        </span>
-        <button className="pf-button pf-button--ghost">Cancel</button>
-        <button className="pf-button">Save Permissions</button>
-      </footer>
-    </div>
+                  {/* Permission Rows - Only show if expanded */}
+                  {isExpanded && group.rows.map((row) => (
+                    <TableRow key={`${group.title}-${row.name}`} className={row.highlight ? styles.highlightRow : undefined}>
+                      <TableCell>
+                        <Typography className={styles.permissionName}>{row.name}</Typography>
+                        {row.detail && (
+                          <Typography variant="caption" className={styles.permissionDetail}>
+                            {row.detail}
+                          </Typography>
+                        )}
+                        {row.warning && (
+                          <Stack direction="row" spacing={0.5} alignItems="center" className={styles.warningText}>
+                            <WarningAmberIcon fontSize="inherit" />
+                            <Typography variant="caption">{row.warning}</Typography>
+                          </Stack>
+                        )}
+                        {row.locked && (
+                          <Stack direction="row" spacing={0.5} alignItems="center" className={styles.lockedText}>
+                            <LockIcon fontSize="inherit" />
+                            <Typography variant="caption">{row.locked}</Typography>
+                          </Stack>
+                        )}
+                      </TableCell>
+                      {row.checked.map((checked, index) => (
+                        <TableCell key={`${row.name}-${permissionHeaders[index]}`} align="center">
+                          <PermissionCheck checked={checked} override={row.highlight && index === 5} />
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </React.Fragment>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Paper elevation={0} className={styles.saveBar}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+          alignItems={{ xs: 'stretch', sm: 'center' }}
+          spacing={2}
+        >
+          <Stack direction="row" spacing={1} alignItems="center" className={styles.saveHint}>
+            <InfoIcon fontSize="small" />
+            <Typography variant="body2">
+              Changes will affect all users assigned to the Resource Manager role (8 users).
+            </Typography>
+          </Stack>
+          <Stack direction="row" spacing={1.5} justifyContent="flex-end">
+            <Button variant="outlined" className={styles.cancelButton}>Cancel</Button>
+            <Button variant="contained" className={styles.saveButton}>Save Permissions</Button>
+          </Stack>
+        </Stack>
+      </Paper>
+    </Box>
   );
-}
+};
+
+export default RolesPage;

@@ -1,29 +1,48 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
-import { env } from '@/config/env';
 import { storage } from '@/utils/storage.utils';
 import { STORAGE_KEYS } from '@/constants/storage.constants';
-import { requestInterceptor } from './requestInterceptor';
-import { responseInterceptor } from './responseInterceptor';
-import { interceptorManager } from './interceptorManager';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: env.apiBaseUrl,
-  timeout: env.requestTimeout,
+  baseURL: API_BASE_URL,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-requestInterceptor(apiClient);
-responseInterceptor(apiClient);
+// Request interceptor
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Handle unauthorized access
+      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
+      storage.remove(STORAGE_KEYS.USER);
+      // Redirect to login if needed
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const api = apiClient;
-
-export const createApiClient = (config?: AxiosRequestConfig) =>
-  axios.create({ ...apiClient.defaults, ...config });
-
-export const getAuthHeaders = () => ({
-  Authorization: `Bearer ${storage.get(STORAGE_KEYS.ACCESS_TOKEN, '')}`,
-});
-
 export default apiClient;

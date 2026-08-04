@@ -1,14 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from '../reducers/rootReducer';
-import { registerStore } from './storeRegistry';
+import { rootReducer } from '../reducers';
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: import.meta.env.DEV,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
-registerStore(store);
-
-export type AppStore = typeof store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = (
+  dispatch: AppDispatch,
+  getState: () => RootState
+) => ReturnType;
+
+export default store;

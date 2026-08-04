@@ -1,7 +1,5 @@
-import React from 'react';
 import type { TableProps } from './Table.types';
-import './Table.scss';
-import { CardSkeleton } from '../Skeleton/CardSkeleton';
+import { ReusableTable, type TableColumn } from '../ReusableTable';
 
 export function Table<T>({
   columns,
@@ -9,30 +7,29 @@ export function Table<T>({
   loading,
   emptyMessage = 'No data',
   rowKey = 'id',
-  ...rest
 }: TableProps<T>) {
-  if (loading) return <CardSkeleton />;
-  if (!data || data.length === 0) return <div className="table--empty">{emptyMessage}</div>;
+  const tableColumns: TableColumn<T>[] = columns.map((column) => ({
+    id: column.key,
+    label: column.title,
+    sortable: column.sortable,
+    renderCell: (row) => {
+      if (column.render) {
+        return column.render(row);
+      }
+
+      const value = row[column.key as keyof T];
+      return value == null ? '' : String(value);
+    },
+  }));
 
   return (
-    <table className="table" {...rest}>
-      <thead>
-        <tr>
-          {columns.map((col) => (
-            <th key={col.key}>{col.title}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row: any) => (
-          <tr key={row[rowKey]}>
-            {columns.map((col) => (
-              <td key={col.key}>{col.render ? col.render(row) : row[col.key]}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <ReusableTable
+      rows={data ?? []}
+      columns={tableColumns}
+      getRowId={(row) => String(row[rowKey as keyof T])}
+      loading={loading}
+      emptyState={{ title: emptyMessage }}
+    />
   );
 }
 

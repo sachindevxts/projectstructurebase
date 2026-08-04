@@ -1,6 +1,13 @@
+/**
+ * @deprecated These components are being migrated to the design system.
+ * Please use components from @/features/shared or @mui/material instead.
+ */
+import React from 'react';
+import { Box, Typography, Stack, Chip, LinearProgress, Tabs as MuiTabs, Tab } from '@mui/material';
 import type { ReactNode } from 'react';
 
-export function PfPageHeader({
+// Keep for backward compatibility with legacy pages
+export const PfPageHeader = ({
   title,
   subtitle,
   children,
@@ -8,21 +15,49 @@ export function PfPageHeader({
   title: string;
   subtitle?: string;
   children?: ReactNode;
-}) {
+}) => {
   return (
-    <header className="pf-page-header">
-      <div>
-        <h1>{title}</h1>
-        {subtitle && <p>{subtitle}</p>}
-      </div>
-      <div className="pf-actions">{children}</div>
-    </header>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        gap: 2,
+        mb: 3,
+        flexWrap: 'wrap',
+      }}
+    >
+      <Box>
+        <Typography variant="h4" fontWeight={700}>
+          {title}
+        </Typography>
+        {subtitle && (
+          <Typography variant="body2" color="textSecondary">
+            {subtitle}
+          </Typography>
+        )}
+      </Box>
+      <Stack direction="row" spacing={1}>
+        {children}
+      </Stack>
+    </Box>
   );
-}
-export function PfBadge({ children, tone = 'blue' }: { children: ReactNode; tone?: string }) {
-  return <span className={`pf-badge pf-badge--${tone}`}>{children}</span>;
-}
-export function PfFilterBar({
+};
+
+// Re-export Chip as PfBadge for backward compatibility
+export const PfBadge = ({ children, tone = 'blue' }: { children: ReactNode; tone?: string }) => {
+  const colorMap: Record<string, any> = {
+    blue: 'primary',
+    green: 'success',
+    red: 'error',
+    orange: 'warning',
+    purple: 'secondary',
+    slate: 'default',
+  };
+  return <Chip label={children} color={colorMap[tone] || 'default'} size="small" />;
+};
+
+export const PfFilterBar = ({
   search,
   setSearch,
   children,
@@ -30,33 +65,59 @@ export function PfFilterBar({
   search: string;
   setSearch: (value: string) => void;
   children?: ReactNode;
-}) {
+}) => {
   return (
-    <section className="pf-filter">
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 2,
+        alignItems: 'flex-end',
+        p: 2,
+        mb: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 'var(--radius-xl)',
+      }}
+    >
       <input
-        aria-label="Search"
-        placeholder="Search name, project or ID…"
+        placeholder="Search..."
         value={search}
-        onChange={(event) => setSearch(event.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ flex: 1, padding: '8px 12px', border: '1px solid #ddd', borderRadius: 'var(--radius-sm)' }}
       />
       {children}
-      <button type="button" className="pf-link" onClick={() => setSearch('')}>
+      <button
+        onClick={() => setSearch('')}
+        style={{ background: 'none', border: 'none', color: '#4f46e5', cursor: 'pointer' }}
+      >
         Clear
       </button>
-    </section>
+    </Box>
   );
-}
-export function CapacityBar({ value }: { value: number }) {
+};
+
+export const CapacityBar = ({ value }: { value: number }) => {
+  const isOverallocated = value > 100;
   return (
-    <div className="pf-capacity">
-      {/* <strong className={value > 100 ? 'danger' : ''}>{value}%</strong> */}
-      <span>
-        <i style={{ width: `${Math.min(value, 100)}%` }} className={value > 100 ? 'danger' : ''} />
-      </span>
-    </div>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 80 }}>
+      <LinearProgress
+        variant="determinate"
+        value={Math.min(value, 100)}
+        sx={{ flex: 1, height: 6, borderRadius: 'var(--radius-sm)', bgcolor: 'divider' }}
+        color={isOverallocated ? 'error' : 'primary'}
+      />
+      <Typography
+        variant="caption"
+        fontWeight={600}
+        color={isOverallocated ? 'error' : 'text.primary'}
+      >
+        {value}%
+      </Typography>
+    </Box>
   );
-}
-export function Tabs({
+};
+
+export const Tabs = ({
   items,
   active,
   setActive,
@@ -64,18 +125,19 @@ export function Tabs({
   items: string[];
   active: string;
   setActive: (value: string) => void;
-}) {
+}) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+    setActive(newValue);
+  };
   return (
-    <div className="pf-tabs">
+    <MuiTabs
+      value={active}
+      onChange={handleChange}
+      sx={{ borderBottom: 1, borderColor: 'divider' }}
+    >
       {items.map((item) => (
-        <button
-          key={item}
-          className={active === item ? 'active' : ''}
-          onClick={() => setActive(item)}
-        >
-          {item}
-        </button>
+        <Tab key={item} label={item} value={item} />
       ))}
-    </div>
+    </MuiTabs>
   );
-}
+};
