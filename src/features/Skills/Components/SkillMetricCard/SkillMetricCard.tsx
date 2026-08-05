@@ -12,7 +12,7 @@ interface SkillMetricCardProps {
 export const SkillMetricCard = ({ label, value, color, icon }: SkillMetricCardProps) => {
   return (
     <Paper elevation={0} className={styles.metricCard}>
-      <Box className={styles.metricIcon} sx={{ color: color || '#64748B' }}>
+      <Box className={styles.metricIcon} sx={{ color: color || 'var(--color-text-muted)' }}>
         <Typography variant="h6">{icon}</Typography>
       </Box>
       <Box>

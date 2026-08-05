@@ -31,7 +31,7 @@ export const SkillCharts = ({ skills }: SkillChartsProps) => {
   const categoryData: SkillCategory[] = Object.entries(categoryMap).map(([name, count]) => ({
     name,
     count,
-    color: CATEGORY_COLORS[name] || '#64748B',
+    color: CATEGORY_COLORS[name] || 'var(--color-text-muted)',
   }));
 
   const total = categoryData.reduce((sum, item) => sum + item.count, 0);

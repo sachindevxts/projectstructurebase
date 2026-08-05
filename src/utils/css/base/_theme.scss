@@ -17,13 +17,13 @@
   --color-surface-muted: #f8fafc;
   --surface-raised: rgb(255 255 255 / 96%);
   --surface-glass: rgb(255 255 255 / 82%);
-  --input-background: #ffffff;
+  --input-background: var(--color-surface);
 
   --color-text-primary: #172033;
   --color-text-secondary: #526078;
   --color-text-muted: #7a879d;
   --color-border: #dfe5ef;
-  --color-border-strong: #cbd5e1;
+  --color-border-strong: var(--color-border);
   --color-focus: #4f46e5;
   --color-focus-ring: rgb(79 70 229 / 18%);
   --color-overlay: rgb(15 23 42 / 48%);
@@ -35,7 +35,7 @@
   --color-error: #c2415a;
   --color-error-soft: #fff0f3;
   --color-info: #2563eb;
-  --color-info-soft: #eff6ff;
+  --color-info-soft: var(--color-info-surface);
 
   --glass-border: rgb(148 163 184 / 24%);
   --shadow-xs: 0 1px 2px rgb(15 23 42 / 5%);
@@ -47,7 +47,7 @@
   --app-background-art:
     radial-gradient(circle at 5% 0%, rgb(79 70 229 / 8%), transparent 30%),
     radial-gradient(circle at 95% 10%, rgb(13 148 136 / 7%), transparent 26%),
-    linear-gradient(180deg, #f8faff 0%, #f3f5f9 52%, #eef2f7 100%);
+    linear-gradient(180deg, #f8faff 0%, #f3f5f9 52%, var(--color-border) 100%);
 
   --topbar-height: 64px;
   --topbar-background: rgb(255 255 255 / 84%);
@@ -57,7 +57,7 @@
   --sidebar-overlay: radial-gradient(circle at 18% 0%, rgb(99 102 241 / 24%), transparent 32%);
   --sidebar-border: rgb(255 255 255 / 8%);
   --sidebar-shadow: 12px 0 36px rgb(15 23 42 / 14%);
-  --sidebar-text: #cbd5e1;
+  --sidebar-text: var(--color-border);
   --sidebar-text-muted: #8290a7;
   --sidebar-text-active: #ffffff;
   --sidebar-hover: rgb(255 255 255 / 7%);

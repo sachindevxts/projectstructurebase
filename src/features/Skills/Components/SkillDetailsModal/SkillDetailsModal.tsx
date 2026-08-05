@@ -36,22 +36,22 @@ export const SkillDetailsModal = ({
   onDeactivate,
 }: SkillDetailsModalProps) => {
   const getPopularityColor = (popularity: number = 0) => {
-    if (popularity >= 80) return '#22C55E';
-    if (popularity >= 60) return '#F59E0B';
-    return '#EF4444';
+    if (popularity >= 80) return 'var(--color-success-light)';
+    if (popularity >= 60) return 'var(--color-warning-light)';
+    return 'var(--color-error)';
   };
 
   const getDemandColor = (demand: string) => {
     switch (demand.toLowerCase()) {
       case 'high':
       case 'critical':
-        return '#EF4444';
+        return 'var(--color-error)';
       case 'medium':
-        return '#F59E0B';
+        return 'var(--color-warning-light)';
       case 'low':
-        return '#22C55E';
+        return 'var(--color-success-light)';
       default:
-        return '#64748B';
+        return 'var(--color-text-muted)';
     }
   };
 
@@ -60,7 +60,7 @@ export const SkillDetailsModal = ({
       label: 'Employees', 
       value: skill.employees, 
       icon: '👥',
-      color: '#3B82F6',
+      color: 'var(--color-info)',
     },
     { 
       label: 'Popularity', 
@@ -78,7 +78,7 @@ export const SkillDetailsModal = ({
       label: 'Coverage', 
       value: `${skill.coverage || 0}%`, 
       icon: '🎯',
-      color: skill.gap === 'Gap' ? '#EF4444' : '#22C55E',
+      color: skill.gap === 'Gap' ? 'var(--color-error)' : 'var(--color-success-light)',
     },
   ];
 

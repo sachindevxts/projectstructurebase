@@ -1,7 +1,7 @@
 .container {
   border-radius: var(--radius-md) !important;
-  border: 1px solid #dbe3ef !important;
-  background: #fff !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-surface) !important;
   overflow: hidden;
 }
 
@@ -10,18 +10,18 @@
 }
 
 .table {
-  min-width: 920px;
+  min-width: 100%;
 
   :global(.MuiTableCell-root) {
-    border-bottom-color: #dbe3ef;
-    color: #0f172a;
+    border-bottom-color: var(--color-border);
+    color: var(--color-text-primary);
     font-size: 14px;
     vertical-align: middle;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
     height: 44px;
@@ -30,14 +30,13 @@
   }
 
   :global(.MuiCheckbox-root) {
-    color: #64748b;
-    padding: 4px;
+    color: var(--color-text-muted);
   }
 }
 
 .filtersRow {
   :global(.MuiTableCell-root) {
-    background: #fff;
+    background: var(--color-surface);
     padding: 8px 12px;
   }
 }
@@ -56,12 +55,12 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: #64748b;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
 .emptyTitle {
-  color: #0f172a !important;
+  color: var(--color-text-primary) !important;
   font-weight: 700 !important;
 }
 
@@ -75,15 +74,15 @@
   justify-content: space-between;
   gap: 16px;
   padding: 12px 16px;
-  border-top: 1px solid #dbe3ef;
-  color: #64748b;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
 }
 
 .resultText {
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 
   strong {
-    color: #0f172a;
+    color: var(--color-text-primary);
   }
 }
 

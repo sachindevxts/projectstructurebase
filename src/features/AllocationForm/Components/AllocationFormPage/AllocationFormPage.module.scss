@@ -3,7 +3,7 @@
 
 .page {
   min-height: calc(100vh - 52px);
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   padding-bottom: 76px;
 }
 
@@ -16,7 +16,7 @@
 }
 
 .title {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
@@ -24,7 +24,7 @@
 
 .subtitle {
   margin-top: 4px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 16px !important;
 }
 
@@ -33,7 +33,7 @@
   margin-bottom: 22px;
   border: 1px solid #ef4444 !important;
   border-radius: var(--radius-md) !important;
-  background: #fff1f2 !important;
+  background: var(--color-error-surface) !important;
   color: #dc2626;
 }
 
@@ -55,7 +55,20 @@
 .formGrid {
   display: grid;
   grid-template-columns: minmax(380px, 1fr) minmax(420px, 1.05fr);
+  align-items: start;
   gap: 24px;
+
+  > * {
+    min-height: 0;
+  }
+
+  > :only-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.detailsColumn {
+  min-width: 0;
 }
 
 .footerBar {
@@ -65,9 +78,9 @@
   left: 220px;
   z-index: 20;
   padding: 16px 32px;
-  border-top: 1px solid #dbe3ef !important;
+  border-top: 1px solid var(--color-border) !important;
   border-radius: 0 !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .footerWarning {
@@ -86,9 +99,9 @@
 
 .footerButton {
   min-width: 104px !important;
-  color: #0f172a !important;
-  border-color: #dbe3ef !important;
-  background: #fff !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
 }
 
 .createButton {

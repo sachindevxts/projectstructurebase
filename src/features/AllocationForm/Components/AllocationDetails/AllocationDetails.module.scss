@@ -3,14 +3,14 @@
 
 .card {
   padding: 24px;
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .title {
   margin-bottom: 16px !important;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 18px !important;
   font-weight: 700 !important;
 }
@@ -23,14 +23,14 @@
 }
 
 .projectName {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 18px !important;
   font-weight: 700 !important;
 }
 
 .projectMeta,
 .projectDates {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .projectDates {
@@ -67,7 +67,7 @@
   padding: 20px 24px;
   border: 1px solid #ef4444 !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .overrideTitle {
@@ -81,7 +81,7 @@
 
 .overrideCopy {
   margin: 10px 0 14px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .overrideInput {

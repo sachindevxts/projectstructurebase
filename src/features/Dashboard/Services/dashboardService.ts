@@ -63,7 +63,7 @@ class DashboardService {
           change: 8,
           trend: 'up',
           icon: '👥',
-          color: '#3B82F6',
+          color: 'var(--color-info)',
         },
         {
           id: 'active-employees',
@@ -72,7 +72,7 @@ class DashboardService {
           change: 12,
           trend: 'up',
           icon: '✅',
-          color: '#22C55E',
+          color: 'var(--color-success-light)',
         },
         {
           id: 'on-leave',
@@ -81,7 +81,7 @@ class DashboardService {
           change: -3,
           trend: 'down',
           icon: '🏖️',
-          color: '#F59E0B',
+          color: 'var(--color-warning-light)',
         },
         {
           id: 'contractors',
@@ -90,7 +90,7 @@ class DashboardService {
           change: 5,
           trend: 'up',
           icon: '📋',
-          color: '#8B5CF6',
+          color: 'var(--color-accent-purple)',
         },
         {
           id: 'billable',
@@ -99,7 +99,7 @@ class DashboardService {
           change: 2,
           trend: 'up',
           icon: '💰',
-          color: '#22C55E',
+          color: 'var(--color-success-light)',
         },
         {
           id: 'open-positions',
@@ -108,7 +108,7 @@ class DashboardService {
           change: -4,
           trend: 'down',
           icon: '🔍',
-          color: '#EF4444',
+          color: 'var(--color-error)',
         },
       ],
       billableVsNonBillable: {

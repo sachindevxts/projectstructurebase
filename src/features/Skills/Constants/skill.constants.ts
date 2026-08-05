@@ -10,13 +10,13 @@ export const SKILL_CATEGORIES = [
 ] as const;
 
 export const CATEGORY_COLORS: Record<string, string> = {
-  Frontend: '#3B82F6',
-  Backend: '#22C55E',
-  DevOps: '#F59E0B',
-  Design: '#8B5CF6',
-  QA: '#EF4444',
-  Data: '#EC4899',
-  'Soft Skills': '#14B8A6',
+  Frontend: 'var(--color-info)',
+  Backend: 'var(--color-success-light)',
+  DevOps: 'var(--color-warning-light)',
+  Design: 'var(--color-accent-purple)',
+  QA: 'var(--color-error)',
+  Data: 'var(--color-accent-pink)',
+  'Soft Skills': 'var(--color-accent-teal)',
 };
 
 export const DEMAND_LEVELS = ['Low', 'Medium', 'High', 'Critical'] as const;

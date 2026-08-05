@@ -5,15 +5,15 @@
   min-width: 0;
   height: 178px;
   padding: 18px 18px 14px;
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   overflow: hidden;
 }
 
 .title {
   margin-bottom: 10px !important;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 16px !important;
   font-weight: 700 !important;
 }
@@ -45,7 +45,7 @@
   height: 100%;
   min-width: 0;
   padding-top: 8px;
-  border-bottom: 1px solid #cbd5e1;
+  border-bottom: 1px solid var(--color-border);
   background-image: linear-gradient(#edf2f7 1px, transparent 1px);
   background-size: 100% 24px;
 }

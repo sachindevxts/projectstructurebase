@@ -1,9 +1,9 @@
-$button-bg-primary: #0b5fff;
-$button-color-primary: #ffffff;
-$button-bg-secondary: #f3f4f6;
-$button-color-secondary: #111827;
-$button-bg-danger: #ef4444;
-$button-color-danger: #ffffff;
+$button-bg-primary: var(--color-primary);
+$button-color-primary: var(--color-on-primary);
+$button-bg-secondary: var(--color-surface-muted);
+$button-color-secondary: var(--color-text-primary);
+$button-bg-danger: var(--color-error);
+$button-color-danger: var(--color-on-error);
 
 $radius-xs: var(--radius-xs);
 $radius-sm: var(--radius-sm);

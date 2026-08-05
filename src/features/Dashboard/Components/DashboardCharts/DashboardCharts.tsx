@@ -27,8 +27,8 @@ interface DashboardChartsProps {
 
 export const DashboardCharts = ({ billableData, departmentData }: DashboardChartsProps) => {
   const pieData = [
-    { name: 'Billable', value: billableData.billable, color: '#22C55E' },
-    { name: 'Non-Billable', value: billableData.nonBillable, color: '#94A3B8' },
+    { name: 'Billable', value: billableData.billable, color: 'var(--color-success-light)' },
+    { name: 'Non-Billable', value: billableData.nonBillable, color: 'var(--color-text-muted)' },
   ];
 
   const maxDepartment = Math.max(...departmentData.map(d => d.count));
@@ -96,7 +96,7 @@ export const DashboardCharts = ({ billableData, departmentData }: DashboardChart
                       className={styles.barFill}
                       sx={{
                         width: `${(dept.count / maxDepartment) * 100}%`,
-                        bgcolor: DEPARTMENT_COLORS[dept.department as keyof typeof DEPARTMENT_COLORS] || '#3B82F6',
+                        bgcolor: DEPARTMENT_COLORS[dept.department as keyof typeof DEPARTMENT_COLORS] || 'var(--color-info)',
                       }}
                     />
                   </Box>

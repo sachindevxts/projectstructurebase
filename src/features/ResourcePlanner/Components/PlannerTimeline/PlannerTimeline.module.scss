@@ -2,7 +2,7 @@
 @import '../../../../utils/css/abstracts/mixins';
 
 .timeline {
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .legendBar {
@@ -24,7 +24,7 @@
 }
 
 .legendLabel {
-  color: #111827 !important;
+  color: var(--color-text-primary) !important;
   font-weight: $font-weight-bold !important;
 }
 
@@ -75,7 +75,7 @@
   padding: 0 20px;
   border-right: 1px solid #dde4ef;
   border-bottom: 1px solid #dde4ef;
-  color: #475569;
+  color: var(--color-text-secondary);
   font-size: 13px;
   font-weight: $font-weight-bold;
 }
@@ -133,18 +133,18 @@
   height: 69px;
   padding: 10px 12px;
   border-bottom: 1px solid #dde4ef;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .overallocatedLane {
-  background: #fff1f1;
+  background: var(--color-error-surface);
 }
 
 .avatar {
   width: 28px !important;
   height: 28px !important;
   background: #dbeafe !important;
-  color: #334155 !important;
+  color: var(--color-text-primary) !important;
   font-size: 11px !important;
   font-weight: $font-weight-bold !important;
 }
@@ -154,7 +154,7 @@
 }
 
 .employeeName {
-  color: #111827 !important;
+  color: var(--color-text-primary) !important;
   font-size: 13px !important;
   font-weight: $font-weight-bold !important;
   line-height: 1.2 !important;
@@ -163,7 +163,7 @@
 .employeeRole {
   display: block;
   margin-bottom: 5px !important;
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
   font-size: 11px !important;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .benchBar {
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--color-border);
 }
 
 .state {

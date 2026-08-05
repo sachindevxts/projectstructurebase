@@ -83,12 +83,17 @@ export const PfFilterBar = ({
         placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ flex: 1, padding: '8px 12px', border: '1px solid #ddd', borderRadius: 'var(--radius-sm)' }}
+        style={{
+          flex: 1,
+          padding: '8px 12px',
+          border: '1px solid var(--color-border)',
+          borderRadius: 'var(--radius-sm)',
+        }}
       />
       {children}
       <button
         onClick={() => setSearch('')}
-        style={{ background: 'none', border: 'none', color: '#4f46e5', cursor: 'pointer' }}
+        style={{ background: 'none', border: 'none', color: 'var(--color-primary)', cursor: 'pointer' }}
       >
         Clear
       </button>

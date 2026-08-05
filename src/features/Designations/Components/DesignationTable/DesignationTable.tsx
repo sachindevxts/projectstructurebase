@@ -49,12 +49,16 @@ export const DesignationTable = ({
       id: 'level',
       label: 'Level',
       renderCell: (designation) => {
-        const levelColor = DESIGNATION_LEVEL_COLORS[designation.level] ?? '#64748B';
+        const levelColor = DESIGNATION_LEVEL_COLORS[designation.level] ?? 'var(--color-text-muted)';
         return (
           <Chip
             label={designation.level}
             size="small"
-            sx={{ bgcolor: `${levelColor}20`, color: levelColor, fontWeight: 600 }}
+            sx={{
+              bgcolor: `color-mix(in srgb, ${levelColor} 14%, transparent)`,
+              color: levelColor,
+              fontWeight: 600,
+            }}
           />
         );
       },

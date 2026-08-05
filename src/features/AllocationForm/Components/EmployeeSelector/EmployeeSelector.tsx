@@ -19,6 +19,7 @@ interface EmployeeSelectorProps {
   employees: AllocationFormEmployee[];
   value: string;
   onChange: (employeeId: string) => void;
+  maxHeight?: number;
 }
 
 const skillsByEmployee: Record<string, string[]> = {
@@ -36,8 +37,16 @@ const allocationNote = (employee: AllocationFormEmployee) => {
   return `${employee.allocation}% allocated`;
 };
 
-export const EmployeeSelector = ({ employees, value, onChange }: EmployeeSelectorProps) => (
-  <Paper elevation={0} className={styles.card}>
+export const EmployeeSelector = ({ employees, value, onChange, maxHeight }: EmployeeSelectorProps) => (
+  <Paper
+    elevation={0}
+    className={styles.card}
+    style={
+      {
+        '--employee-selector-height': maxHeight ? `${maxHeight}px` : undefined,
+      } as React.CSSProperties
+    }
+  >
     <Typography variant="h6" className={styles.title}>
       Select Employee
     </Typography>
@@ -66,7 +75,7 @@ export const EmployeeSelector = ({ employees, value, onChange }: EmployeeSelecto
     </Stack>
 
     <Stack spacing={1.5} className={styles.employeeList}>
-      {employees.slice(0, 3).map((employee) => {
+      {employees.map((employee) => {
         const selected = employee.id === value;
         return (
           <Paper

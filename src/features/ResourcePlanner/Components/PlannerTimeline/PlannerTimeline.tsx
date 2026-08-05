@@ -134,7 +134,7 @@ export const PlannerTimeline = ({ allocations, loading = false }: PlannerTimelin
 
         <Box className={styles.employeeColumn}>
           {lanes.map((lane) => {
-            const statusColor = PLANNER_STATUS_COLORS[lane.status] ?? '#64748B';
+            const statusColor = PLANNER_STATUS_COLORS[lane.status] ?? 'var(--color-text-muted)';
             return (
               <Box key={lane.employeeId} className={`${styles.employeeLane} ${lane.status === 'Overallocated' ? styles.overallocatedLane : ''}`}>
                 <Avatar className={styles.avatar}>{getInitials(lane.employee)}</Avatar>
@@ -150,8 +150,8 @@ export const PlannerTimeline = ({ allocations, loading = false }: PlannerTimelin
                     size="small"
                     className={styles.capacityChip}
                     sx={{
-                      backgroundColor: `${statusColor}22`,
-                      color: lane.status === 'Bench' ? '#64748B' : statusColor,
+                      backgroundColor: `color-mix(in srgb, ${statusColor} 14%, transparent)`,
+                      color: lane.status === 'Bench' ? 'var(--color-text-muted)' : statusColor,
                     }}
                   />
                 </Box>
@@ -169,7 +169,7 @@ export const PlannerTimeline = ({ allocations, loading = false }: PlannerTimelin
             {lanes.map((lane) => (
               <Box key={lane.employeeId} className={`${styles.timelineLane} ${lane.status === 'Overallocated' ? styles.overallocatedLane : ''}`}>
                 {lane.allocations.map((allocation, index) => {
-                  const statusColor = PLANNER_STATUS_COLORS[allocation.status] ?? '#64748B';
+                  const statusColor = PLANNER_STATUS_COLORS[allocation.status] ?? 'var(--color-text-muted)';
                   const isBench = allocation.status === 'Bench';
                   return (
                     <Box
@@ -180,7 +180,7 @@ export const PlannerTimeline = ({ allocations, loading = false }: PlannerTimelin
                         top: 10 + index * 32,
                         width: getWidth(allocation.startDate, allocation.endDate),
                         backgroundColor: statusColor,
-                        color: isBench ? '#475569' : '#fff',
+                      color: isBench ? 'var(--color-text-secondary)' : 'var(--color-on-primary)',
                       }}
                     >
                       {allocation.project} · {allocation.status === 'Bench' ? 'Bench 68 days' : `${allocation.allocation}%`}

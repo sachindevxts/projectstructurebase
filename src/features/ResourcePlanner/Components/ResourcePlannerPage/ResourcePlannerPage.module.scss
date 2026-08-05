@@ -11,7 +11,7 @@
   min-height: calc(100vh - 72px);
   border-radius: 0 !important;
   border: 1px solid #dde4ef !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   overflow: hidden;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .title {
-  color: #111827 !important;
+  color: var(--color-text-primary) !important;
   font-size: 18px !important;
   font-weight: $font-weight-bold !important;
   margin-right: 2px !important;
@@ -75,13 +75,13 @@
   height: 36px !important;
   border: 1px solid #d7deea !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
-  color: #64748b !important;
+  background: var(--color-surface) !important;
+  color: var(--color-text-muted) !important;
 }
 
 .monthLabel {
   min-width: 86px;
-  color: #111827 !important;
+  color: var(--color-text-primary) !important;
   font-weight: $font-weight-bold !important;
   text-align: center;
 }

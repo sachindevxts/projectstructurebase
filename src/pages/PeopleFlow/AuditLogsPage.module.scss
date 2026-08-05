@@ -3,7 +3,7 @@
 
 .page {
   padding: 24px 26px;
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   min-height: calc(100vh - 52px);
 }
 
@@ -12,7 +12,7 @@
 }
 
 .title {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
@@ -20,7 +20,7 @@
 
 .subtitle {
   margin-top: 4px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 16px !important;
 }
 
@@ -35,16 +35,16 @@
 
 .exportButton {
   height: 40px;
-  color: #475569 !important;
-  border-color: #dbe3ef !important;
-  background: #fff !important;
+  color: var(--color-text-secondary) !important;
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
 }
 
 .filtersCard,
 .tableCard {
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .filtersCard {
@@ -62,7 +62,7 @@
   :global(.MuiInputBase-root) {
     height: 42px;
     border-radius: var(--radius-md);
-    background: #f8fafc;
+    background: var(--color-surface-muted);
     font-size: 14px;
   }
 }
@@ -74,7 +74,7 @@
   gap: 5px;
 
   :global(.MuiTypography-caption) {
-    color: #64748b;
+    color: var(--color-text-muted);
     font-size: 12px;
   }
 }
@@ -100,7 +100,7 @@
   align-self: flex-end;
   min-width: 0 !important;
   height: 42px;
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .tableCard {
@@ -111,16 +111,16 @@
   }
 
   :global(.MuiTableCell-root) {
-    border-bottom-color: #dbe3ef;
+    border-bottom-color: var(--color-border);
     padding: 14px 18px;
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 14px;
     vertical-align: top;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
     vertical-align: middle;
@@ -130,7 +130,7 @@
 .dateText,
 .userName,
 .entityText {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 14px !important;
   font-weight: 600 !important;
   line-height: 1.25 !important;
@@ -139,15 +139,15 @@
 .timeText,
 .entityId {
   display: block;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 12px !important;
 }
 
 .avatar {
   width: 28px !important;
   height: 28px !important;
-  background: #cbd5e1 !important;
-  color: #0f172a !important;
+  background: var(--color-border) !important;
+  color: var(--color-text-primary) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
 }
@@ -189,7 +189,7 @@
 
 .reasonCell {
   width: 210px;
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
   line-height: 1.35;
 }
 
@@ -201,17 +201,17 @@
 
 .footer {
   padding: 14px 16px;
-  border-top: 1px solid #dbe3ef;
+  border-top: 1px solid var(--color-border);
 }
 
 .footerText {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .drawerPaper {
   width: min(430px, 100vw);
-  background: #fff !important;
-  border-left: 1px solid #dbe3ef;
+  background: var(--color-surface) !important;
+  border-left: 1px solid var(--color-border);
 }
 
 .drawerHeader {
@@ -220,18 +220,18 @@
   justify-content: space-between;
   gap: 16px;
   padding: 20px 20px 16px;
-  border-bottom: 1px solid #dbe3ef;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .drawerTitle {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 18px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
 }
 
 .drawerTimestamp {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .drawerContent {
@@ -241,9 +241,9 @@
 .metaCard,
 .changesCard,
 .snapshot {
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #f8fafc !important;
+  background: var(--color-surface-muted) !important;
 }
 
 .metaCard {
@@ -252,17 +252,17 @@
 
 .detailRow {
   padding: 5px 0;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .detailValue {
-  color: #0f172a !important;
+  color: var(--color-text-primary) !important;
   text-align: right;
 }
 
 .sectionTitle {
   margin: 22px 0 10px !important;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-weight: 700 !important;
 }
 
@@ -270,8 +270,8 @@
   padding: 14px 16px;
   border: 1px solid #f5c84c !important;
   border-radius: var(--radius-md) !important;
-  background: #fffbeb !important;
-  color: #64748b;
+  background: var(--color-warning-surface) !important;
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.35;
 }
@@ -289,15 +289,15 @@
 
 .changeHead {
   padding: 10px 14px;
-  border-bottom: 1px solid #dbe3ef;
-  color: #64748b;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   font-size: 12px;
   font-weight: 700;
 }
 
 .changeRow {
   padding: 8px 14px;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 13px;
 }
 
@@ -309,7 +309,7 @@
 
 .oldValue {
   color: #15803d;
-  background: #f0fdf4;
+  background: var(--color-success-surface);
 }
 
 .newValue {

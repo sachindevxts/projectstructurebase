@@ -2,14 +2,14 @@
 @import '../../../../utils/css/abstracts/mixins';
 
 .page {
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   min-height: calc(100vh - 52px);
 }
 
 .profileHeader {
   padding: 24px 26px 20px;
-  background: #fff;
-  border-bottom: 1px solid #dbe3ef;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .avatarWrap {
@@ -30,11 +30,11 @@
 .avatar {
   width: 72px !important;
   height: 72px !important;
-  background: #cbd5e1 !important;
-  color: #0f172a !important;
+  background: var(--color-border) !important;
+  color: var(--color-text-primary) !important;
   font-size: 26px !important;
   font-weight: 700 !important;
-  box-shadow: inset 0 0 0 3px #e2e8f0;
+  box-shadow: inset 0 0 0 3px var(--color-border);
 }
 
 .profileInfo {
@@ -42,7 +42,7 @@
 }
 
 .employeeName {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1.15 !important;
@@ -50,13 +50,13 @@
 
 .employeeId,
 .muted {
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .metaLine,
 .allocationLine {
   margin-top: 10px;
-  color: #64748b;
+  color: var(--color-text-muted);
 
   span {
     display: inline-flex;
@@ -66,7 +66,7 @@
   }
 
   svg {
-    color: #64748b;
+    color: var(--color-text-muted);
   }
 }
 
@@ -74,7 +74,7 @@
   margin-top: 14px;
 
   p {
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 14px;
     font-weight: 700;
   }
@@ -91,7 +91,7 @@
   height: 7px;
   overflow: hidden;
   border-radius: var(--radius-full);
-  background: #e2e8f0;
+  background: var(--color-border);
 }
 
 .primaryBar {
@@ -133,9 +133,9 @@
 
 .outlineButton {
   height: 40px;
-  color: #0f172a !important;
-  border-color: #dbe3ef !important;
-  background: #fff !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
 }
 
 .editButton {
@@ -146,13 +146,13 @@
 .moreButton {
   width: 40px;
   height: 40px;
-  border: 1px solid #dbe3ef !important;
-  color: #64748b !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text-muted) !important;
 }
 
 .tabsWrap {
-  background: #fff;
-  border-bottom: 1px solid #dbe3ef;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tabs {
@@ -162,7 +162,7 @@
   :global(.MuiTab-root) {
     min-height: 48px;
     padding-inline: 18px;
-    color: #64748b;
+    color: var(--color-text-muted);
     font-size: 15px;
     font-weight: 600;
     text-transform: none;
@@ -181,9 +181,9 @@
 .sideCard,
 .cardNarrow,
 .tableCard {
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .card {
@@ -196,7 +196,7 @@
 
 .cardTitle {
   margin-bottom: 22px !important;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 18px !important;
   font-weight: 700 !important;
 }
@@ -233,7 +233,7 @@
 }
 
 .detailValue {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-weight: 600 !important;
 }
 
@@ -262,8 +262,8 @@
 }
 
 .nonBillableChip {
-  background: #eef2f7 !important;
-  color: #0f172a !important;
+  background: var(--color-border) !important;
+  color: var(--color-text-primary) !important;
 }
 
 .orangeSkill {
@@ -276,12 +276,12 @@
   justify-content: space-between;
   gap: 20px;
   padding: 16px 18px;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md) !important;
 }
 
 .allocationTitle {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 17px !important;
   font-weight: 700 !important;
 }
@@ -289,7 +289,7 @@
 .allocationMeta,
 .allocationDate {
   margin-top: 4px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .allocationValue {
@@ -297,14 +297,14 @@
   text-align: right;
 
   p {
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 28px;
     font-weight: 700;
     line-height: 1;
   }
 
   span {
-    color: #64748b;
+    color: var(--color-text-muted);
     font-size: 12px;
   }
 }
@@ -321,7 +321,7 @@
   border-radius: var(--radius-full);
 
   p {
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 25px;
     font-weight: 700;
     line-height: 1;
@@ -329,13 +329,13 @@
 
   span {
     margin-top: 5px;
-    color: #64748b;
+    color: var(--color-text-muted);
     font-size: 10px;
   }
 }
 
 .capacityText {
-  color: #64748b;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
@@ -345,7 +345,7 @@
 }
 
 .contactList {
-  color: #64748b;
+  color: var(--color-text-muted);
 
   span {
     display: inline-flex;
@@ -357,7 +357,7 @@
 
 .skillLabel {
   margin: 20px 0 10px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 13px !important;
   font-weight: 700 !important;
 }
@@ -374,15 +374,15 @@
   }
 
   :global(.MuiTableCell-root) {
-    border-bottom-color: #dbe3ef;
+    border-bottom-color: var(--color-border);
     padding: 14px 18px;
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 14px;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
   }
@@ -403,7 +403,7 @@
   justify-content: space-between;
   padding: 14px 16px;
   margin-top: 12px;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md) !important;
 }
 

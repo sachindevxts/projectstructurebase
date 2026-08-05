@@ -3,7 +3,7 @@
 
 .page {
   padding: 24px 26px;
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   min-height: calc(100vh - 52px);
 }
 
@@ -12,7 +12,7 @@
 }
 
 .title {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
@@ -20,7 +20,7 @@
 
 .subtitle {
   margin-top: 4px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 16px !important;
 }
 
@@ -46,9 +46,9 @@
 .roleEditor,
 .permissionsTable,
 .saveBar {
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .rolesTable {
@@ -60,15 +60,15 @@
   }
 
   :global(.MuiTableCell-root) {
-    border-bottom-color: #dbe3ef;
+    border-bottom-color: var(--color-border);
     padding: 16px 18px;
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 14px;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
   }
@@ -88,7 +88,7 @@
 
 .descriptionCell {
   max-width: 260px;
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .metricCell {
@@ -96,7 +96,7 @@
 }
 
 .featuredRole {
-  background: #f8fafc;
+  background: var(--color-surface-muted);
 }
 
 .systemTag,
@@ -132,7 +132,7 @@
 }
 
 .secondaryAction {
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .roleEditor {
@@ -141,14 +141,14 @@
 }
 
 .editorTitle {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 22px !important;
   font-weight: 700 !important;
 }
 
 .editorSubtitle {
   margin-top: 4px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .searchRow {
@@ -162,13 +162,13 @@
   :global(.MuiInputBase-root) {
     height: 38px;
     border-radius: var(--radius-md);
-    background: #f8fafc;
+    background: var(--color-surface-muted);
     font-size: 14px;
   }
 }
 
 .enabledText {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .editGroup {
@@ -193,13 +193,13 @@
   :global(.MuiTableCell-root) {
     border-bottom-color: #e5edf6;
     padding: 12px 18px;
-    color: #0f172a;
+    color: var(--color-text-primary);
     font-size: 14px;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
   }
@@ -210,7 +210,7 @@
 }
 
 .groupRow {
-  background: #f8fafc;
+  background: var(--color-surface-muted);
 
   :global(.MuiTableCell-root) {
     padding-block: 14px;
@@ -223,16 +223,16 @@
 }
 
 .groupTitle {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-weight: 700 !important;
 }
 
 .expandIcon {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .permissionName {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-weight: 500 !important;
 }
 
@@ -252,11 +252,11 @@
 }
 
 .highlightRow {
-  background: #fff7ed;
+  background: var(--color-warning-surface);
 }
 
 .permissionCheck {
-  color: #cbd5e1 !important;
+  color: var(--color-border) !important;
 
   &:global(.Mui-checked) {
     color: #2f9e55 !important;
@@ -277,7 +277,7 @@
 }
 
 .saveHint {
-  color: #64748b;
+  color: var(--color-text-muted);
 
   :global(.MuiSvgIcon-root) {
     color: #3f63e8;

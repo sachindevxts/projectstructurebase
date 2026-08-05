@@ -3,9 +3,9 @@ export const REPORT_DEPARTMENTS = ['All', 'Engineering', 'QA', 'Design', 'HR'] a
 export const REPORT_TYPES = ['Workforce', 'Utilization', 'Allocation', 'Bench'] as const;
 
 export const REPORT_COLORS = {
-  billable: '#3B82F6',
-  bench: '#F59E0B',
-  overallocated: '#EF4444',
-  utilization: '#22C55E',
-  internal: '#8B5CF6',
+  billable: 'var(--color-info)',
+  bench: 'var(--color-warning-light)',
+  overallocated: 'var(--color-error)',
+  utilization: 'var(--color-success-light)',
+  internal: 'var(--color-accent-purple)',
 };

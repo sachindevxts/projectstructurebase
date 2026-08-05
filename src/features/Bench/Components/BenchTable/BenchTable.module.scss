@@ -2,18 +2,18 @@
 @import '../../../../utils/css/abstracts/mixins';
 
 .container {
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   overflow: hidden;
 }
 
 .tableTitle {
   padding: 18px 20px;
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 18px !important;
   font-weight: 700 !important;
-  border-bottom: 1px solid #dbe3ef;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tableScroller {
@@ -25,15 +25,15 @@
 
   :global(.MuiTableCell-root) {
     padding: 14px 16px;
-    border-bottom-color: #dbe3ef;
-    color: #0f172a;
+    border-bottom-color: var(--color-border);
+    color: var(--color-text-primary);
     font-size: 14px;
     vertical-align: middle;
   }
 
   :global(.MuiTableHead-root .MuiTableCell-root) {
-    background: #f8fafc;
-    color: #64748b;
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
   }
@@ -42,14 +42,14 @@
 .avatar {
   width: 34px !important;
   height: 34px !important;
-  background: #cbd5e1 !important;
-  color: #0f172a !important;
+  background: var(--color-border) !important;
+  color: var(--color-text-primary) !important;
   font-size: 12px !important;
   font-weight: 700 !important;
 }
 
 .employeeName {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 14px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
@@ -57,7 +57,7 @@
 
 .employeeId,
 .mutedCell {
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .skillChip,
@@ -119,24 +119,24 @@
 
 .footer {
   padding: 14px 18px;
-  border-top: 1px solid #dbe3ef;
+  border-top: 1px solid var(--color-border);
 }
 
 .footerText {
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .pageArrow {
   width: 30px;
   height: 30px;
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
-  color: #64748b !important;
+  color: var(--color-text-muted) !important;
 }
 
 .loadingState {
   padding: $spacing-3xl;
   text-align: center;
-  border: 1px solid #dbe3ef !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: var(--radius-md) !important;
 }

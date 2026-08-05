@@ -1,13 +1,13 @@
 import type { DashboardStat } from '../types/dashboard.types';
 
 export const STAT_COLORS = {
-  primary: '#3B82F6',
-  success: '#22C55E',
-  warning: '#F59E0B',
-  error: '#EF4444',
-  purple: '#8B5CF6',
-  pink: '#EC4899',
-  teal: '#14B8A6',
+  primary: 'var(--color-info)',
+  success: 'var(--color-success-light)',
+  warning: 'var(--color-warning-light)',
+  error: 'var(--color-error)',
+  purple: 'var(--color-accent-purple)',
+  pink: 'var(--color-accent-pink)',
+  teal: 'var(--color-accent-teal)',
 };
 
 export const DEFAULT_STATS: DashboardStat[] = [
@@ -76,9 +76,9 @@ export const DEPARTMENTS = [
 ];
 
 export const DEPARTMENT_COLORS = {
-  Engineering: '#3B82F6',
-  Delivery: '#22C55E',
-  QA: '#F59E0B',
-  Design: '#8B5CF6',
-  HR: '#EC4899',
+  Engineering: 'var(--color-info)',
+  Delivery: 'var(--color-success-light)',
+  QA: 'var(--color-warning-light)',
+  Design: 'var(--color-accent-purple)',
+  HR: 'var(--color-accent-pink)',
 };

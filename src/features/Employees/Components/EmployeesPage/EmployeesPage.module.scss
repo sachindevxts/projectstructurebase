@@ -3,7 +3,7 @@
 
 .page {
   padding: 24px;
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   min-height: calc(100vh - 52px);
 }
 
@@ -12,7 +12,7 @@
 }
 
 .title {
-  color: #0f172a;
+  color: var(--color-text-primary);
   font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
@@ -20,7 +20,7 @@
 
 .subtitle {
   margin-top: 4px !important;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 16px !important;
 }
 
@@ -42,8 +42,8 @@
   padding: 20px;
   margin-bottom: 20px;
   border-radius: var(--radius-md) !important;
-  border: 1px solid #dbe3ef;
-  background: #fff !important;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface) !important;
 }
 
 @include respond-to(sm) {

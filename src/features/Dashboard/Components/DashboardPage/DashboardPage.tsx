@@ -31,19 +31,31 @@ import styles from './DashboardPage.module.scss';
 
 const kpis = [
   { label: 'Total Employees', value: '247', delta: '+8.2%', icon: <GroupsIcon />, tone: 'blue' },
-  { label: 'Active Employees', value: '231', delta: '+3.4%', icon: <CheckCircleIcon />, tone: 'green' },
+  {
+    label: 'Active Employees',
+    value: '231',
+    delta: '+3.4%',
+    icon: <CheckCircleIcon />,
+    tone: 'green',
+  },
   { label: 'Active Projects', value: '18', delta: '+12%', icon: <WorkIcon />, tone: 'blue' },
   { label: 'Billable Employees', value: '181', delta: '+4.6%', icon: <PaidIcon />, tone: 'green' },
   { label: 'Bench Employees', value: '50', delta: '+10.8%', icon: <BusinessIcon />, tone: 'slate' },
   { label: 'Releasing Soon', value: '23', delta: '+4', icon: <HourglassIcon />, tone: 'orange' },
   { label: 'Overallocated', value: '7', delta: 'High Risk', icon: <WarningIcon />, tone: 'red' },
-  { label: 'Open Positions', value: '14', delta: 'Need Hire', icon: <PersonOffIcon />, tone: 'orange' },
+  {
+    label: 'Open Positions',
+    value: '14',
+    delta: 'Need Hire',
+    icon: <PersonOffIcon />,
+    tone: 'orange',
+  },
 ];
 
 const billableData = [
-  { name: 'Billable', value: 181, color: '#3f63e8' },
-  { name: 'Non-Billable', value: 50, color: '#94a3b8' },
-  { name: 'Bench', value: 16, color: '#dbe3ef' },
+  { name: 'Billable', value: 181, color: 'var(--color-primary)' },
+  { name: 'Non-Billable', value: 50, color: 'var(--color-text-muted)' },
+  { name: 'Bench', value: 16, color: 'var(--color-border)' },
 ];
 
 const departmentData = [
@@ -56,11 +68,11 @@ const departmentData = [
 ];
 
 const allocationData = [
-  { name: 'Fully Allocated', value: 96, color: '#2fa84f' },
-  { name: 'Partially Allocated', value: 62, color: '#3f63e8' },
-  { name: 'Bench', value: 50, color: '#94a3b8' },
-  { name: 'Overallocated', value: 7, color: '#dc2626' },
-  { name: 'Releasing Soon', value: 23, color: '#d97706' },
+  { name: 'Fully Allocated', value: 96, color: 'var(--color-success)' },
+  { name: 'Partially Allocated', value: 62, color: 'var(--color-primary)' },
+  { name: 'Bench', value: 50, color: 'var(--color-text-muted)' },
+  { name: 'Overallocated', value: 7, color: 'var(--color-error)' },
+  { name: 'Releasing Soon', value: 23, color: 'var(--color-warning)' },
 ];
 
 const joinersData = [
@@ -135,7 +147,13 @@ const DonutChart = ({
     .join(', ');
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} className={styles.donutLayout}>
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="center"
+      spacing={2}
+      className={styles.donutLayout}
+    >
       <Box className={styles.donutChart} sx={{ background: `conic-gradient(${stops})` }}>
         <Box className={styles.donutHole}>
           <strong>{total}</strong>
@@ -162,7 +180,10 @@ const DepartmentBars = () => {
         <Box key={item.department} className={styles.departmentBarRow}>
           <Typography>{item.department}</Typography>
           <Box className={styles.departmentTrack}>
-            <Box className={styles.departmentFill} sx={{ width: `${(item.employees / max) * 100}%` }} />
+            <Box
+              className={styles.departmentFill}
+              sx={{ width: `${(item.employees / max) * 100}%` }}
+            />
           </Box>
           <span>{item.employees}</span>
         </Box>
@@ -200,10 +221,18 @@ const VerticalBars = ({
 }) => {
   const max = Math.max(...data.map((item) => item.value));
   return (
-    <Stack direction="row" alignItems="flex-end" justifyContent="space-around" className={styles.verticalChart}>
+    <Stack
+      direction="row"
+      alignItems="flex-end"
+      justifyContent="space-around"
+      className={styles.verticalChart}
+    >
       {data.map((item) => (
         <Box key={item.label} className={styles.verticalBarItem}>
-          <Box className={styles.verticalBar} sx={{ height: `${(item.value / max) * 100}%`, backgroundColor: color }} />
+          <Box
+            className={styles.verticalBar}
+            sx={{ height: `${(item.value / max) * 100}%`, backgroundColor: color }}
+          />
           <Typography>{item.label}</Typography>
         </Box>
       ))}
@@ -231,7 +260,7 @@ const MiniTable = ({
 
       if (index === 0) {
         return (
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={0.5} alignItems="center">
             <Avatar className={styles.rowAvatar}>{cell.charAt(0)}</Avatar>
             <Typography className={styles.rowName}>{cell}</Typography>
           </Stack>
@@ -258,7 +287,12 @@ const MiniTable = ({
       columns={columns}
       getRowId={(row) => row.id}
       toolbar={
-        <Stack direction="row" justifyContent="space-between" alignItems="center" className={styles.cardHeader}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          className={styles.cardHeader}
+        >
           <Typography className={styles.cardTitle}>{title}</Typography>
           {action && (
             <Button variant="text" className={styles.cardAction}>
@@ -279,7 +313,9 @@ export const DashboardPage = () => {
       <Box className={styles.page}>
         <Box className={styles.loadingState}>
           <div className={styles.spinner} />
-          <Typography variant="body2" color="textSecondary">Loading dashboard...</Typography>
+          <Typography variant="body2" color="textSecondary">
+            Loading dashboard...
+          </Typography>
         </Box>
       </Box>
     );
@@ -289,8 +325,12 @@ export const DashboardPage = () => {
     return (
       <Box className={styles.page}>
         <Paper elevation={0} className={styles.errorState}>
-          <Typography variant="h6" color="error">{error}</Typography>
-          <Button variant="contained" onClick={refresh}>Retry</Button>
+          <Typography variant="h6" color="error">
+            {error}
+          </Typography>
+          <Button variant="contained" onClick={refresh}>
+            Retry
+          </Button>
         </Paper>
       </Box>
     );
@@ -306,7 +346,9 @@ export const DashboardPage = () => {
         className={styles.header}
       >
         <Box>
-          <Typography variant="h4" className={styles.title}>Dashboard</Typography>
+          <Typography variant="h4" className={styles.title}>
+            Dashboard
+          </Typography>
           <Typography variant="body2" className={styles.subtitle}>
             Organization overview - July 2025
           </Typography>
@@ -331,7 +373,12 @@ export const DashboardPage = () => {
           <Paper elevation={0} key={kpi.label} className={styles.kpiCard}>
             <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
               <Avatar className={`${styles.kpiIcon} ${toneClass[kpi.tone]}`}>{kpi.icon}</Avatar>
-              <Chip icon={<TrendingUpIcon />} label={kpi.delta} size="small" className={toneClass[kpi.tone]} />
+              <Chip
+                icon={<TrendingUpIcon />}
+                label={kpi.delta}
+                size="small"
+                className={toneClass[kpi.tone]}
+              />
             </Stack>
             <Typography className={styles.kpiValue}>{kpi.value}</Typography>
             <Typography className={styles.kpiLabel}>{kpi.label}</Typography>
@@ -372,7 +419,7 @@ export const DashboardPage = () => {
           <Typography className={styles.cardTitle}>Upcoming Releases by Month</Typography>
           <Box className={styles.chartBoxSmall}>
             <VerticalBars
-              color="#f6c343"
+              color="var(--color-warning-light)"
               data={releasesData.map((item) => ({ label: item.month, value: item.releases }))}
             />
           </Box>
@@ -382,7 +429,7 @@ export const DashboardPage = () => {
           <Typography className={styles.cardTitle}>Overallocated Employees</Typography>
           <Box className={styles.chartBoxSmall}>
             <VerticalBars
-              color="#94a3b8"
+              color="var(--color-text-muted)"
               data={overallocatedData.map((item) => ({ label: item.name, value: item.value }))}
             />
           </Box>
@@ -393,7 +440,7 @@ export const DashboardPage = () => {
         <MiniTable
           title="Upcoming Releases"
           action="View all"
-          headers={['Employee', 'Project', 'Release Date', 'Action']}
+          headers={['Employee' , 'Project', 'Release Date', 'Action']}
           rows={upcomingReleases}
         />
         <MiniTable
@@ -409,23 +456,40 @@ export const DashboardPage = () => {
           rows={benchAvailability}
         />
         <Paper elevation={0} className={styles.tableCard}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" className={styles.cardHeader}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            className={styles.cardHeader}
+          >
             <Typography className={styles.cardTitle}>Project Health</Typography>
-            <Button variant="text" className={styles.cardAction}>View all</Button>
+            <Button variant="text" className={styles.cardAction}>
+              View all
+            </Button>
           </Stack>
-          {[
-            ['NovaBank Portal', 88, 'On Track'],
-            ['HealthBridge Mobile', 62, 'At Risk'],
-            ['Internal HR', 76, 'Monitor'],
-          ].map(([name, value, status]) => (
-            <Box key={name} className={styles.healthRow}>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography>{name}</Typography>
-                <Chip label={status} size="small" className={status === 'At Risk' ? styles.warnChip : styles.infoChip} />
-              </Stack>
-              <LinearProgress variant="determinate" value={Number(value)} className={styles.healthProgress} />
-            </Box>
-          ))}
+          <div className={styles.healthTable}>
+            {[
+              ['NovaBank Portal', 88, 'On Track'],
+              ['HealthBridge Mobile', 62, 'At Risk'],
+              ['Internal HR', 76, 'Monitor'],
+            ].map(([name, value, status]) => (
+              <Box key={name} className={styles.healthRow}>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography>{name}</Typography>
+                  <Chip
+                    label={status}
+                    size="small"
+                    className={status === 'At Risk' ? styles.warnChip : styles.infoChip}
+                  />
+                </Stack>
+                <LinearProgress
+                  variant="determinate"
+                  value={Number(value)}
+                  className={styles.healthProgress}
+                />
+              </Box>
+            ))}
+          </div>
         </Paper>
       </Box>
     </Box>

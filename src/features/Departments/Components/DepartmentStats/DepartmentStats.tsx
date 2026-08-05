@@ -15,10 +15,10 @@ interface DepartmentStatsProps {
 
 export const DepartmentStats = ({ stats }: DepartmentStatsProps) => {
   const statItems = [
-    { key: 'total', value: stats.total, label: 'Total Departments', icon: <BusinessIcon />, color: '#3B82F6' },
-    { key: 'employees', value: stats.totalEmployees, label: 'Total Employees', icon: <PeopleIcon />, color: '#22C55E' },
-    { key: 'bench', value: stats.onBench, label: 'On Bench', icon: <PersonOffIcon />, color: '#F59E0B' },
-    { key: 'billability', value: `${stats.avgBillability}%`, label: 'Avg Billability', icon: <TrendingUpIcon />, color: '#8B5CF6' },
+    { key: 'total', value: stats.total, label: 'Total Departments', icon: <BusinessIcon />, color: 'var(--color-info)' },
+    { key: 'employees', value: stats.totalEmployees, label: 'Total Employees', icon: <PeopleIcon />, color: 'var(--color-success-light)' },
+    { key: 'bench', value: stats.onBench, label: 'On Bench', icon: <PersonOffIcon />, color: 'var(--color-warning-light)' },
+    { key: 'billability', value: `${stats.avgBillability}%`, label: 'Avg Billability', icon: <TrendingUpIcon />, color: 'var(--color-accent-purple)' },
   ];
 
   return (
@@ -26,7 +26,7 @@ export const DepartmentStats = ({ stats }: DepartmentStatsProps) => {
       {statItems.map((item) => (
         <Grid item xs={12} sm={6} md={3} key={item.key}>
           <Paper elevation={0} className={styles.statCard}>
-            <Avatar className={styles.statIcon} sx={{ bgcolor: `${item.color}20`, color: item.color }}>
+            <Avatar className={styles.statIcon} sx={{ bgcolor: `color-mix(in srgb, ${item.color} 14%, transparent)`, color: item.color }}>
               {item.icon}
             </Avatar>
             <Typography variant="h5" className={styles.statValue}>

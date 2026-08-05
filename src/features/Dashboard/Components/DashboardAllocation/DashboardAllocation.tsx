@@ -33,7 +33,7 @@ export const DashboardAllocation = ({ allocationData }: DashboardAllocationProps
               value={percentage}
               size={160}
               thickness={8}
-              sx={{ color: '#3B82F6' }}
+              sx={{ color: 'var(--color-info)' }}
             />
             <CircularProgress
               variant="determinate"
@@ -53,7 +53,7 @@ export const DashboardAllocation = ({ allocationData }: DashboardAllocationProps
           </Box>
           <Box className={styles.legend}>
             <Box className={styles.legendItem}>
-              <Box className={styles.legendColor} sx={{ bgcolor: '#3B82F6' }} />
+              <Box className={styles.legendColor} sx={{ bgcolor: 'var(--color-info)' }} />
               <Typography variant="caption" fontWeight={500}>
                 Active Allocation ({active})
               </Typography>
@@ -65,7 +65,7 @@ export const DashboardAllocation = ({ allocationData }: DashboardAllocationProps
               </Typography>
             </Box>
             <Box className={styles.legendItem}>
-              <Box className={styles.legendColor} sx={{ bgcolor: '#22C55E' }} />
+              <Box className={styles.legendColor} sx={{ bgcolor: 'var(--color-success-light)' }} />
               <Typography variant="caption" fontWeight={500}>
                 Total ({total})
               </Typography>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, Box, Button, Checkbox, FormControlLabel, Paper, Stack, Typography } from '@mui/material';
 import { WarningAmber as WarningIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ import styles from './AllocationFormPage.module.scss';
 
 export const AllocationFormPage = () => {
   const navigate = useNavigate();
+  const detailsColumnRef = useRef<HTMLDivElement | null>(null);
+  const [selectorHeight, setSelectorHeight] = useState<number>();
   const { values, errors, saving, employees, projects, capacityPreview, updateField, saveAllocation } =
     useAllocationForm({
       employeeId: 'EMP-001',
@@ -21,6 +23,28 @@ export const AllocationFormPage = () => {
       billability: 'Billable',
     });
   const isOverallocated = capacityPreview.projectedAllocation > 100;
+
+  useEffect(() => {
+    const detailsColumn = detailsColumnRef.current;
+    if (!detailsColumn) return;
+
+    const syncSelectorHeight = () => {
+      const isTwoColumnLayout = window.matchMedia('(min-width: 1051px)').matches;
+      setSelectorHeight(isTwoColumnLayout ? Math.ceil(detailsColumn.getBoundingClientRect().height) : undefined);
+    };
+
+    syncSelectorHeight();
+    window.addEventListener('resize', syncSelectorHeight);
+
+    const resizeObserver =
+      typeof ResizeObserver !== 'undefined' ? new ResizeObserver(syncSelectorHeight) : null;
+    resizeObserver?.observe(detailsColumn);
+
+    return () => {
+      window.removeEventListener('resize', syncSelectorHeight);
+      resizeObserver?.disconnect();
+    };
+  }, [isOverallocated]);
 
   const handleSave = useCallback(async () => {
     const result = await saveAllocation();
@@ -78,8 +102,11 @@ export const AllocationFormPage = () => {
             employees={employees}
             value={values.employeeId}
             onChange={(employeeId) => updateField('employeeId', employeeId)}
+            maxHeight={selectorHeight}
           />
-          <AllocationDetails values={values} projects={projects} onChange={updateField} />
+          <Box ref={detailsColumnRef} className={styles.detailsColumn}>
+            <AllocationDetails values={values} projects={projects} onChange={updateField} />
+          </Box>
         </Box>
 
         <CapacityPreview preview={capacityPreview} />

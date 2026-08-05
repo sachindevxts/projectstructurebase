@@ -2,7 +2,7 @@
 
 :root {
   --pf-primary: #4161ec;
-  --pf-border: #dbe3ef;
+  --pf-border: var(--color-border);
   --pf-muted: #667792;
   --pf-surface: #fff;
   --pf-canvas: #f6f8fb;
@@ -519,7 +519,7 @@
 
 .pf-table-footer button {
   border: 1px solid var(--pf-border);
-  background: #fff;
+  background: var(--color-surface);
   border-radius: var(--radius-md);
   margin-left: 5px;
   padding: 5px 9px;
@@ -1296,8 +1296,8 @@
   height: 66px;
   flex: none;
   color: #687994;
-  background: #f8fafc;
-  border: 2px dashed #dbe3ef;
+  background: var(--color-surface-muted);
+  border: 2px dashed var(--color-border);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
@@ -2350,7 +2350,7 @@
 
 .pf-legend__item--bench::before {
   background: #e6ebf2;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--color-border);
 }
 
 .pf-legend__today {
@@ -2385,7 +2385,7 @@
 .pf-timeline-person {
   position: sticky;
   left: 0;
-  background: #fff;
+  background: var(--color-surface);
   z-index: 4;
   border-right: 1px solid var(--pf-border);
 }
@@ -3374,7 +3374,7 @@
 .pf-audit-reason {
   padding: 12px;
   color: var(--pf-muted);
-  background: #fffbeb;
+  background: var(--color-warning-surface);
   border: 1px solid #f2d35d;
   border-radius: var(--radius-md);
   font-size: 13px;
@@ -3405,7 +3405,7 @@
   padding-top: 8px !important;
   padding-bottom: 8px !important;
   color: var(--pf-muted);
-  background: #f8fafc;
+  background: var(--color-surface-muted);
   font-size: 10px !important;
 }
 
@@ -3430,7 +3430,7 @@
 .pf-field-changes .new {
   grid-column: 2 / 4;
   color: #df3030;
-  background: #fff1f1;
+  background: var(--color-error-surface);
 }
 
 .pf-audit-snapshot {
@@ -3438,7 +3438,7 @@
   padding: 14px !important;
   overflow: auto;
   color: var(--pf-text);
-  background: #f8fafc !important;
+  background: var(--color-surface-muted) !important;
   font-size: 10px;
   line-height: 1.8;
 }
@@ -3529,7 +3529,7 @@
 }
 
 .pf-toast.danger {
-  background: #fff1f1;
+  background: var(--color-error-surface);
   border: 1px solid #f0b6b6;
 }
 
@@ -4021,7 +4021,7 @@
 .pf-login__social button {
   height: 44px;
   border: 1px solid var(--pf-border);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--pf-text);
   border-radius: var(--radius-md);
 }

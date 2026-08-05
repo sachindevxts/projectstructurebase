@@ -9,21 +9,20 @@ import {
   Brightness7,
 } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { setSidebarOpen, setTheme } from '@/redux/actions';
-import { selectSidebarOpen, selectTheme } from '@/redux/selectors';
+import { setSidebarOpen } from '@/redux/actions';
+import { selectSidebarOpen } from '@/redux/selectors';
 import { NAVIGATION_LABELS } from '@/constants/navigation.constants';
 import { useAuth } from '@/Features/Auth/Hooks/useAuth';
+import { useTheme } from '@/providers/ThemeProvider';
 import styles from './Topbar.module.scss';
 
 export const Topbar = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const { user } = useAuth();
-  const theme = useAppSelector(selectTheme);
+  const { resolvedTheme, toggleTheme } = useTheme();
   const sidebarOpen = useAppSelector(selectSidebarOpen);
-  const darkModeEnabled =
-    theme === 'dark' ||
-    (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const darkModeEnabled = resolvedTheme === 'dark';
 
   const getBreadcrumbs = () => {
     const path = pathname.split('/').filter(Boolean);
@@ -82,7 +81,7 @@ export const Topbar = () => {
         <Tooltip title="Toggle theme">
           <Switch
             checked={darkModeEnabled}
-            onChange={(event) => dispatch(setTheme(event.target.checked ? 'dark' : 'light'))}
+            onChange={toggleTheme}
             icon={<Brightness7 fontSize="small" />}
             checkedIcon={<Brightness4 fontSize="small" />}
             className={styles.themeSwitch}

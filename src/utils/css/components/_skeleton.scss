@@ -1,8 +1,41 @@
 @use '../abstracts/index' as abstracts;
-.skeleton { display: grid; gap: abstracts.spacing(3); padding: abstracts.spacing(4); }
-.skeleton__block { height: 1rem; border-radius: abstracts.radius(md); background: linear-gradient(90deg, var(--color-surface-muted) 20%, var(--color-surface-elevated) 50%, var(--color-surface-muted) 80%); background-size: 220% 100%; animation: shimmer 1.35s ease-in-out infinite; }
-.skeleton__block--title { width: 45%; height: 1.5rem; }
-.skeleton__block--card { height: 7rem; }
-.skeleton__block--line { width: 80%; height: .85rem; }
-@keyframes shimmer { to { background-position: -220% 0; } }
-@media(prefers-reduced-motion:reduce){.skeleton__block{animation:none}}
+
+.skeleton {
+    display: grid;
+    gap: abstracts.spacing(3);
+    padding: abstracts.spacing(4);
+}
+
+.skeleton__block {
+    height: 1rem;
+    border-radius: abstracts.radius(md);
+    background: linear-gradient(90deg, var(--color-surface-muted) 20%, var(--color-surface-elevated) 50%, var(--color-surface-muted) 80%);
+    background-size: 220% 100%;
+    animation: shimmer 1.35s ease-in-out infinite;
+}
+
+.skeleton__block--title {
+    width: 45%;
+    height: 1.5rem;
+}
+
+.skeleton__block--card {
+    height: 7rem;
+}
+
+.skeleton__block--line {
+    width: 80%;
+    height: .85rem;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: -220% 0;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .skeleton__block {
+        animation: none
+    }
+}

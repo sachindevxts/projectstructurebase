@@ -29,11 +29,11 @@ const STAT_ICONS = {
 };
 
 const STAT_COLORS = {
-  totalSkills: '#3B82F6',
-  mappedEmployees: '#22C55E',
-  gapsIdentified: '#EF4444',
-  highDemand: '#8B5CF6',
-  categories: '#F59E0B',
+  totalSkills: 'var(--color-info)',
+  mappedEmployees: 'var(--color-success-light)',
+  gapsIdentified: 'var(--color-error)',
+  highDemand: 'var(--color-accent-purple)',
+  categories: 'var(--color-warning-light)',
 };
 
 const STAT_BG_COLORS = {

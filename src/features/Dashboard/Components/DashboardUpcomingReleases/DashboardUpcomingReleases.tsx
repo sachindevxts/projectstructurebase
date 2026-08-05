@@ -29,7 +29,14 @@ interface DashboardUpcomingReleasesProps {
 
 export const DashboardUpcomingReleases = ({ releases }: DashboardUpcomingReleasesProps) => {
   const getAvatarColor = (name: string) => {
-    const colors = ['#3B82F6', '#22C55E', '#F59E0B', '#8B5CF6', '#EC4899', '#14B8A6'];
+    const colors = [
+      'var(--color-info)',
+      'var(--color-success-light)',
+      'var(--color-warning-light)',
+      'var(--color-accent-purple)',
+      'var(--color-accent-pink)',
+      'var(--color-accent-teal)',
+    ];
     const index = name.length % colors.length;
     return colors[index];
   };

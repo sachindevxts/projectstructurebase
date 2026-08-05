@@ -10,10 +10,10 @@ interface ReportStatsProps {
 
 export const ReportStats = ({ stats }: ReportStatsProps) => {
   const statItems = [
-    { key: 'headcount', value: stats.headcount, label: 'Headcount', icon: <Groups />, color: '#3B82F6' },
-    { key: 'billable', value: stats.billable, label: 'Billable People', icon: <Paid />, color: '#22C55E' },
-    { key: 'bench', value: stats.bench, label: 'Bench', icon: <PersonSearch />, color: '#F59E0B' },
-    { key: 'utilization', value: `${stats.utilization}%`, label: 'Utilization', icon: <TrendingUp />, color: '#8B5CF6' },
+    { key: 'headcount', value: stats.headcount, label: 'Headcount', icon: <Groups />, color: 'var(--color-info)' },
+    { key: 'billable', value: stats.billable, label: 'Billable People', icon: <Paid />, color: 'var(--color-success-light)' },
+    { key: 'bench', value: stats.bench, label: 'Bench', icon: <PersonSearch />, color: 'var(--color-warning-light)' },
+    { key: 'utilization', value: `${stats.utilization}%`, label: 'Utilization', icon: <TrendingUp />, color: 'var(--color-accent-purple)' },
   ];
 
   return (
@@ -21,7 +21,7 @@ export const ReportStats = ({ stats }: ReportStatsProps) => {
       {statItems.map((item) => (
         <Grid item xs={12} sm={6} md={3} key={item.key}>
           <Paper elevation={0} className={styles.statCard}>
-            <Avatar className={styles.statIcon} sx={{ bgcolor: `${item.color}20`, color: item.color }}>{item.icon}</Avatar>
+            <Avatar className={styles.statIcon} sx={{ bgcolor: `color-mix(in srgb, ${item.color} 14%, transparent)`, color: item.color }}>{item.icon}</Avatar>
             <Typography variant="h5" className={styles.statValue}>{item.value}</Typography>
             <Typography variant="body2" className={styles.statLabel}>{item.label}</Typography>
           </Paper>

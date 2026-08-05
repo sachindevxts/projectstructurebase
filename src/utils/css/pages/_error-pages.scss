@@ -1,4 +1,28 @@
 @use '../abstracts/index' as abstracts;
-.error-fallback { display: grid; min-height: 100vh; padding: abstracts.spacing(4); place-items: center; background: var(--app-background-art); }
-.error-fallback > * { width: min(100%, 620px); padding: clamp(1.5rem, 4vw, 3rem); text-align: center; border: 1px solid var(--glass-border); border-radius: var(--radius-xl); background: var(--surface-glass); box-shadow: var(--shadow-floating); backdrop-filter: blur(22px); }
-.error-fallback__actions { display: flex; justify-content: center; gap: abstracts.spacing(3); margin-top: abstracts.spacing(4); flex-wrap: wrap; }
+
+.error-fallback {
+    display: grid;
+    min-height: 100vh;
+    padding: abstracts.spacing(4);
+    place-items: center;
+    background: var(--app-background-art);
+}
+
+.error-fallback>* {
+    width: min(100%, 620px);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    background: var(--surface-glass);
+    box-shadow: var(--shadow-floating);
+    backdrop-filter: blur(22px);
+}
+
+.error-fallback__actions {
+    display: flex;
+    justify-content: center;
+    gap: abstracts.spacing(3);
+    margin-top: abstracts.spacing(4);
+    flex-wrap: wrap;
+}

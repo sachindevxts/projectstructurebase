@@ -10,10 +10,10 @@ interface ClientStatsProps {
 
 export const ClientStats = ({ stats }: ClientStatsProps) => {
   const statItems = [
-    { key: 'total', value: stats.total, label: 'Total Clients', icon: <AccountBalance />, color: '#3B82F6' },
-    { key: 'active', value: stats.active, label: 'Active Clients', icon: <CheckCircle />, color: '#22C55E' },
-    { key: 'revenue', value: `₹${Math.round(stats.revenue / 100000)}L`, label: 'Booked Revenue', icon: <CurrencyRupee />, color: '#8B5CF6' },
-    { key: 'risk', value: stats.atRisk, label: 'At Risk', icon: <WarningAmber />, color: '#EF4444' },
+    { key: 'total', value: stats.total, label: 'Total Clients', icon: <AccountBalance />, color: 'var(--color-info)' },
+    { key: 'active', value: stats.active, label: 'Active Clients', icon: <CheckCircle />, color: 'var(--color-success-light)' },
+    { key: 'revenue', value: `₹${Math.round(stats.revenue / 100000)}L`, label: 'Booked Revenue', icon: <CurrencyRupee />, color: 'var(--color-accent-purple)' },
+    { key: 'risk', value: stats.atRisk, label: 'At Risk', icon: <WarningAmber />, color: 'var(--color-error)' },
   ];
 
   return (
@@ -21,7 +21,7 @@ export const ClientStats = ({ stats }: ClientStatsProps) => {
       {statItems.map((item) => (
         <Grid item xs={12} sm={6} md={3} key={item.key}>
           <Paper elevation={0} className={styles.statCard}>
-            <Avatar className={styles.statIcon} sx={{ bgcolor: `${item.color}20`, color: item.color }}>
+            <Avatar className={styles.statIcon} sx={{ bgcolor: `color-mix(in srgb, ${item.color} 14%, transparent)`, color: item.color }}>
               {item.icon}
             </Avatar>
             <Typography variant="h5" className={styles.statValue}>

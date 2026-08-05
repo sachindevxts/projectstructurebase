@@ -37,13 +37,13 @@ export const SkillTable = ({
     switch (demand.toLowerCase()) {
       case 'high':
       case 'critical':
-        return '#EF4444';
+        return 'var(--color-error)';
       case 'medium':
-        return '#F59E0B';
+        return 'var(--color-warning-light)';
       case 'low':
-        return '#22C55E';
+        return 'var(--color-success-light)';
       default:
-        return '#64748B';
+        return 'var(--color-text-muted)';
     }
   };
 
@@ -111,7 +111,7 @@ export const SkillTable = ({
         <Box
           className={styles.demandBadge}
           sx={{
-            bgcolor: `${getDemandColor(skill.demand)}15`,
+            bgcolor: `color-mix(in srgb, ${getDemandColor(skill.demand)} 12%, transparent)`,
             color: getDemandColor(skill.demand),
             borderColor: getDemandColor(skill.demand),
           }}

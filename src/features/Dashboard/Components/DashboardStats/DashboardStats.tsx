@@ -5,7 +5,6 @@ import {
   Paper,
   Typography,
   Avatar,
-  useTheme,
 } from '@mui/material';
 import { TrendingUp, TrendingDown, TrendingFlat } from '@mui/icons-material';
 import type { DashboardStat } from '../../Types/dashboard.types';
@@ -16,27 +15,25 @@ interface DashboardStatsProps {
 }
 
 export const DashboardStats = ({ stats }: DashboardStatsProps) => {
-  const theme = useTheme();
-
   const getTrendIcon = (trend?: 'up' | 'down' | 'neutral') => {
     switch (trend) {
       case 'up':
-        return <TrendingUp sx={{ fontSize: 14, color: '#22C55E' }} />;
+        return <TrendingUp sx={{ fontSize: 14, color: 'var(--color-success-light)' }} />;
       case 'down':
-        return <TrendingDown sx={{ fontSize: 14, color: '#EF4444' }} />;
+        return <TrendingDown sx={{ fontSize: 14, color: 'var(--color-error)' }} />;
       default:
-        return <TrendingFlat sx={{ fontSize: 14, color: '#94A3B8' }} />;
+        return <TrendingFlat sx={{ fontSize: 14, color: 'var(--color-text-muted)' }} />;
     }
   };
 
   const getTrendColor = (trend?: 'up' | 'down' | 'neutral') => {
     switch (trend) {
       case 'up':
-        return '#22C55E';
+        return 'var(--color-success-light)';
       case 'down':
-        return '#EF4444';
+        return 'var(--color-error)';
       default:
-        return '#94A3B8';
+        return 'var(--color-text-muted)';
     }
   };
 
@@ -48,7 +45,10 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
             <Box className={styles.statHeader}>
               <Avatar 
                 className={styles.statIcon}
-                sx={{ bgcolor: `${stat.color}20`, color: stat.color }}
+                sx={{
+                  bgcolor: `color-mix(in srgb, ${stat.color} 14%, transparent)`,
+                  color: stat.color,
+                }}
               >
                 {stat.icon}
               </Avatar>

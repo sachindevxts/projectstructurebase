@@ -3,9 +3,9 @@ export const DESIGNATION_DEPARTMENTS = ['All', 'Engineering', 'QA', 'Design', 'H
 export const DESIGNATION_STATUSES = ['All', 'Active', 'Inactive'] as const;
 
 export const DESIGNATION_LEVEL_COLORS: Record<string, string> = {
-  Junior: '#3B82F6',
-  'Mid-level': '#22C55E',
-  Senior: '#F59E0B',
-  Lead: '#8B5CF6',
-  Manager: '#EF4444',
+  Junior: 'var(--color-info)',
+  'Mid-level': 'var(--color-success-light)',
+  Senior: 'var(--color-warning-light)',
+  Lead: 'var(--color-accent-purple)',
+  Manager: 'var(--color-error)',
 };
