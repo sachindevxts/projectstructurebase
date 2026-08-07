@@ -2,11 +2,10 @@ import { API_ENDPOINTS } from '@/constants/api.constants';
 import { api } from '@/api/client/apiClient';
 
 export interface DashboardSummary {
-  totalProducts: number;
-  totalUsers: number;
-  totalEmployees?: number;
-  activeEmployees?: number;
-  billablePercentage?: number;
+  pendingApprovals: number;
+  activeSequences: number;
+  repliesThisWeek: number;
+  pausedSequences: number;
 }
 
 class DashboardService {
@@ -19,11 +18,10 @@ class DashboardService {
 
       // Mock data for development
       return {
-        totalProducts: 156,
-        totalUsers: 247,
-        totalEmployees: 247,
-        activeEmployees: 231,
-        billablePercentage: 84,
+        pendingApprovals: 11,
+        activeSequences: 1,
+        repliesThisWeek: 0,
+        pausedSequences: 0,
       };
     } catch (error) {
       console.error('Error fetching dashboard summary:', error);

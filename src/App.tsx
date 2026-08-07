@@ -1,9 +1,8 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 import { AppRoutes } from '@/routes/AppRoutes';
-import { RouteFallback } from '@/routes/RouteFallback';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 
@@ -13,9 +12,7 @@ export const App = () => {
       <ThemeProvider>
         <ToastProvider>
           <BrowserRouter>
-            <Suspense fallback={<RouteFallback />}>
-              <AppRoutes />
-            </Suspense>
+            <AppRoutes />
           </BrowserRouter>
         </ToastProvider>
       </ThemeProvider>

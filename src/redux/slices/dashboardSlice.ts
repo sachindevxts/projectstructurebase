@@ -2,8 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { AsyncState, ApiError } from '@/types/common.types';
 import { dashboardService } from '@/api/services/dashboard.service';
 
-const initialState: AsyncState<{ totalProducts: number; totalUsers: number }> = {
-  data: { totalProducts: 0, totalUsers: 0 },
+const initialState: AsyncState<{
+  pendingApprovals: number;
+  activeSequences: number;
+  repliesThisWeek: number;
+  pausedSequences: number;
+}> = {
+  data: { pendingApprovals: 0, activeSequences: 0, repliesThisWeek: 0, pausedSequences: 0 },
   status: 'idle',
   error: null,
   initialized: false,

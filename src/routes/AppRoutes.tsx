@@ -1,99 +1,44 @@
 import React, { Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/route.constants';
-import { AppLayout } from '@/components/layout/AppLayout/AppLayout';
-import { AuthLayout } from '@/components/layout/AuthLayout/AuthLayout';
-import { ProtectedRoute } from './ProtectedRoute';
 import { RouteFallback } from './RouteFallback';
-import { AllocationFormPage, DashboardPage, DesignationsPage, EmployeeFormPage, EmployeesPage, ProjectsPage, ResourcePlannerPage, SkillsPage } from '@/Features';
-import EmployeeDetail from '@/Features/Employees/Components/EmployeeDetail/EmployeeDetail';
-import { DepartmentsPage } from '@/Features/Departments';
-import RolesPage from '@/pages/PeopleFlow/RolesPage';
-import AuditLogsPage from '@/pages/PeopleFlow/AuditLogsPage';
-
-// Feature-based imports
-const LoginPage = React.lazy(() => import('@/Features/Auth/Components/LoginPage/LoginPage'));
-// const DashboardPage = React.lazy(
-//   () => import('@/Features/Dashboard/Components/DashboardPage/DashboardPage'),
-// );
-// const EmployeesPage = React.lazy(
-//   () => import('@/Features/Employees/Components/EmployeesPage/EmployeesPage'),
-// );
-// const EmployeeDetail = React.lazy(
-//   () => import('@/Features/Employees/Components/EmployeeDetail/EmployeeDetail'),
-// );
-const BenchPage = React.lazy(() => import('@/Features/Bench/Components/BenchPage/BenchPage'));
-// const ProjectsPage = React.lazy(
-//   () => import('@/Features/Projects/Components/ProjectsPage/ProjectsPage'),
-// );
-const AllocationsPage = React.lazy(
-  () => import('@/Features/allocations/components/AllocationsPage/AllocationsPage'),
-);
-// const SkillsPage = React.lazy(() => import('@/Features/Skills/Components/SkillsPage/SkillsPage'));
-
-// Legacy pages (to be migrated)
-// const EmployeeFormPage = React.lazy(() => import('@/pages/PeopleFlow/EmployeeFormPage'));
-// const ProjectDetailPage = React.lazy(() => import('@/pages/PeopleFlow/ProjectDetailPage'));
-// const AllocationFormPage = React.lazy(() => import('@/pages/PeopleFlow/AllocationFormPage'));
-// const ResourcePlannerPage = React.lazy(() => import('@/pages/PeopleFlow/ResourcePlannerPage'));
-// const DepartmentsPage = React.lazy(() => import('@/pages/PeopleFlow/DepartmentsPage'));
-// const DesignationsPage = React.lazy(() => import('@/pages/PeopleFlow/DesignationsPage'));
-// const RolesPage = React.lazy(() => import('@/pages/PeopleFlow/RolesPage'));
-// const AuditLogsPage = React.lazy(() => import('@/pages/PeopleFlow/AuditLogsPage'));
-// const GenericReportPage = React.lazy(() => import('@/pages/PeopleFlow/GenericReportPage'));
-
-// System pages
-const UnauthorizedPage = React.lazy(() => import('@/pages/Unauthorized/UnauthorizedPage'));
-const NotFoundPage = React.lazy(() => import('@/pages/NotFound/NotFoundPage'));
-const ServerErrorPage = React.lazy(() => import('@/pages/ServerError/ServerErrorPage'));
-const MaintenancePage = React.lazy(() => import('@/pages/Maintenance/MaintenancePage'));
+import { LeadRouteLayout } from '@/Features/LeadRoute/LeadRouteLayout';
+import {
+  LearnRouteActiveSequencesPage,
+  LearnRouteApprovalsPage,
+  LearnRouteAuditLogPage,
+  LearnRouteCampaignsPage,
+  LearnRouteConnectedInboxesPage,
+  LearnRouteDashboardPage,
+  LearnRouteInboxHubPage,
+  LearnRoutePerformancePage,
+  LearnRouteSequenceBuilderPage,
+  LearnRouteSettingsPage,
+  LearnRouteTemplatesPage,
+  LearnRouteVerificationQueuePage,
+} from '@/Features/LeadRoute/LeadRouteApp';
 
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<RouteFallback />}>
       <Routes>
-        {/* Auth Routes */}
-        <Route element={<AuthLayout />}>
-          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route element={<LeadRouteLayout />}>
+          <Route path={ROUTES.HOME} element={<Navigate to={ROUTES.DASHBOARD} replace />} />
+          <Route path={ROUTES.LOGIN} element={<Navigate to={ROUTES.DASHBOARD} replace />} />
+          <Route path={ROUTES.DASHBOARD} element={<LearnRouteDashboardPage />} />
+          <Route path={ROUTES.VERIFICATION_QUEUE} element={<LearnRouteVerificationQueuePage />} />
+          <Route path={ROUTES.APPROVALS} element={<LearnRouteApprovalsPage />} />
+          <Route path={ROUTES.AUDIT_LOG} element={<LearnRouteAuditLogPage />} />
+          <Route path={ROUTES.PERFORMANCE} element={<LearnRoutePerformancePage />} />
+          <Route path={ROUTES.CAMPAIGNS} element={<LearnRouteCampaignsPage />} />
+          <Route path={ROUTES.SEQUENCE_BUILDER} element={<LearnRouteSequenceBuilderPage />} />
+          <Route path={ROUTES.TEMPLATES} element={<LearnRouteTemplatesPage />} />
+          <Route path={ROUTES.ACTIVE_SEQUENCES} element={<LearnRouteActiveSequencesPage />} />
+          <Route path={ROUTES.CONNECTED_INBOXES} element={<LearnRouteConnectedInboxesPage />} />
+          <Route path={ROUTES.INBOX_HUB} element={<LearnRouteInboxHubPage />} />
+          <Route path={ROUTES.SETTINGS} element={<LearnRouteSettingsPage />} />
         </Route>
-
-        {/* Protected App Routes */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<AppLayout />}>
-            {/* Dashboard */}
-            <Route path={ROUTES.HOME} element={<Navigate to={ROUTES.DASHBOARD} replace />} />
-            <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
-
-            {/* People */}
-            <Route path={ROUTES.EMPLOYEES} element={<EmployeesPage />} />
-            <Route path={ROUTES.EMPLOYEE_NEW} element={<EmployeeFormPage />} />
-            <Route path={ROUTES.EMPLOYEE_DETAIL} element={<EmployeeDetail />} />
-            <Route path={ROUTES.BENCH} element={<BenchPage />} />
-
-            {/* Work */}
-            <Route path={ROUTES.PROJECTS} element={<ProjectsPage />} />
-            {/* <Route path={ROUTES.PROJECT_DETAIL} element={<ProjectDetailPage />} /> */}
-            <Route path={ROUTES.ALLOCATIONS} element={<AllocationsPage />} />
-            <Route path={ROUTES.ALLOCATION_NEW} element={<AllocationFormPage />} />
-            <Route path={ROUTES.RESOURCE_PLANNER} element={<ResourcePlannerPage />} />
-
-            {/* Insights */}
-            {/* <Route path={ROUTES.REPORTS} element={<GenericReportPage />} /> */}
-
-            {/* Administration */}
-            <Route path={ROUTES.DEPARTMENTS} element={<DepartmentsPage />} />
-            <Route path={ROUTES.DESIGNATIONS} element={<DesignationsPage />} />
-            <Route path={ROUTES.SKILLS} element={<SkillsPage />} />
-            <Route path={ROUTES.ROLES} element={<RolesPage />} />
-            <Route path={ROUTES.AUDIT_LOGS} element={<AuditLogsPage />} />
-
-            {/* System */}
-            <Route path={ROUTES.UNAUTHORIZED} element={<UnauthorizedPage />} />
-            <Route path={ROUTES.SERVER_ERROR} element={<ServerErrorPage />} />
-            <Route path={ROUTES.MAINTENANCE} element={<MaintenancePage />} />
-            <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />
-          </Route>
-        </Route>
+        <Route path={ROUTES.NOT_FOUND} element={<Navigate to={ROUTES.DASHBOARD} replace />} />
       </Routes>
     </Suspense>
   );

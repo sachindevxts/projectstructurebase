@@ -8,7 +8,7 @@ export const preloadedState: RootStateShape = {
     error: null,
   },
   dashboard: {
-    data: { totalProducts: 0, totalUsers: 0 },
+    data: { pendingApprovals: 0, activeSequences: 0, repliesThisWeek: 0, pausedSequences: 0 },
     status: 'idle',
     error: null,
     initialized: false,

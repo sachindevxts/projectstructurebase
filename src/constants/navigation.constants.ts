@@ -1,32 +1,23 @@
 import { ROUTES } from './route.constants';
 
 export const NAVIGATION_LABELS = {
-  APP_NAME: 'PeopleFlow HR',
-  COMPANY: 'Acme Corp',
-  
-  // Sections
+  APP_NAME: 'LearnRoute',
+  APP_TAGLINE: 'INTENT · AUTOMATION',
   MAIN: 'MAIN',
-  PEOPLE: 'PEOPLE',
-  WORK: 'WORK',
-  INSIGHTS: 'INSIGHTS',
-  ADMINISTRATION: 'ADMINISTRATION',
-  
-  // Navigation Items
+  OUTBOUND: 'OUTBOUND',
+  INFRASTRUCTURE: 'INFRASTRUCTURE',
   DASHBOARD: 'Dashboard',
-  EMPLOYEES: 'Employees',
-  BENCH: 'Bench & Availability',
-  CLIENTS: 'Clients',
-  PROJECTS: 'Projects',
-  ALLOCATIONS: 'Resource Allocations',
-  PLANNER: 'Resource Planner',
-  REPORTS: 'Reports',
-  DEPARTMENTS: 'Departments',
-  DESIGNATIONS: 'Designations',
-  SKILLS: 'Skills',
-  ROLES: 'Roles & Permissions',
-  AUDIT_LOGS: 'Audit Logs',
-  
-  // Actions
+  VERIFICATION_QUEUE: 'Verification Queue',
+  APPROVALS: 'Approvals',
+  AUDIT_LOG: 'Audit Log',
+  PERFORMANCE: 'Performance',
+  CAMPAIGNS: 'Campaigns',
+  SEQUENCE_BUILDER: 'Sequence Builder',
+  TEMPLATES: 'Templates',
+  ACTIVE_SEQUENCES: 'Active Sequences',
+  CONNECTED_INBOXES: 'Connected Inboxes',
+  INBOX_HUB: 'Inbox Hub',
+  SETTINGS: 'Settings',
   CLOSE_MENU: 'Close navigation menu',
   OPEN_MENU: 'Open navigation menu',
 } as const;
@@ -36,38 +27,27 @@ export const SIDEBAR_ITEMS = [
     section: NAVIGATION_LABELS.MAIN,
     items: [
       ['dashboard', NAVIGATION_LABELS.DASHBOARD, ROUTES.DASHBOARD],
+      ['verification', NAVIGATION_LABELS.VERIFICATION_QUEUE, ROUTES.VERIFICATION_QUEUE, '11'],
+      ['approvals', NAVIGATION_LABELS.APPROVALS, ROUTES.APPROVALS],
+      ['audit', NAVIGATION_LABELS.AUDIT_LOG, ROUTES.AUDIT_LOG],
     ],
   },
   {
-    section: NAVIGATION_LABELS.PEOPLE,
+    section: NAVIGATION_LABELS.OUTBOUND,
     items: [
-      ['employees', NAVIGATION_LABELS.EMPLOYEES, ROUTES.EMPLOYEES],
-      ['bench', NAVIGATION_LABELS.BENCH, ROUTES.BENCH],
+      ['performance', NAVIGATION_LABELS.PERFORMANCE, ROUTES.PERFORMANCE],
+      ['campaigns', NAVIGATION_LABELS.CAMPAIGNS, ROUTES.CAMPAIGNS],
+      ['sequence', NAVIGATION_LABELS.SEQUENCE_BUILDER, ROUTES.SEQUENCE_BUILDER],
+      ['templates', NAVIGATION_LABELS.TEMPLATES, ROUTES.TEMPLATES],
+      ['active', NAVIGATION_LABELS.ACTIVE_SEQUENCES, ROUTES.ACTIVE_SEQUENCES],
     ],
   },
   {
-    section: NAVIGATION_LABELS.WORK,
+    section: NAVIGATION_LABELS.INFRASTRUCTURE,
     items: [
-      ['clients', NAVIGATION_LABELS.CLIENTS, ROUTES.CLIENTS],
-      ['projects', NAVIGATION_LABELS.PROJECTS, ROUTES.PROJECTS],
-      ['allocations', NAVIGATION_LABELS.ALLOCATIONS, ROUTES.ALLOCATIONS],
-      ['planner', NAVIGATION_LABELS.PLANNER, ROUTES.RESOURCE_PLANNER],
-    ],
-  },
-  {
-    section: NAVIGATION_LABELS.INSIGHTS,
-    items: [
-      ['reports', NAVIGATION_LABELS.REPORTS, ROUTES.REPORTS],
-    ],
-  },
-  {
-    section: NAVIGATION_LABELS.ADMINISTRATION,
-    items: [
-      ['departments', NAVIGATION_LABELS.DEPARTMENTS, ROUTES.DEPARTMENTS],
-      ['designations', NAVIGATION_LABELS.DESIGNATIONS, ROUTES.DESIGNATIONS],
-      ['skills', NAVIGATION_LABELS.SKILLS, ROUTES.SKILLS],
-      ['roles', NAVIGATION_LABELS.ROLES, ROUTES.ROLES],
-      ['audit', NAVIGATION_LABELS.AUDIT_LOGS, ROUTES.AUDIT_LOGS],
+      ['inboxes', NAVIGATION_LABELS.CONNECTED_INBOXES, ROUTES.CONNECTED_INBOXES],
+      ['hub', NAVIGATION_LABELS.INBOX_HUB, ROUTES.INBOX_HUB],
+      ['settings', NAVIGATION_LABELS.SETTINGS, ROUTES.SETTINGS],
     ],
   },
 ] as const;

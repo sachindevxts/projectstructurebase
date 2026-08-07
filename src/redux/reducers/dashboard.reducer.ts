@@ -2,13 +2,18 @@ import { DASHBOARD_ACTION_TYPES } from '../actionTypes';
 import { AUTH_ACTION_TYPES } from '../actionTypes';
 import type { ApiError } from '@/types/common.types';
 export interface DashboardReduxState {
-  data: { totalProducts: number; totalUsers: number };
+  data: {
+    pendingApprovals: number;
+    activeSequences: number;
+    repliesThisWeek: number;
+    pausedSequences: number;
+  };
   loading: boolean;
   initialized: boolean;
   error: ApiError | null;
 }
 const initialState: DashboardReduxState = {
-  data: { totalProducts: 0, totalUsers: 0 },
+  data: { pendingApprovals: 0, activeSequences: 0, repliesThisWeek: 0, pausedSequences: 0 },
   loading: false,
   initialized: false,
   error: null,

@@ -5,7 +5,12 @@ import type { Action, ThunkAction } from '@reduxjs/toolkit';
 import type { RootState } from '../reducers/rootReducer';
 
 export interface DashboardState {
-  data: { totalProducts: number; totalUsers: number };
+  data: {
+    pendingApprovals: number;
+    activeSequences: number;
+    repliesThisWeek: number;
+    pausedSequences: number;
+  };
   status: RequestStatus;
   error: ApiError | null;
   initialized: boolean;
