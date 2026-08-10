@@ -22,3 +22,4 @@ export function RoleRoute({ children, roles }: RoleRouteProps) {
 
   return <>{children}</>;
 }
+

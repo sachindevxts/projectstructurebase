@@ -45,3 +45,4 @@ export const ProfessionalInfo = ({ values, onChange }: ProfessionalInfoProps) =>
     </Grid>
   );
 };
+

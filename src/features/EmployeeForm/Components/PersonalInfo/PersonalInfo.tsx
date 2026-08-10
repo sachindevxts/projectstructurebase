@@ -24,3 +24,4 @@ export const PersonalInfo = ({ values, onChange }: PersonalInfoProps) => (
     </Grid>
   </Grid>
 );
+

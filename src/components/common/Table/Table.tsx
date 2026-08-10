@@ -34,3 +34,4 @@ export function Table<T>({
 }
 
 export default Table;
+

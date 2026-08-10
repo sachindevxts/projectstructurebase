@@ -126,3 +126,4 @@ export const EmployeeSelector = ({ employees, value, onChange, maxHeight }: Empl
     </Stack>
   </Paper>
 );
+

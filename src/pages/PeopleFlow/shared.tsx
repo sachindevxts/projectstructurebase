@@ -1,6 +1,6 @@
 /**
  * @deprecated These components are being migrated to the design system.
- * Please use components from @/features/shared or @mui/material instead.
+ * Please use components from @/Features/shared or @mui/material instead.
  */
 import React from 'react';
 import { Box, Typography, Stack, Chip, LinearProgress, Tabs as MuiTabs, Tab } from '@mui/material';
@@ -146,3 +146,4 @@ export const Tabs = ({
     </MuiTabs>
   );
 };
+

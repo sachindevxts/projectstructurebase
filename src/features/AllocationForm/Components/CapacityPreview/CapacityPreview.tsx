@@ -44,3 +44,4 @@ export const CapacityPreview = ({ preview }: CapacityPreviewProps) => (
     </Stack>
   </Paper>
 );
+

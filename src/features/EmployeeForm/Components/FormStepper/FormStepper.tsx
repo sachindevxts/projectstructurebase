@@ -17,3 +17,4 @@ export const FormStepper = ({ activeStep, onStepChange }: FormStepperProps) => (
     ))}
   </Stepper>
 );
+

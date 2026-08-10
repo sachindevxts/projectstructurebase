@@ -34,3 +34,4 @@ export const ReportFilters = ({ filters, onFilterChange, onReset }: ReportFilter
     <Button variant="outlined" startIcon={<RestartAlt />} onClick={onReset} className={styles.filtersEnd}>Reset</Button>
   </Box>
 );
+

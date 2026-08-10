@@ -109,3 +109,4 @@ export const ProjectTable = ({ projects, loading = false, onView }: ProjectTable
     />
   );
 };
+

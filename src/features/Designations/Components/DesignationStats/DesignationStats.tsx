@@ -36,3 +36,4 @@ export const DesignationStats = ({ stats }: DesignationStatsProps) => {
     </Grid>
   );
 };
+

@@ -1,3 +1,4 @@
-import DashboardPage from '@/features/Dashboard/Components/DashboardPage/DashboardPage';
+import DashboardPage from '@/Features/dashboard/Components/DashboardPage/DashboardPage';
 
 export default DashboardPage;
+

@@ -43,3 +43,4 @@ export const BenchStats = ({ stats }: BenchStatsProps) => {
     </Box>
   );
 };
+

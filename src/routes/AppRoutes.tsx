@@ -12,9 +12,9 @@ import RolesPage from '@/pages/PeopleFlow/RolesPage';
 import AuditLogsPage from '@/pages/PeopleFlow/AuditLogsPage';
 
 // Feature-based imports
-const LoginPage = React.lazy(() => import('@/Features/Auth/Components/LoginPage/LoginPage'));
+const LoginPage = React.lazy(() => import('@/Features/auth/Components/LoginPage/LoginPage'));
 // const DashboardPage = React.lazy(
-//   () => import('@/Features/Dashboard/Components/DashboardPage/DashboardPage'),
+//   () => import('@/Features/dashboard/Components/DashboardPage/DashboardPage'),
 // );
 // const EmployeesPage = React.lazy(
 //   () => import('@/Features/Employees/Components/EmployeesPage/EmployeesPage'),
@@ -22,14 +22,14 @@ const LoginPage = React.lazy(() => import('@/Features/Auth/Components/LoginPage/
 // const EmployeeDetail = React.lazy(
 //   () => import('@/Features/Employees/Components/EmployeeDetail/EmployeeDetail'),
 // );
-const BenchPage = React.lazy(() => import('@/Features/Bench/Components/BenchPage/BenchPage'));
+const BenchPage = React.lazy(() => import('@/Features/bench/Components/BenchPage/BenchPage'));
 // const ProjectsPage = React.lazy(
 //   () => import('@/Features/Projects/Components/ProjectsPage/ProjectsPage'),
 // );
 const AllocationsPage = React.lazy(
   () => import('@/Features/allocations/components/AllocationsPage/AllocationsPage'),
 );
-// const SkillsPage = React.lazy(() => import('@/Features/Skills/Components/SkillsPage/SkillsPage'));
+// const SkillsPage = React.lazy(() => import('@/Features/skills/Components/SkillsPage/SkillsPage'));
 
 // Legacy pages (to be migrated)
 // const EmployeeFormPage = React.lazy(() => import('@/pages/PeopleFlow/EmployeeFormPage'));
@@ -98,3 +98,4 @@ export const AppRoutes = () => {
     </Suspense>
   );
 };
+

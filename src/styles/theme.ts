@@ -1,6 +1,9 @@
-import { createTheme, type PaletteMode, type ThemeOptions } from '@mui/material/styles';
+import { createTheme, 
+  // type PaletteMode, 
+  type ThemeOptions } from '@mui/material/styles';
 
-export type ThemeMode = PaletteMode;
+// export type ThemeMode = PaletteMode;
+export type ThemeMode = 'light' | 'dark';
 export type ThemePreference = ThemeMode | 'system';
 
 export const radius = {

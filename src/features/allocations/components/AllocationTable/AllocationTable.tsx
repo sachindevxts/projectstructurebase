@@ -124,3 +124,4 @@ export const AllocationTable = ({ allocations, loading = false }: AllocationTabl
     />
   );
 };
+

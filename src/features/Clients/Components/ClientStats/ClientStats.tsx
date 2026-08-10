@@ -36,3 +36,4 @@ export const ClientStats = ({ stats }: ClientStatsProps) => {
     </Grid>
   );
 };
+

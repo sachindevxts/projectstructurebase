@@ -196,3 +196,4 @@ export const PlannerTimeline = ({ allocations, loading = false }: PlannerTimelin
     </Box>
   );
 };
+

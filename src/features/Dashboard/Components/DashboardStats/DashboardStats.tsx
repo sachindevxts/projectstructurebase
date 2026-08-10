@@ -76,3 +76,4 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
     </Grid>
   );
 };
+

@@ -50,3 +50,4 @@ export const SkillGapAlert = ({ skills }: SkillGapAlertProps) => {
     </Alert>
   );
 };
+

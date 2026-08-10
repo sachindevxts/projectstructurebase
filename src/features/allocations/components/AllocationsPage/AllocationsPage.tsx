@@ -54,3 +54,4 @@ export const AllocationsPage = () => {
 };
 
 export default AllocationsPage;
+

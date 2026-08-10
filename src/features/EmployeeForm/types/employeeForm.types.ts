@@ -6,11 +6,14 @@ export interface EmployeeFormValues {
   department: string;
   designation: string;
   manager: string;
-  type: 'Full-Time' | 'Contract' | 'Part-Time';
+  // type: 'Full-Time' | 'Contract' | 'Part-Time';
+  type: string;
   joined: string;
   allocation: number;
-  billability: 'Billable' | 'Non-Billable';
-  status: 'Active' | 'Inactive' | 'On Leave';
+  // billability: 'Billable' | 'Non-Billable';
+  billability: string;
+  status: string;
+  // status: 'Active' | 'Inactive' | 'On Leave';
   skills: string[];
 }
 

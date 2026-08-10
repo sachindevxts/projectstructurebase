@@ -53,3 +53,4 @@ export const ClientFilters = ({ filters, onFilterChange, onReset, resultCount }:
     </Box>
   );
 };
+

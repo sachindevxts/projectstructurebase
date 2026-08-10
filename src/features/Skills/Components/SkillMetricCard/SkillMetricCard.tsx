@@ -26,3 +26,4 @@ export const SkillMetricCard = ({ label, value, color, icon }: SkillMetricCardPr
     </Paper>
   );
 };
+

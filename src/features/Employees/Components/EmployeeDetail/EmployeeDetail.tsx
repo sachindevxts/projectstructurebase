@@ -546,3 +546,4 @@ export const EmployeeDetail = () => {
 };
 
 export default EmployeeDetail;
+

@@ -44,14 +44,29 @@ const getCellValue = <T,>(row: T, column: TableColumn<T>) => {
 const getNextDirection = (current?: SortDirection): SortDirection =>
   current === 'asc' ? 'desc' : 'asc';
 
-const formatDefaultResultCount = ({ from, to, total }: { from: number; to: number; total: number }) =>
-  total > 0 ? `${from}-${to} of ${total}` : '0 of 0';
+const formatDefaultResultCount = ({
+  from,
+  to,
+  total,
+}: {
+  from: number;
+  to: number;
+  total: number;
+}) => (total > 0 ? `${from}-${to} of ${total}` : '0 of 0');
 
-const asSelectValue = (value: TableFilterValue) => {
-  if (Array.isArray(value)) return value.map(String);
+function asSelectValue(value: TableFilterValue): string;
+function asSelectValue(value: TableFilterValue, multiple: true): string[];
+function asSelectValue(value: TableFilterValue, multiple?: boolean) {
+  if (multiple) {
+    if (Array.isArray(value)) return value.map(String);
+    if (value == null) return [];
+    return [String(value)];
+  }
+
+  if (Array.isArray(value)) return String(value[0] ?? '');
   if (value == null) return '';
   return String(value);
-};
+}
 
 const renderFilterControl = (column: TableColumn<unknown>) => {
   const filter = column.filter;
@@ -85,28 +100,39 @@ const renderFilterControl = (column: TableColumn<unknown>) => {
     );
   }
 
-  if (filter.type === 'multi-select') {
-    return (
-      <Select
-        size="small"
-        fullWidth
-        multiple
-        value={asSelectValue(filter.value)}
-        className={styles.filterControl}
-        onChange={(event: SelectChangeEvent<string[]>) => {
-          const value = event.target.value;
-          filter.onChange?.(typeof value === 'string' ? value.split(',') : value);
-        }}
-        aria-label={filter.label ?? `${String(column.label)} filter`}
-      >
-        {filter.options?.map((option) => (
-          <MenuItem key={option.value} value={String(option.value)}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-    );
-  }
+if (filter.type === 'multi-select') {
+  const selectedValues: string[] = Array.isArray(filter.value)
+    ? filter.value.map(String)
+    : filter.value
+      ? [String(filter.value)]
+      : [];
+
+  return (
+    <Select<string[]>
+      size="small"
+      fullWidth
+      multiple
+      value={selectedValues}
+      className={styles.filterControl}
+      onChange={(event: SelectChangeEvent<string[]>) => {
+        const value = event.target.value;
+
+        filter.onChange?.(
+          typeof value === 'string' ? value.split(',') : value
+        );
+      }}
+      aria-label={
+        filter.label ?? `${String(column.label)} filter`
+      }
+    >
+      {filter.options?.map((option) => (
+        <MenuItem key={option.value} value={String(option.value)}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+}
 
   return (
     <TextField
@@ -155,14 +181,17 @@ export const ReusableTable = <T,>({
     selectableRowIds.length > 0 && selectableRowIds.every((id) => selectedIds.includes(id));
   const someSelected = selectableRowIds.some((id) => selectedIds.includes(id));
   const columnCount = visibleTableColumns.length + (selection ? 1 : 0);
-  const from = pagination && pagination.totalRows > 0 ? pagination.page * pagination.rowsPerPage + 1 : 0;
+  const from =
+    pagination && pagination.totalRows > 0 ? pagination.page * pagination.rowsPerPage + 1 : 0;
   const to = pagination
     ? Math.min((pagination.page + 1) * pagination.rowsPerPage, pagination.totalRows)
     : rows.length;
   const resultText =
     pagination?.formatResultCount?.({ from, to, total: pagination.totalRows }) ??
     formatDefaultResultCount({ from, to, total: pagination?.totalRows ?? rows.length });
-  const pageCount = pagination ? Math.max(1, Math.ceil(pagination.totalRows / pagination.rowsPerPage)) : 1;
+  const pageCount = pagination
+    ? Math.max(1, Math.ceil(pagination.totalRows / pagination.rowsPerPage))
+    : 1;
 
   const updateSelection = (ids: TableRowId[]) => {
     selection?.onSelectionChange(ids);
@@ -211,10 +240,7 @@ export const ReusableTable = <T,>({
                 const direction = active ? sortModel.direction : 'asc';
 
                 return (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                  >
+                  <TableCell key={column.id} align={column.align}>
                     {column.sortable && onSortChange ? (
                       <TableSortLabel
                         active={active}
@@ -229,7 +255,7 @@ export const ReusableTable = <T,>({
                         {column.renderHeader?.() ?? column.label}
                       </TableSortLabel>
                     ) : (
-                      column.renderHeader?.() ?? column.label
+                      (column.renderHeader?.() ?? column.label)
                     )}
                   </TableCell>
                 );
@@ -311,7 +337,12 @@ export const ReusableTable = <T,>({
           <Typography variant="body2" className={styles.resultText}>
             {resultText}
           </Typography>
-          <Stack direction="row" spacing={1.5} alignItems="center" className={styles.paginationActions}>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            alignItems="center"
+            className={styles.paginationActions}
+          >
             <Pagination
               count={pageCount}
               page={pagination.page + 1}

@@ -53,8 +53,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { PfPageHeader } from '@/Features/Shared/Components/PfPageHeader/PfPageHeader';
-import { CapacityBar } from '@/Features/Shared/Components/CapacityBar/CapacityBar';
+import { PfPageHeader } from '@/Features/shared/Components/PfPageHeader/PfPageHeader';
+import { CapacityBar } from '@/Features/shared/Components/CapacityBar/CapacityBar';
 import { ReusableTable, type TableColumn } from '@/components/common';
 import { radius } from '@/styles/theme';
 import type { Department } from '../../types/department.types';
@@ -604,3 +604,4 @@ export const DepartmentsPage = () => {
 };
 
 export default DepartmentsPage;
+

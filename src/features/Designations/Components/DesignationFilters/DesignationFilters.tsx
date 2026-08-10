@@ -78,3 +78,4 @@ export const DesignationFilters = ({ filters, onFilterChange, onReset, resultCou
     </Box>
   );
 };
+

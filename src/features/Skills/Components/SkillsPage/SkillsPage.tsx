@@ -33,12 +33,7 @@ export const SkillsPage = () => {
     toggleAllSelection,
   } = useSkills();
 
-  const {
-    filters,
-    filteredSkills,
-    updateFilter,
-    resetFilters,
-  } = useSkillFilters();
+  const { filters, filteredSkills, updateFilter, resetFilters } = useSkillFilters();
 
   const {
     formData,
@@ -55,7 +50,7 @@ export const SkillsPage = () => {
 
   const handleSaveSkill = useCallback(async () => {
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
     try {
       const skillData = {
@@ -64,7 +59,10 @@ export const SkillsPage = () => {
         demand: formData.demand as any,
         status: formData.status as any,
         description: formData.description,
-        aliases: formData.aliases.split(',').map(s => s.trim()).filter(Boolean),
+        aliases: formData.aliases
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
         designations: formData.designations.split('|').filter(Boolean),
         employees: 0,
         coverage: 0,
@@ -76,7 +74,7 @@ export const SkillsPage = () => {
       } else {
         await createSkill(skillData);
       }
-      
+
       closeDialog();
       resetForm();
     } catch (err) {
@@ -84,22 +82,40 @@ export const SkillsPage = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, selectedSkill, createSkill, updateSkill, closeDialog, resetForm, validateForm, setIsSubmitting]);
+  }, [
+    formData,
+    selectedSkill,
+    createSkill,
+    updateSkill,
+    closeDialog,
+    resetForm,
+    validateForm,
+    setIsSubmitting,
+  ]);
 
-  const handleViewSkill = useCallback((skill: any) => {
-    openDialog('view', skill);
-  }, [openDialog]);
+  const handleViewSkill = useCallback(
+    (skill: any) => {
+      openDialog('view', skill);
+    },
+    [openDialog],
+  );
 
-  const handleEditSkill = useCallback((skill: any) => {
-    populateForm(skill);
-    openDialog('edit', skill);
-  }, [populateForm, openDialog]);
+  const handleEditSkill = useCallback(
+    (skill: any) => {
+      populateForm(skill);
+      openDialog('edit', skill);
+    },
+    [populateForm, openDialog],
+  );
 
-  const handleDeleteSkill = useCallback(async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this skill?')) {
-      await deleteSkill(id);
-    }
-  }, [deleteSkill]);
+  const handleDeleteSkill = useCallback(
+    async (id: string) => {
+      if (window.confirm('Are you sure you want to delete this skill?')) {
+        await deleteSkill(id);
+      }
+    },
+    [deleteSkill],
+  );
 
   const handleAddSkill = useCallback(() => {
     resetForm();
@@ -116,10 +132,13 @@ export const SkillsPage = () => {
     URL.revokeObjectURL(url);
   }, [filteredSkills]);
 
-  const handleDeactivateSkill = useCallback(async (id: string) => {
-    await updateSkill(id, { status: 'Inactive' });
-    closeDialog();
-  }, [updateSkill, closeDialog]);
+  const handleDeactivateSkill = useCallback(
+    async (id: string) => {
+      await updateSkill(id, { status: 'Inactive' });
+      closeDialog();
+    },
+    [updateSkill, closeDialog],
+  );
 
   return (
     <Box className={styles.page}>
@@ -186,7 +205,7 @@ export const SkillsPage = () => {
           formData={formData}
           errors={errors}
           isSubmitting={isSubmitting}
-          onFieldChange={updateField}
+          onFieldChange={(field, value) => updateField(field as any, value)}
           mode={dialogMode}
           selectedSkill={selectedSkill}
         />

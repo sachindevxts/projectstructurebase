@@ -140,3 +140,4 @@ export const AllocationDetails = ({ values, projects, onChange }: AllocationDeta
     </Stack>
   );
 };
+

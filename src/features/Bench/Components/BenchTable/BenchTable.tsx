@@ -191,3 +191,4 @@ export const BenchTable = ({ loading = false }: BenchTableProps) => {
     />
   );
 };
+

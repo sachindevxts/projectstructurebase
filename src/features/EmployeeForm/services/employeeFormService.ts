@@ -9,8 +9,6 @@ class EmployeeFormService {
     return {
       name: employee.name,
       email: employee.email,
-      phone: employee.phone ?? '',
-      location: employee.location ?? '',
       department: employee.department,
       designation: employee.designation,
       manager: employee.manager,
@@ -18,8 +16,13 @@ class EmployeeFormService {
       joined: employee.joined,
       allocation: employee.allocation,
       billability: employee.billability,
-      status: employee.status === 'Overallocated' || employee.status === 'Releasing Soon' ? 'Active' : employee.status,
-      skills: employee.skills ?? [],
+      phone: (employee as any).phone ?? '',
+      location: (employee as any).location ?? '',
+      status:
+        employee.status === 'Overallocated' || employee.status === 'Releasing Soon'
+          ? 'Active'
+          : employee.status,
+      skills: (employee as any).skills ?? [],
     };
   }
 
@@ -27,10 +30,12 @@ class EmployeeFormService {
     const errors: string[] = [];
     if (!values.name.trim()) errors.push('Employee name is required');
     if (!values.email.trim()) errors.push('Email is required');
-    if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) errors.push('Email format is invalid');
+    if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))
+      errors.push('Email format is invalid');
     if (!values.department) errors.push('Department is required');
     if (!values.designation.trim()) errors.push('Designation is required');
-    if (values.allocation < 0 || values.allocation > 150) errors.push('Allocation must be between 0 and 150');
+    if (values.allocation < 0 || values.allocation > 150)
+      errors.push('Allocation must be between 0 and 150');
     return errors;
   }
 

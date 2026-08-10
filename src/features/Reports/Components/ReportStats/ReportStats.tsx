@@ -30,3 +30,4 @@ export const ReportStats = ({ stats }: ReportStatsProps) => {
     </Grid>
   );
 };
+

@@ -23,3 +23,4 @@ export function PermissionRoute({ children, permissions, mode = 'all' }: Permiss
 
   return <>{children}</>;
 }
+

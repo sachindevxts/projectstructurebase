@@ -46,3 +46,4 @@ export const BenchChart = ({ skills }: BenchChartProps) => {
     </Paper>
   );
 };
+

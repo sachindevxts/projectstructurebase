@@ -37,3 +37,4 @@ export const PlannerFilters = ({ filters, onFilterChange }: PlannerFiltersProps)
     </Button>
   </Box>
 );
+

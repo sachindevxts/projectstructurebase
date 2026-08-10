@@ -119,3 +119,4 @@ export const ClientTable = ({ clients, loading = false, onView, onEdit, onDelete
     />
   );
 };
+

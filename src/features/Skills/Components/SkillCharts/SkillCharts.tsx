@@ -137,3 +137,4 @@ export const SkillCharts = ({ skills }: SkillChartsProps) => {
     </Grid>
   );
 };
+

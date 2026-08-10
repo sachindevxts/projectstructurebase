@@ -23,3 +23,4 @@ export function CanAccess({
   if (!canRole || !canPermission) return <>{fallback}</>;
   return <>{children}</>;
 }
+

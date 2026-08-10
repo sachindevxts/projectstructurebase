@@ -112,3 +112,4 @@ export const DashboardUpcomingReleases = ({ releases }: DashboardUpcomingRelease
     </Card>
   );
 };
+

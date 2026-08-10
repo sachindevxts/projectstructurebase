@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box, Button, Paper } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { PfPageHeader } from '@/Features/Shared/Components/PfPageHeader/PfPageHeader';
+import { PfPageHeader } from '@/Features/shared/Components/PfPageHeader/PfPageHeader';
 import { useClients } from '../../hooks/useClients';
 import { ClientFilters } from '../ClientFilters/ClientFilters';
 import { ClientStats } from '../ClientStats/ClientStats';
@@ -35,3 +35,4 @@ export const ClientsPage = () => {
 };
 
 export default ClientsPage;
+

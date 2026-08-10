@@ -4,3 +4,4 @@ import { AppErrorFallback } from '@/components/common/ErrorFallback/AppErrorFall
 export function ErrorBoundary({ children }: { children: React.ReactNode }) {
   return <ReactErrorBoundary FallbackComponent={AppErrorFallback}>{children}</ReactErrorBoundary>;
 }
+
