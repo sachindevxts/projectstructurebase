@@ -20,7 +20,7 @@ import {
   InputLabel,
   Chip,
 } from '@mui/material';
-import type { Skill, DialogMode } from '../../types/skill.types';
+import type { Skill, DialogMode } from '../../Types/skill.types';
 import { SKILL_CATEGORIES, DEMAND_LEVELS, PROFICIENCY_LEVELS } from '../../constants/skill.constants';
 import styles from './SkillForm.module.scss';
 

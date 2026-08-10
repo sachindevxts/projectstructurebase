@@ -1,4 +1,4 @@
-import type { Skill, SkillStats } from '../types/skill.types';
+import type { Skill, SkillStats } from '../Types/skill.types';
 import skillData from '@/dummyJson/skills/skill-list.json';
 
 class SkillService {

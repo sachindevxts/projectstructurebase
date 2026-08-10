@@ -13,7 +13,7 @@ import {
   Whatshot as WhatshotIcon,
   Category as CategoryIcon,
 } from '@mui/icons-material';
-import type { SkillStats as SkillStatsType } from '../../types/skill.types';
+import type { SkillStats as SkillStatsType } from '../../Types/skill.types';
 import styles from './SkillStats.module.scss';
 
 interface SkillStatsProps {

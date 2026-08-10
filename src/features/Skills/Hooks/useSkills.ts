@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { Skill, DialogMode } from '../types/skill.types';
+import type { Skill, DialogMode } from '../Types/skill.types';
 import { skillService } from '../services/skillService';
 
 export const useSkills = () => {

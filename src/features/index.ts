@@ -4,19 +4,19 @@ export { default as DashboardPage } from './dashboard/components/DashboardPage/D
 
 // Skills
 export * from './skills';
-export { default as SkillsPage } from './skills/components/SkillsPage/SkillsPage';
+export { default as SkillsPage } from './Skills/components/SkillsPage/SkillsPage';
 
 // Employees
 export * from './employees';
-export { default as EmployeesPage } from './employees/components/EmployeesPage/EmployeesPage';
+export { default as EmployeesPage } from './Employees/components/EmployeesPage/EmployeesPage';
 
 // Projects
 export * from './projects';
-export { default as ProjectsPage } from './projects/components/ProjectsPage/ProjectsPage';
+export { default as ProjectsPage } from './Projects/components/ProjectsPage/ProjectsPage';
 
 // Allocations
 export * from './allocations';
-export { default as AllocationsPage } from './allocations/components/AllocationsPage/AllocationsPage';
+export { default as AllocationsPage } from './Allocations/components/AllocationsPage/AllocationsPage';
 
 // Allocation Form
 export * from './AllocationForm';
@@ -40,7 +40,7 @@ export { default as EmployeeFormPage } from './EmployeeForm/Components/EmployeeF
 
 // Auth
 export * from './auth';
-export { default as LoginPage } from './auth/components/LoginPage/LoginPage';
+export { default as LoginPage } from './Auth/components/LoginPage/LoginPage';
 
 // Reports
 export * from './Reports';

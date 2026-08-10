@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import type { BenchSkill } from '../../types/bench.types';
+import type { BenchSkill } from '../../Types/bench.types';
 import styles from './BenchChart.module.scss';
 
 interface BenchChartProps {
@@ -27,9 +27,16 @@ export const BenchChart = ({ skills }: BenchChartProps) => {
       </Typography>
       <Box className={styles.chartViewport}>
         <Box className={styles.yAxis}>
-          {[8, 7, 6, 5, 4, 3, 2, 0].map((tick) => <span key={tick}>{tick}</span>)}
+          {[8, 7, 6, 5, 4, 3, 2, 0].map((tick) => (
+            <span key={tick}>{tick}</span>
+          ))}
         </Box>
-        <Stack direction="row" alignItems="flex-end" justifyContent="space-around" className={styles.chart}>
+        <Stack
+          direction="row"
+          alignItems="flex-end"
+          justifyContent="space-around"
+          className={styles.chart}
+        >
           {chartSkills.map((skill) => (
             <Box key={skill.name} className={styles.bar}>
               <Box
@@ -46,4 +53,3 @@ export const BenchChart = ({ skills }: BenchChartProps) => {
     </Paper>
   );
 };
-

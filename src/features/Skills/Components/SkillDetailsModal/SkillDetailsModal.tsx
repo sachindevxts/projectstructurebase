@@ -15,7 +15,7 @@ import {
   Divider,
 } from '@mui/material';
 import { Close as CloseIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import type { Skill } from '../../types/skill.types';
+import type { Skill } from '../../Types/skill.types';
 import { SkillTags } from './SkillTags/SkillTags';
 import styles from './SkillDetailsModal.module.scss';
 import { SkillMetricCard } from '../SkillMetricCard/SkillMetricCard';

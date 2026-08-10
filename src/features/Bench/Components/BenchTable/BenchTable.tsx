@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Avatar, Box, Chip, Stack, Typography } from '@mui/material';
-import type { BenchEmployee } from '../../types/bench.types';
+import type { BenchEmployee } from '../../Types/bench.types';
 import { ReusableTable, type TableColumn } from '@/components/common';
 import styles from './BenchTable.module.scss';
 
@@ -135,7 +135,9 @@ export const BenchTable = ({ loading = false }: BenchTableProps) => {
       id: 'capacity',
       label: 'Available Capacity',
       renderCell: (employee) => (
-        <Typography className={employee.capacity === '100%*' ? styles.releaseCapacity : styles.capacityText}>
+        <Typography
+          className={employee.capacity === '100%*' ? styles.releaseCapacity : styles.capacityText}
+        >
           {employee.capacity}
         </Typography>
       ),
@@ -145,7 +147,9 @@ export const BenchTable = ({ loading = false }: BenchTableProps) => {
       id: 'benchDays',
       label: 'Bench Days',
       renderCell: (employee) => (
-        <Typography className={employee.benchDays.includes('68') ? styles.dangerDays : styles.warningDays}>
+        <Typography
+          className={employee.benchDays.includes('68') ? styles.dangerDays : styles.warningDays}
+        >
           {employee.benchDays}
         </Typography>
       ),
@@ -161,7 +165,9 @@ export const BenchTable = ({ loading = false }: BenchTableProps) => {
     {
       id: 'action',
       label: 'Action',
-      renderCell: (employee) => <Typography className={styles.actionText}>{employee.action}</Typography>,
+      renderCell: (employee) => (
+        <Typography className={styles.actionText}>{employee.action}</Typography>
+      ),
     },
   ];
 
@@ -191,4 +197,3 @@ export const BenchTable = ({ loading = false }: BenchTableProps) => {
     />
   );
 };
-

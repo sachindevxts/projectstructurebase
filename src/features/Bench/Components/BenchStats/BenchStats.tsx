@@ -8,7 +8,7 @@ import {
   WarningAmber as WarningIcon,
   WorkOff as WorkOffIcon,
 } from '@mui/icons-material';
-import type { BenchStats as BenchStatsType } from '../../types/bench.types';
+import type { BenchStats as BenchStatsType } from '../../Types/bench.types';
 import styles from './BenchStats.module.scss';
 
 interface BenchStatsProps {

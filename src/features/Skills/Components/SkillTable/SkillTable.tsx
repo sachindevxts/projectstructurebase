@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 import type { ChipProps } from '@mui/material/Chip';
-import type { Skill } from '../../types/skill.types';
+import type { Skill } from '../../Types/skill.types';
 import { ReusableTable, type TableColumn, type TableRowId } from '@/components/common/ReusableTable';
 import { SkillActions } from './SkillActions';
 import styles from './SkillTable.module.scss';

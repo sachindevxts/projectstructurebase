@@ -6,25 +6,25 @@ import { DashboardPage } from '@/Features';
 // Feature-based lazy imports
 // const DashboardPage = lazy(() => import('@/Features/dashboard/components/DashboardPage/DashboardPage'));
 const EmployeesPage = lazy(
-  () => import('@/Features/employees/components/EmployeesPage/EmployeesPage'),
+  () => import('@/Features/Employees/components/EmployeesPage/EmployeesPage'),
 );
 const EmployeeDetailPage = lazy(() => import('@/pages/PeopleFlow/EmployeeDetailPage'));
 // const EmployeeFormPage = lazy(() => import('@/pages/PeopleFlow/EmployeeFormPage'));
-const BenchPage = lazy(() => import('@/Features/bench/components/BenchPage/BenchPage'));
-const ProjectsPage = lazy(() => import('@/Features/projects/components/ProjectsPage/ProjectsPage'));
+const BenchPage = lazy(() => import('@/Features/Bench/components/BenchPage/BenchPage'));
+const ProjectsPage = lazy(() => import('@/Features/Projects/components/ProjectsPage/ProjectsPage'));
 // const ProjectDetailPage = lazy(() => import('@/pages/PeopleFlow/ProjectDetailPage'));
 const AllocationsPage = lazy(
-  () => import('@/Features/allocations/components/AllocationsPage/AllocationsPage'),
+  () => import('@/Features/Allocations/components/AllocationsPage/AllocationsPage'),
 );
 const AllocationFormPage = lazy(() => import('@/pages/PeopleFlow/AllocationFormPage'));
 // const ResourcePlannerPage = lazy(() => import('@/pages/PeopleFlow/ResourcePlannerPage'));
 // const DepartmentsPage = lazy(() => import('@/pages/PeopleFlow/DepartmentsPage'));
 // const DesignationsPage = lazy(() => import('@/pages/PeopleFlow/DesignationsPage'));
-const SkillsPage = lazy(() => import('@/Features/skills/components/SkillsPage/SkillsPage'));
+const SkillsPage = lazy(() => import('@/Features/Skills/components/SkillsPage/SkillsPage'));
 const RolesPage = lazy(() => import('@/pages/PeopleFlow/RolesPage'));
 const AuditLogsPage = lazy(() => import('@/pages/PeopleFlow/AuditLogsPage'));
 // const GenericReportPage = lazy(() => import('@/pages/PeopleFlow/GenericReportPage'));
-const LoginPage = lazy(() => import('@/Features/auth/components/LoginPage/LoginPage'));
+const LoginPage = lazy(() => import('@/Features/Auth/components/LoginPage/LoginPage'));
 const RecoveryPage = lazy(() => import('@/pages/Auth/RecoveryPage'));
 
 // System pages

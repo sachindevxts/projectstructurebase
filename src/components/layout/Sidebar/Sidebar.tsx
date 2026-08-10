@@ -5,7 +5,7 @@ import { ChevronDown, LogOut, Settings } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setSidebarOpen } from '@/redux/actions';
 import { SIDEBAR_ITEMS, NAVIGATION_LABELS } from '@/constants/navigation.constants';
-import { useAuth } from '@/Features/auth/Hooks/useAuth';
+import { useAuth } from '@/Features/Auth/Hooks/useAuth';
 import styles from './Sidebar.module.scss';
 
 const icons: Record<string, string> = {

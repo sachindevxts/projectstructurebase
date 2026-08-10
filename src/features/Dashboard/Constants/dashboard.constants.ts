@@ -1,4 +1,4 @@
-import type { DashboardStat } from '../types/dashboard.types';
+import type { DashboardStat } from '../Types/dashboard.types';
 
 export const STAT_COLORS = {
   primary: 'var(--color-info)',

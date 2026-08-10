@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Skill } from '../types/skill.types';
+import type { Skill } from '../Types/skill.types';
 import { DEFAULT_SKILL_FORM_VALUES } from '../constants/skill.constants';
 
 interface SkillFormData {
