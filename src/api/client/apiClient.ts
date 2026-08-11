@@ -2,7 +2,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
 import { storage } from '@/utils/storage.utils';
 import { STORAGE_KEYS } from '@/constants/storage.constants';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api/v1';
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -23,7 +23,7 @@ apiClient.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor
@@ -36,12 +36,12 @@ apiClient.interceptors.response.use(
       storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
       storage.remove(STORAGE_KEYS.USER);
       // Redirect to login if needed
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
         window.location.href = '/login';
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const api = apiClient;

@@ -17,25 +17,30 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { login } from '@/redux/actions';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import styles from './LoginPage.module.scss';
-import { useAuth } from '../../Hooks/useAuth';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login, loading, error } = useAuth();
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector((state) => state.auth.isLoading);
+  const error = useAppSelector((state) => state.auth.error?.message ?? null);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: 'admin@acmecorp.com',
-    password: 'PeopleFlow1!',
+    email: 'admin@peopleflow.local',
+    password: 'PeopleFlow@123',
     rememberMe: true,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = await login({
-      email: formData.email,
-      password: formData.password,
-    });
+    const success = await dispatch(
+      login({
+        email: formData.email,
+        password: formData.password,
+      }),
+    );
     if (success) {
       navigate('/dashboard');
     }

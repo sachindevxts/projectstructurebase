@@ -3,9 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Box, Typography, IconButton, Avatar, Stack, Divider } from '@mui/material';
 import { ChevronDown, LogOut, Settings } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { setSidebarOpen } from '@/redux/actions';
+import { logout as logoutAction, setSidebarOpen } from '@/redux/actions';
 import { SIDEBAR_ITEMS, NAVIGATION_LABELS } from '@/constants/navigation.constants';
-import { useAuth } from '@/features/Auth/Hooks/useAuth';
 import styles from './Sidebar.module.scss';
 
 const icons: Record<string, string> = {
@@ -27,7 +26,7 @@ const icons: Record<string, string> = {
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { logout, user } = useAuth();
+  const user = useAppSelector((state) => state.auth.user);
   const mobileOpen = useAppSelector((state) => state.ui.sidebarOpen);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -48,8 +47,8 @@ export const Sidebar = () => {
 
   const closeMobileSidebar = () => dispatch(setSidebarOpen(false));
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    dispatch(logoutAction());
     navigate('/login');
   };
 
@@ -143,4 +142,3 @@ export const Sidebar = () => {
     </>
   );
 };
-

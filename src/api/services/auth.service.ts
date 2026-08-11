@@ -1,88 +1,102 @@
 import { API_ENDPOINTS } from '@/constants/api.constants';
 import { api } from '@/api/client/apiClient';
-import { storage } from '@/utils/storage.utils';
 import { STORAGE_KEYS } from '@/constants/storage.constants';
-
-export interface LoginPayload {
-  username: string;
-  password: string;
-}
-
-export interface AuthUser {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-  permissions: string[];
-}
+import type { AuthUser } from '@/types/common.types';
+import type { LoginPayload } from '@/types/auth.types';
+import { storage } from '@/utils/storage.utils';
 
 interface AuthResponse {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role?: string;
   accessToken: string;
   refreshToken: string;
 }
 
-class AuthService {
-  async login(payload: LoginPayload): Promise<AuthUser> {
-    try {
-      // For development, mock login
-      // When backend is ready:
-      // const response = await api.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, payload);
-      
-      // Mock response for development
-      const mockUser: AuthUser = {
-        id: '1',
-        email: payload.username,
-        name: payload.username.includes('admin') ? 'Admin User' : 'Regular User',
-        role: payload.username.includes('admin') ? 'admin' : 'user',
-        permissions: payload.username.includes('admin') 
-          ? ['dashboard:view', 'user:manage', 'allocation:manage', 'settings:manage']
-          : ['dashboard:view', 'user:view'],
-      };
+interface ApiEnvelope<T> {
+  data: T;
+}
 
-      // Store token and user
-      storage.set(STORAGE_KEYS.ACCESS_TOKEN, 'mock-token-' + Date.now());
-      storage.set(STORAGE_KEYS.USER, mockUser);
-      
-      return mockUser;
-    } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
-    }
+interface AccessTokenPayload {
+  sub: string;
+  email: string;
+  role: 'ADMIN' | 'HR' | 'MANAGER' | 'EMPLOYEE';
+}
+
+const ROLE_PERMISSIONS: Record<AccessTokenPayload['role'], string[]> = {
+  ADMIN: ['dashboard:view', 'user:manage', 'allocation:manage', 'settings:manage'],
+  HR: ['dashboard:view', 'user:manage', 'allocation:manage'],
+  MANAGER: ['dashboard:view', 'user:view', 'allocation:manage'],
+  EMPLOYEE: ['dashboard:view', 'user:view'],
+};
+
+const ROLE_LABELS: Record<AccessTokenPayload['role'], string> = {
+  ADMIN: 'admin',
+  HR: 'hr',
+  MANAGER: 'manager',
+  EMPLOYEE: 'employee',
+};
+
+function decodeAccessToken(token: string): AccessTokenPayload {
+  const payload = token.split('.')[1];
+  if (!payload) {
+    throw new Error('Invalid access token');
   }
 
-  async getCurrentUser(): Promise<AuthUser> {
-    try {
-      const user = storage.get<AuthUser>(STORAGE_KEYS.USER);
-      if (!user) {
-        throw new Error('No user found');
-      }
-      return user;
-    } catch (error) {
-      console.error('Error getting current user:', error);
-      throw error;
-    }
+  const normalizedPayload = payload.replace(/-/g, '+').replace(/_/g, '/');
+  const decoded = JSON.parse(window.atob(normalizedPayload)) as AccessTokenPayload;
+
+  if (!decoded.sub || !decoded.email || !decoded.role) {
+    throw new Error('Invalid access token payload');
+  }
+
+  return decoded;
+}
+
+function toDisplayName(email: string): string {
+  return email
+    .split('@')[0]
+    .split(/[._-]/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+class AuthService {
+  async login(payload: LoginPayload): Promise<AuthUser> {
+    const response = await api.post<ApiEnvelope<AuthResponse>>(API_ENDPOINTS.AUTH.LOGIN, {
+      email: payload.email.trim().toLowerCase(),
+      password: payload.password,
+    });
+
+    const { accessToken, refreshToken } = response.data.data;
+    const tokenPayload = decodeAccessToken(accessToken);
+    const user: AuthUser = {
+      id: tokenPayload.sub,
+      email: tokenPayload.email,
+      name: toDisplayName(tokenPayload.email),
+      role: ROLE_LABELS[tokenPayload.role],
+      permissions: ROLE_PERMISSIONS[tokenPayload.role],
+    };
+
+    storage.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+    storage.set(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+    storage.set(STORAGE_KEYS.USER, user);
+
+    return user;
+  }
+
+  async getCurrentUser(): Promise<AuthUser | null> {
+    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+    const user = storage.get<AuthUser>(STORAGE_KEYS.USER);
+    return token && user ? user : null;
   }
 
   async logout(): Promise<void> {
-    try {
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      storage.remove(STORAGE_KEYS.USER);
-    } catch (error) {
-      console.error('Error logging out:', error);
-      throw error;
-    }
+    storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+    storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
+    storage.remove(STORAGE_KEYS.USER);
   }
 
   isAuthenticated(): boolean {
-    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-    return !!token;
+    return !!storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
   }
 }
 

@@ -6,7 +6,7 @@ import { STORAGE_KEYS } from '@/constants/storage.constants';
 import { storage } from '@/utils/storage.utils';
 
 interface LoginPayload {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -22,7 +22,6 @@ export const login = createAsyncThunk(
   async (payload: LoginPayload, { rejectWithValue }) => {
     try {
       const user = await authService.login(payload);
-      storage.set(STORAGE_KEYS.ACCESS_TOKEN, 'demo-token');
       storage.set(STORAGE_KEYS.USER, user);
       return user;
     } catch (error) {

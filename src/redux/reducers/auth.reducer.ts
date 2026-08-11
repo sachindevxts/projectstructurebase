@@ -11,6 +11,7 @@ export interface AuthReduxState {
   error: ApiError | null;
 }
 const storedUser = storage.get<AuthUser | null>(STORAGE_KEYS.USER, null);
+const storedAccessToken = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
 const signedOutState: AuthReduxState = {
   user: null,
   loading: false,
@@ -20,7 +21,7 @@ const signedOutState: AuthReduxState = {
   error: null,
 };
 const initialState: AuthReduxState = storedUser
-  ? { ...signedOutState, user: storedUser, isAuthenticated: true }
+  ? { ...signedOutState, user: storedUser, isAuthenticated: !!storedAccessToken }
   : signedOutState;
 export default function authReducer(state = initialState, action: any): AuthReduxState {
   switch (action.type) {
@@ -43,6 +44,8 @@ export default function authReducer(state = initialState, action: any): AuthRedu
         ...state,
         loading: false,
         isLoading: false,
+        isAuthenticated: false,
+        user: null,
         initialized: true,
         error: action.payload,
       };
