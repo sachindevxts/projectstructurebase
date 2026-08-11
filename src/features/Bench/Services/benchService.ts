@@ -1,4 +1,4 @@
-import type { BenchEmployee, BenchStats, BenchSkill } from '../types/bench.types';
+import type { BenchEmployee, BenchStats, BenchSkill } from '../Types/bench.types';
 import employeesData from '@/dummyJson/employees/employee-list.json';
 
 class BenchService {

@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import type { Skill, SkillCategory } from '../../Types/skill.types';
-import { CATEGORY_COLORS } from '../../constants/skill.constants';
+import { CATEGORY_COLORS } from '../../Constants/skill.constants';
 import styles from './SkillCharts.module.scss';
 
 interface SkillChartsProps {

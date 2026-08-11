@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box, Button, CircularProgress, Paper, Typography } from '@mui/material';
 import { Download as DownloadIcon } from '@mui/icons-material';
-import { PfPageHeader } from '@/Features/shared/Components/PfPageHeader/PfPageHeader';
+import { PfPageHeader } from '@/features/Shared/Components/PfPageHeader/PfPageHeader';
 import { reportService } from '../../services/reportService';
 import { useReports } from '../../hooks/useReports';
 import { ReportCharts } from '../ReportCharts/ReportCharts';

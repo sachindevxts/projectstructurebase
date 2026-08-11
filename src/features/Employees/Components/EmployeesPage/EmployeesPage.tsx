@@ -10,8 +10,8 @@ import { useEmployees } from '../../Hooks/useEmployees';
 import { useEmployeeFilters } from '../../Hooks/useEmployeeFilters';
 import { EmployeeFilters } from '../EmployeeFilters/EmployeeFilters';
 import { EmployeeTable } from '../EmployeeTable/EmployeeTable';
-import { employeeService } from '../../services/employeeService';
-import type { Employee } from '../../types/employee.types';
+import { employeeService } from '../../Services/employeeService';
+import type { Employee } from '../../Types/employee.types';
 import styles from './EmployeesPage.module.scss';
 
 export const EmployeesPage = () => {

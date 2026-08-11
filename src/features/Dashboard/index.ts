@@ -1,6 +1,6 @@
-export { default as DashboardPage } from './components/DashboardPage/DashboardPage';
+export { default as DashboardPage } from './Components/DashboardPage/DashboardPage';
 export * from './Types/dashboard.types';
-export * from './constants/dashboard.constants';
-export * from './hooks/useDashboard';
-export * from './hooks/useDashboardData';
-export * from './services/dashboardService';
+export * from './Constants/dashboard.constants';
+export * from './Hooks/useDashboard';
+export * from './Hooks/useDashboardData';
+export * from './Services/dashboardService';

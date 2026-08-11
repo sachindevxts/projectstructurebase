@@ -13,7 +13,7 @@ import {
   Paper,
 } from '@mui/material';
 import { Search as SearchIcon, Clear as ClearIcon } from '@mui/icons-material';
-import { SKILL_CATEGORIES, DEMAND_LEVELS } from '../../constants/skill.constants';
+import { SKILL_CATEGORIES, DEMAND_LEVELS } from '../../Constants/skill.constants';
 import styles from './SkillFilters.module.scss';
 
 interface SkillFiltersProps {

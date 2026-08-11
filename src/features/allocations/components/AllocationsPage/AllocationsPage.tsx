@@ -3,7 +3,7 @@ import { Box, Button, Paper } from '@mui/material';
 import { Add as AddIcon, Download as DownloadIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAllocations } from '../../hooks/useAllocations';
-import { PfPageHeader } from '@/Features/shared';
+import { PfPageHeader } from '@/features/Shared';
 import styles from './AllocationsPage.module.scss';
 import { AllocationFilters } from '../AllocationFilters/AllocationFilters';
 import { AllocationStats } from '../AllocationStats/AllocationStats';

@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { DeleteOutline, Edit, MoreVert, Visibility } from '@mui/icons-material';
 import type { ChipProps } from '@mui/material/Chip';
-import type { Employee } from '../../types/employee.types';
+import type { Employee } from '../../Types/employee.types';
 import {
   ReusableTable,
   type TableColumn,

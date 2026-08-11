@@ -21,7 +21,7 @@ import {
   Chip,
 } from '@mui/material';
 import type { Skill, DialogMode } from '../../Types/skill.types';
-import { SKILL_CATEGORIES, DEMAND_LEVELS, PROFICIENCY_LEVELS } from '../../constants/skill.constants';
+import { SKILL_CATEGORIES, DEMAND_LEVELS, PROFICIENCY_LEVELS } from '../../Constants/skill.constants';
 import styles from './SkillForm.module.scss';
 
 interface SkillFormProps {

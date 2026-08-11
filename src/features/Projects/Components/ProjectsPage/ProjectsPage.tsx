@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProjectFilters } from '../ProjectFilters/ProjectFilters';
 import { ProjectTable } from '../ProjectTable/ProjectTable';
 import { ProjectStats } from '../ProjectStats/ProjectStats';
-import { PfPageHeader } from '@/Features/shared';
+import { PfPageHeader } from '@/features/Shared';
 import styles from './ProjectsPage.module.scss';
 import { useProjects } from '../../Hooks/useProjects';
 

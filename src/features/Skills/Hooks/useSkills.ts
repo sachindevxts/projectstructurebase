@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import type { Skill, DialogMode } from '../Types/skill.types';
-import { skillService } from '../services/skillService';
+import { skillService } from '../Services/skillService';
 
 export const useSkills = () => {
   const [skills, setSkills] = useState<Skill[]>([]);

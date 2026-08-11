@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useDebounce } from '@/hooks';
-import { employeeService } from '../services/employeeService';
-import type { EmployeeFilters } from '../types/employee.types';
+import { employeeService } from '../Services/employeeService';
+import type { EmployeeFilters } from '../Types/employee.types';
 
 export const useEmployeeFilters = (initialFilters?: Partial<EmployeeFilters>) => {
   const [filters, setFilters] = useState<EmployeeFilters>({

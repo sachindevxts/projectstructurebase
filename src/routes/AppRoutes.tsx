@@ -5,31 +5,31 @@ import { AppLayout } from '@/components/layout/AppLayout/AppLayout';
 import { AuthLayout } from '@/components/layout/AuthLayout/AuthLayout';
 import { ProtectedRoute } from './ProtectedRoute';
 import { RouteFallback } from './RouteFallback';
-import { AllocationFormPage, DashboardPage, DesignationsPage, EmployeeFormPage, EmployeesPage, ProjectsPage, ResourcePlannerPage, SkillsPage } from '@/Features';
-import EmployeeDetail from '@/Features/Employees/Components/EmployeeDetail/EmployeeDetail';
-import { DepartmentsPage } from '@/Features/Departments';
+import { AllocationFormPage, DashboardPage, DesignationsPage, EmployeeFormPage, EmployeesPage, ProjectsPage, ResourcePlannerPage, SkillsPage } from '@/features';
+import EmployeeDetail from '@/features/Employees/Components/EmployeeDetail/EmployeeDetail';
+import { DepartmentsPage } from '@/features/Departments';
 import RolesPage from '@/pages/PeopleFlow/RolesPage';
 import AuditLogsPage from '@/pages/PeopleFlow/AuditLogsPage';
 
 // Feature-based imports
-const LoginPage = React.lazy(() => import('@/Features/Auth/Components/LoginPage/LoginPage'));
+const LoginPage = React.lazy(() => import('@/features/Auth/Components/LoginPage/LoginPage'));
 // const DashboardPage = React.lazy(
-//   () => import('@/Features/dashboard/Components/DashboardPage/DashboardPage'),
+//   () => import('@/features/Dashboard/Components/DashboardPage/DashboardPage'),
 // );
 // const EmployeesPage = React.lazy(
-//   () => import('@/Features/Employees/Components/EmployeesPage/EmployeesPage'),
+//   () => import('@/features/Employees/Components/EmployeesPage/EmployeesPage'),
 // );
 // const EmployeeDetail = React.lazy(
-//   () => import('@/Features/Employees/Components/EmployeeDetail/EmployeeDetail'),
+//   () => import('@/features/Employees/Components/EmployeeDetail/EmployeeDetail'),
 // );
-const BenchPage = React.lazy(() => import('@/Features/Bench/Components/BenchPage/BenchPage'));
+const BenchPage = React.lazy(() => import('@/features/Bench/Components/BenchPage/BenchPage'));
 // const ProjectsPage = React.lazy(
-//   () => import('@/Features/Projects/Components/ProjectsPage/ProjectsPage'),
+//   () => import('@/features/Projects/Components/ProjectsPage/ProjectsPage'),
 // );
 const AllocationsPage = React.lazy(
-  () => import('@/Features/Allocations/components/AllocationsPage/AllocationsPage'),
+  () => import('@/features/allocations/components/AllocationsPage/AllocationsPage'),
 );
-// const SkillsPage = React.lazy(() => import('@/Features/skills/Components/SkillsPage/SkillsPage'));
+// const SkillsPage = React.lazy(() => import('@/features/Skills/Components/SkillsPage/SkillsPage'));
 
 // Legacy pages (to be migrated)
 // const EmployeeFormPage = React.lazy(() => import('@/pages/PeopleFlow/EmployeeFormPage'));

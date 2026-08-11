@@ -1,7 +1,7 @@
-export { default as SkillsPage } from './components/SkillsPage/SkillsPage';
+export { default as SkillsPage } from './Components/SkillsPage/SkillsPage';
 export * from './Types/skill.types';
-export * from './constants/skill.constants';
-export * from './hooks/useSkills';
-export * from './hooks/useSkillFilters';
-export * from './hooks/useSkillForm';
-export * from './services/skillService';
+export * from './Constants/skill.constants';
+export * from './Hooks/useSkills';
+export * from './Hooks/useSkillFilters';
+export * from './Hooks/useSkillForm';
+export * from './Services/skillService';

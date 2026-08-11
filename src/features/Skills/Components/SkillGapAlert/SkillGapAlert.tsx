@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertTitle, Button, Stack, Box } from '@mui/material';
 import { Warning as WarningIcon } from '@mui/icons-material';
-import type { Skill } from '../../types/skill.types';
+import type { Skill } from '../../Types/skill.types';
 
 interface SkillGapAlertProps {
   skills: Skill[];

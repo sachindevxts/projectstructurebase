@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setSidebarOpen } from '@/redux/actions';
 import { selectSidebarOpen } from '@/redux/selectors';
 import { NAVIGATION_LABELS } from '@/constants/navigation.constants';
-import { useAuth } from '@/Features/Auth/Hooks/useAuth';
+import { useAuth } from '@/features/Auth/Hooks/useAuth';
 import { useTheme } from '@/providers/ThemeProvider';
 import styles from './Topbar.module.scss';
 

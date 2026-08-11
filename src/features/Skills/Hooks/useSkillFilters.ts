@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useDebounce } from '@/hooks';
-import { skillService } from '../services/skillService';
+import { skillService } from '../Services/skillService';
 
 interface FilterState {
   search: string;

@@ -7,7 +7,7 @@ import {
   Warning as WarningIcon,
   AttachMoney as AttachMoneyIcon,
 } from '@mui/icons-material';
-import type { EmployeeStats as EmployeeStatsType } from '../../types/employee.types';
+import type { EmployeeStats as EmployeeStatsType } from '../../Types/employee.types';
 import styles from './EmployeeStats.module.scss';
 
 interface EmployeeStatsProps {

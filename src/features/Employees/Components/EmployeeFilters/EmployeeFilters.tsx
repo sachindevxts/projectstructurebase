@@ -12,7 +12,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Clear as ClearIcon, Search as SearchIcon } from '@mui/icons-material';
-import type { EmployeeFilters as EmployeeFiltersType } from '../../types/employee.types';
+import type { EmployeeFilters as EmployeeFiltersType } from '../../Types/employee.types';
 import styles from './EmployeeFilters.module.scss';
 
 interface EmployeeFiltersProps {

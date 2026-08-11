@@ -1,30 +1,30 @@
 // Dashboard
-export * from './dashboard';
-export { default as DashboardPage } from './dashboard/components/DashboardPage/DashboardPage';
+export * from './Dashboard';
+export { default as DashboardPage } from './Dashboard/Components/DashboardPage/DashboardPage';
 
 // Skills
-export * from './skills';
-export { default as SkillsPage } from './Skills/components/SkillsPage/SkillsPage';
+export * from './Skills';
+export { default as SkillsPage } from './Skills/Components/SkillsPage/SkillsPage';
 
 // Employees
-export * from './employees';
-export { default as EmployeesPage } from './Employees/components/EmployeesPage/EmployeesPage';
+export * from './Employees';
+export { default as EmployeesPage } from './Employees/Components/EmployeesPage/EmployeesPage';
 
 // Projects
-export * from './projects';
-export { default as ProjectsPage } from './Projects/components/ProjectsPage/ProjectsPage';
+export * from './Projects';
+export { default as ProjectsPage } from './Projects/Components/ProjectsPage/ProjectsPage';
 
 // Allocations
 export * from './allocations';
-export { default as AllocationsPage } from './Allocations/components/AllocationsPage/AllocationsPage';
+export { default as AllocationsPage } from './allocations/components/AllocationsPage/AllocationsPage';
 
 // Allocation Form
 export * from './AllocationForm';
 export { default as AllocationFormPage } from './AllocationForm/Components/AllocationFormPage/AllocationFormPage';
 
 // Bench
-export * from './bench';
-export { default as BenchPage } from './bench/components/BenchPage/BenchPage';
+export * from './Bench';
+export { default as BenchPage } from './Bench/Components/BenchPage/BenchPage';
 
 // Clients
 export * from './Clients';
@@ -39,8 +39,8 @@ export * from './EmployeeForm';
 export { default as EmployeeFormPage } from './EmployeeForm/Components/EmployeeFormPage/EmployeeFormPage';
 
 // Auth
-export * from './auth';
-export { default as LoginPage } from './Auth/components/LoginPage/LoginPage';
+export * from './Auth';
+export { default as LoginPage } from './Auth/Components/LoginPage/LoginPage';
 
 // Reports
 export * from './Reports';
@@ -51,4 +51,4 @@ export * from './ResourcePlanner';
 export { default as ResourcePlannerPage } from './ResourcePlanner/Components/ResourcePlannerPage/ResourcePlannerPage';
 
 // Shared
-export * from './shared';
+export * from './Shared';

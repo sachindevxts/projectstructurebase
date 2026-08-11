@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { Box, Container, Paper, Button, Stack } from '@mui/material';
 import { Add as AddIcon, Download as DownloadIcon } from '@mui/icons-material';
-import { useSkills } from '../../hooks/useSkills';
-import { useSkillFilters } from '../../hooks/useSkillFilters';
-import { useSkillForm } from '../../hooks/useSkillForm';
+import { useSkills } from '../../Hooks/useSkills';
+import { useSkillFilters } from '../../Hooks/useSkillFilters';
+import { useSkillForm } from '../../Hooks/useSkillForm';
 import { SkillStats } from '../SkillStats/SkillStats';
 import { SkillFilters } from '../SkillFilters/SkillFilters';
 import { SkillTable } from '../SkillTable/SkillTable';
@@ -12,8 +12,8 @@ import { SkillDetailsModal } from '../SkillDetailsModal/SkillDetailsModal';
 import { SkillGapAlert } from '../SkillGapAlert/SkillGapAlert';
 import { SkillCharts } from '../SkillCharts/SkillCharts';
 import { PfPageHeader } from '@/pages/PeopleFlow/shared';
-import { skillService } from '../../services/skillService';
-import { CHART_SKILLS } from '../../constants/skill.constants';
+import { skillService } from '../../Services/skillService';
+import { CHART_SKILLS } from '../../Constants/skill.constants';
 import styles from './SkillsPage.module.scss';
 
 export const SkillsPage = () => {

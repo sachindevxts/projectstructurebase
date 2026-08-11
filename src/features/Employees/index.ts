@@ -1,5 +1,5 @@
-export { default as EmployeesPage } from './components/EmployeesPage/EmployeesPage';
-export * from './types/employee.types';
-export * from './hooks/useEmployees';
-export * from './hooks/useEmployeeFilters';
-export * from './services/employeeService';
+export { default as EmployeesPage } from './Components/EmployeesPage/EmployeesPage';
+export * from './Types/employee.types';
+export * from './Hooks/useEmployees';
+export * from './Hooks/useEmployeeFilters';
+export * from './Services/employeeService';

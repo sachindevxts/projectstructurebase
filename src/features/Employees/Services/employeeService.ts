@@ -1,4 +1,4 @@
-import type { Employee, EmployeeStats, EmployeeFilters } from '../types/employee.types';
+import type { Employee, EmployeeStats, EmployeeFilters } from '../Types/employee.types';
 import employeesData from '@/dummyJson/employees/employee-list.json';
 
 class EmployeeService {

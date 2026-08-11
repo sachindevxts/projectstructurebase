@@ -3,7 +3,7 @@ import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import type { ChipProps } from '@mui/material/Chip';
 import { Block, Edit, MoreVert } from '@mui/icons-material';
 import type { Allocation } from '../../Types/allocation.types';
-import { CapacityBar } from '@/Features/shared';
+import { CapacityBar } from '@/features/Shared';
 import { ReusableTable, type TableColumn } from '@/components/common';
 import styles from './AllocationTable.module.scss';
 
