@@ -1,5 +1,4 @@
-@import '../../../../utils/css/abstracts/variables';
-@import '../../../../utils/css/abstracts/mixins';
+@use '../../../../utils/css/abstracts/index' as *;
 
 .tableContainer {
   border-radius: $radius-lg !important;
