@@ -13,8 +13,8 @@ interface SkillTableProps {
   onToggleSelection: (id: string) => void;
   onToggleAll: (ids: string[]) => void;
   onView: (skill: Skill) => void;
-  onEdit: (skill: Skill) => void;
-  onDelete: (id: string) => void;
+  onEdit?: (skill: Skill) => void;
+  onDelete?: (id: string) => void;
 }
 
 export const SkillTable = ({
@@ -147,8 +147,8 @@ export const SkillTable = ({
       renderCell: (skill) => (
         <SkillActions
           onView={() => onView(skill)}
-          onEdit={() => onEdit(skill)}
-          onDelete={() => onDelete(skill.id)}
+          onEdit={onEdit ? () => onEdit(skill) : undefined}
+          onDelete={onDelete ? () => onDelete(skill.id) : undefined}
         />
       ),
     },

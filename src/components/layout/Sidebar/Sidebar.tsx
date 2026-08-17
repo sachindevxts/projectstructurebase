@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Box, Typography, IconButton, Avatar, Stack, Divider } from '@mui/material';
 import { ChevronDown, LogOut, Settings } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { logout as logoutAction, setSidebarOpen } from '@/redux/actions';
 import { SIDEBAR_ITEMS, NAVIGATION_LABELS } from '@/constants/navigation.constants';
+import ConfirmationDialog from '@/components/common/ConfirmationDialog/ConfirmationDialog';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './Sidebar.module.scss';
 
 const icons: Record<string, string> = {
@@ -23,12 +25,30 @@ const icons: Record<string, string> = {
   audit: '⟳',
 };
 
+const navigationPermissions: Record<string, string> = {
+  dashboard: 'dashboard:view',
+  employees: 'employees:view',
+  bench: 'bench:view',
+  clients: 'clients:view',
+  projects: 'projects:view',
+  allocations: 'allocations:view',
+  planner: 'resource-planner:view',
+  reports: 'reports:view',
+  departments: 'departments:view',
+  designations: 'designations:view',
+  skills: 'skills:view',
+  roles: 'roles:view',
+  audit: 'audit-logs:view',
+};
+
 export const Sidebar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
   const mobileOpen = useAppSelector((state) => state.ui.sidebarOpen);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -47,9 +67,23 @@ export const Sidebar = () => {
 
   const closeMobileSidebar = () => dispatch(setSidebarOpen(false));
 
-  const handleLogout = () => {
-    dispatch(logoutAction());
-    navigate('/login');
+  const requestLogout = () => {
+    setLogoutDialogOpen(true);
+  };
+
+  const cancelLogout = () => {
+    if (!logoutLoading) setLogoutDialogOpen(false);
+  };
+
+  const confirmLogout = async () => {
+    setLogoutLoading(true);
+    try {
+      await dispatch(logoutAction());
+      setLogoutDialogOpen(false);
+      navigate('/login');
+    } finally {
+      setLogoutLoading(false);
+    }
   };
 
   return (
@@ -93,12 +127,17 @@ export const Sidebar = () => {
         </Box>
 
         <Box component="nav" className={styles.nav}>
-          {SIDEBAR_ITEMS.map((group) => (
+          {SIDEBAR_ITEMS.map((group) => {
+            const visibleItems = group.items.filter(([id]) =>
+              hasPermission(user, [navigationPermissions[id] ?? `${id}:view`]),
+            );
+            if (!visibleItems.length) return null;
+            return (
             <Box key={group.section} className={styles.navSection}>
               <Typography variant="caption" className={styles.sectionLabel}>
                 {group.section}
               </Typography>
-              {group.items.map(([id, title, path]) => (
+              {visibleItems.map(([id, title, path]) => (
                 <NavLink
                   key={id}
                   to={path}
@@ -114,7 +153,7 @@ export const Sidebar = () => {
                 </NavLink>
               ))}
             </Box>
-          ))}
+          );})}
         </Box>
 
         <Box className={styles.userSection}>
@@ -133,12 +172,23 @@ export const Sidebar = () => {
               <Settings size={16} />
             </IconButton>
           </Box>
-          <button className={styles.logoutButton} onClick={handleLogout}>
+          <button className={styles.logoutButton} onClick={requestLogout}>
             <LogOut size={16} />
             <Typography variant="body2">Logout</Typography>
           </button>
         </Box>
       </aside>
+      <ConfirmationDialog
+        isOpen={logoutDialogOpen}
+        title="Logout"
+        message="Are you sure want to logout?"
+        confirmText="Logout"
+        cancelText="Cancel"
+        confirmVariant="danger"
+        loading={logoutLoading}
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
     </>
   );
 };

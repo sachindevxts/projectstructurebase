@@ -12,10 +12,17 @@ import { EmployeeFilters } from '../EmployeeFilters/EmployeeFilters';
 import { EmployeeTable } from '../EmployeeTable/EmployeeTable';
 import { employeeService } from '../../Services/employeeService';
 import type { Employee } from '../../Types/employee.types';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './EmployeesPage.module.scss';
 
 export const EmployeesPage = () => {
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateEmployee = hasPermission(user, ['employees:create']);
+  const canUpdateEmployee = hasPermission(user, ['employees:update']);
+  const canDeleteEmployee = hasPermission(user, ['employees:delete']);
+  const canExportEmployees = hasPermission(user, ['employees:export']);
   const {
     loading,
     stats,
@@ -83,15 +90,21 @@ export const EmployeesPage = () => {
         </Box>
 
         <Stack direction="row" spacing={1} className={styles.actions}>
-          <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExportCsv}>
-            Export
-          </Button>
-          <Button variant="outlined" startIcon={<MoreHorizIcon />}>
-            Bulk Actions
-          </Button>
-          <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddEmployee}>
-            Add Employee
-          </Button>
+          {canExportEmployees && (
+            <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExportCsv}>
+              Export
+            </Button>
+          )}
+          {(canUpdateEmployee || canDeleteEmployee) && (
+            <Button variant="outlined" startIcon={<MoreHorizIcon />}>
+              Bulk Actions
+            </Button>
+          )}
+          {canCreateEmployee && (
+            <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddEmployee}>
+              Add Employee
+            </Button>
+          )}
         </Stack>
       </Stack>
 
@@ -111,8 +124,8 @@ export const EmployeesPage = () => {
         onToggleSelection={toggleSelection}
         onToggleAll={toggleAllSelection}
         onView={handleViewEmployee}
-        onEdit={handleEditEmployee}
-        onDelete={handleDeleteEmployee}
+        onEdit={canUpdateEmployee ? handleEditEmployee : undefined}
+        onDelete={canDeleteEmployee ? handleDeleteEmployee : undefined}
       />
     </Box>
   );

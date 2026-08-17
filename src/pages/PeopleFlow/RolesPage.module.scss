@@ -28,6 +28,7 @@
 .cancelButton,
 .textAction,
 .secondaryAction,
+.dangerAction,
 .selectAll {
   border-radius: var(--radius-md) !important;
   font-size: 14px !important;
@@ -124,6 +125,7 @@
 
 .textAction,
 .secondaryAction,
+.dangerAction,
 .selectAll {
   min-width: 0 !important;
   padding: 0 !important;
@@ -132,6 +134,10 @@
 
 .secondaryAction {
   color: var(--color-text-muted) !important;
+}
+
+.dangerAction {
+  color: #dc2626 !important;
 }
 
 .roleEditor {
@@ -148,6 +154,16 @@
 .editorSubtitle {
   margin-top: 4px !important;
   color: var(--color-text-muted);
+}
+
+.assignedUsers {
+  margin-top: 12px;
+}
+
+.userChip {
+  max-width: 220px;
+  background: var(--color-surface-muted) !important;
+  color: var(--color-text-secondary) !important;
 }
 
 .searchRow {
@@ -292,6 +308,15 @@
 .saveButton {
   min-width: 154px !important;
   box-shadow: none !important;
+}
+
+.dialogContent {
+  padding-top: 8px;
+}
+
+.templateDescription {
+  color: var(--color-text-muted);
+  font-size: 13px !important;
 }
 
 @media (max-width: 760px) {

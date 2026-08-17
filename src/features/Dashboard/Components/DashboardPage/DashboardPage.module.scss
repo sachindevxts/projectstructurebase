@@ -119,6 +119,39 @@
   font-size: 13px !important;
 }
 
+.widgetSection {
+  margin-bottom: 16px;
+}
+
+.widgetSectionHeader {
+  margin-bottom: 10px;
+}
+
+.widgetDescription,
+.widgetMetricCaption {
+  color: var(--color-text-muted);
+  font-size: 12px !important;
+}
+
+.widgetMetricCaption {
+  margin-top: 8px !important;
+  min-height: 34px;
+  line-height: 1.35 !important;
+}
+
+.widgetError {
+  color: var(--color-error);
+  font-size: 13px !important;
+}
+
+.deleteButton {
+  color: var(--color-text-muted) !important;
+}
+
+.dialogContent {
+  padding-top: 8px;
+}
+
 .chartGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -8,19 +8,25 @@ import { Table } from '@/components/common/Table/Table';
 import { PageSkeleton } from '@/components/common/Skeleton/PageSkeleton';
 import { CardSkeleton } from '@/components/common/Skeleton/CardSkeleton';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog/ConfirmationDialog';
+import { hasPermission } from '@/utils/permission.utils';
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.auth.user);
   const users = useAppSelector(selectUsers) as any[];
   const loading = useAppSelector(selectUsersLoading);
+  const canCreateUser = hasPermission(currentUser, ['users:create']);
+  const canUpdateUser = hasPermission(currentUser, ['users:update']);
+  const canDeleteUser = hasPermission(currentUser, ['users:delete']);
+  const canExportUsers = hasPermission(currentUser, ['users:export']);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [toDelete, setToDelete] = useState<number | null>(null);
+  const [toDelete, setToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(fetchUsersAction());
   }, [dispatch]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     setToDelete(id);
     setConfirmOpen(true);
   };
@@ -41,12 +47,16 @@ export default function UsersPage() {
       title: 'Actions',
       render: (row: any) => (
         <div className="table-actions">
-          <Button variant="secondary" size="sm">
-            Edit
-          </Button>
-          <Button variant="danger" size="sm" onClick={() => handleDelete(row.id)}>
-            Delete
-          </Button>
+          {canUpdateUser && (
+            <Button variant="secondary" size="sm">
+              Edit
+            </Button>
+          )}
+          {canDeleteUser && (
+            <Button variant="danger" size="sm" onClick={() => handleDelete(row.id)}>
+              Delete
+            </Button>
+          )}
         </div>
       ),
     },
@@ -63,8 +73,8 @@ export default function UsersPage() {
         </CardHeader>
         <CardBody>
           <div className="page-actions">
-            <Button variant="primary">Add User</Button>
-            <Button variant="secondary">Export</Button>
+            {canCreateUser && <Button variant="primary">Add User</Button>}
+            {canExportUsers && <Button variant="secondary">Export</Button>}
           </div>
 
           {loading ? (
@@ -85,4 +95,3 @@ export default function UsersPage() {
     </div>
   );
 }
-

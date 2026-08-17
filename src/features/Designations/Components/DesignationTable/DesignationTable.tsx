@@ -114,26 +114,30 @@ export const DesignationTable = ({
               <Visibility fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Edit">
-            <IconButton
-              size="small"
-              onClick={() => onEdit?.(designation)}
-              color="secondary"
-              aria-label={`Edit ${designation.name}`}
-            >
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton
-              size="small"
-              onClick={() => onDelete?.(designation.id)}
-              color="error"
-              aria-label={`Delete ${designation.name}`}
-            >
-              <DeleteOutline fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          {onEdit && (
+            <Tooltip title="Edit">
+              <IconButton
+                size="small"
+                onClick={() => onEdit(designation)}
+                color="secondary"
+                aria-label={`Edit ${designation.name}`}
+              >
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {onDelete && (
+            <Tooltip title="Delete">
+              <IconButton
+                size="small"
+                onClick={() => onDelete(designation.id)}
+                color="error"
+                aria-label={`Delete ${designation.name}`}
+              >
+                <DeleteOutline fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       ),
     },

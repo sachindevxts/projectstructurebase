@@ -26,8 +26,8 @@ interface EmployeeTableProps {
   onToggleSelection: (id: string) => void;
   onToggleAll: (ids: string[]) => void;
   onView: (employee: Employee) => void;
-  onEdit: (employee: Employee) => void;
-  onDelete: (id: string) => void;
+  onEdit?: (employee: Employee) => void;
+  onDelete?: (id: string) => void;
 }
 
 interface AllocationSegment {
@@ -248,16 +248,20 @@ export const EmployeeTable = ({
               <Visibility fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Edit employee">
-            <IconButton size="small" onClick={() => onEdit(employee)} aria-label={`Edit ${employee.name}`}>
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete employee">
-            <IconButton size="small" onClick={() => onDelete(employee.id)} aria-label={`Delete ${employee.name}`}>
-              <DeleteOutline fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          {onEdit && (
+            <Tooltip title="Edit employee">
+              <IconButton size="small" onClick={() => onEdit(employee)} aria-label={`Edit ${employee.name}`}>
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {onDelete && (
+            <Tooltip title="Delete employee">
+              <IconButton size="small" onClick={() => onDelete(employee.id)} aria-label={`Delete ${employee.name}`}>
+                <DeleteOutline fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
           <Tooltip title="More actions">
             <IconButton size="small" aria-label={`More actions for ${employee.name}`}>
               <MoreVert fontSize="small" />

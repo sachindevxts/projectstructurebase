@@ -14,7 +14,7 @@ export const useBench = () => {
   const loadBenchEmployees = useCallback(async () => {
     try {
       setLoading(true);
-      const data = benchService.getBenchEmployees();
+      const data = await benchService.getBenchEmployees();
       setEmployees(data);
       setError(null);
     } catch (err) {

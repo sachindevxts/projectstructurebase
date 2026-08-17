@@ -1,58 +1,69 @@
-import type { BenchEmployee, BenchStats, BenchSkill } from '../Types/bench.types';
-import employeesData from '@/dummyJson/employees/employee-list.json';
+import { employeeService } from '@/features/Employees/Services/employeeService';
+import type { BenchEmployee, BenchSkill, BenchStats } from '../Types/bench.types';
 
-class BenchService {
-  private employees: BenchEmployee[] = [];
+let employeesCache: BenchEmployee[] = [];
 
-  constructor() {
-    this.employees = employeesData.employees.map((e: any) => ({
-      ...e,
-      primarySkills: ['React.js', 'TypeScript', 'Node.js'],
-      availableCapacity: 100 - e.allocation,
-      benchDays: e.allocation === 0 ? Math.floor(Math.random() * 60) + 10 : 0,
-      risk: e.allocation === 0 ? 'High' : e.allocation < 50 ? 'Medium' : 'Low',
-      status: e.allocation === 0 ? 'Fully Available' : e.allocation < 100 ? 'Partially Available' : 'Releasing Soon',
-    })) as BenchEmployee[];
-  }
+async function getBenchEmployees(): Promise<BenchEmployee[]> {
+  const employees = await employeeService.getAllEmployees();
+  employeesCache = employees
+    .filter((employee) => employee.allocation < 100)
+    .map((employee) => {
+      const availableCapacity = 100 - employee.allocation;
+      return {
+        id: employee.id,
+        name: employee.name,
+        department: employee.department,
+        designation: employee.designation,
+        primarySkills: employee.skills ?? [],
+        currentAllocation: employee.allocation,
+        availableCapacity,
+        benchDays: employee.allocation === 0 ? 30 : 0,
+        risk: employee.allocation === 0 ? 'High' : availableCapacity >= 50 ? 'Medium' : 'Low',
+        status:
+          employee.allocation === 0
+            ? 'Fully Available'
+            : availableCapacity > 0
+              ? 'Partially Available'
+              : 'Releasing Soon',
+      };
+    });
 
-  getBenchEmployees(): BenchEmployee[] {
-    return this.employees;
-  }
-
-  getBenchStats(): BenchStats {
-    const employees = this.employees;
-    const fullyAvailable = employees.filter(e => e.status === 'Fully Available').length;
-    const partiallyAvailable = employees.filter(e => e.status === 'Partially Available').length;
-    const releasingSoon = employees.filter(e => e.status === 'Releasing Soon').length;
-    const benchOver15Days = employees.filter(e => e.benchDays > 15).length;
-    const benchOver30Days = employees.filter(e => e.benchDays > 30).length;
-    const benchOver60Days = employees.filter(e => e.benchDays > 60).length;
-
-    return {
-      fullyAvailable,
-      partiallyAvailable,
-      releasingSoon,
-      benchOver15Days,
-      benchOver30Days,
-      benchOver60Days,
-    };
-  }
-
-  getBenchSkills(): BenchSkill[] {
-    const skills = ['React', 'Node', 'Java', 'Python', 'QA', 'DevOps'];
-    return skills.map(name => ({
-      name,
-      count: Math.floor(Math.random() * 8) + 1,
-    }));
-  }
-
-  filterBenchEmployees(search: string): BenchEmployee[] {
-    if (!search) return this.employees;
-    const searchLower = search.toLowerCase();
-    return this.employees.filter(e =>
-      e.name.toLowerCase().includes(searchLower)
-    );
-  }
+  return employeesCache;
 }
 
-export const benchService = new BenchService();
+function getBenchStats(employees = employeesCache): BenchStats {
+  return {
+    fullyAvailable: employees.filter((employee) => employee.status === 'Fully Available').length,
+    partiallyAvailable: employees.filter((employee) => employee.status === 'Partially Available').length,
+    releasingSoon: employees.filter((employee) => employee.status === 'Releasing Soon').length,
+    benchOver15Days: employees.filter((employee) => employee.benchDays > 15).length,
+    benchOver30Days: employees.filter((employee) => employee.benchDays > 30).length,
+    benchOver60Days: employees.filter((employee) => employee.benchDays > 60).length,
+  };
+}
+
+function getBenchSkills(): BenchSkill[] {
+  const counts = employeesCache.reduce(
+    (acc, employee) => {
+      for (const skill of employee.primarySkills) acc[skill] = (acc[skill] ?? 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+  return Object.entries(counts).map(([name, count]) => ({ name, count }));
+}
+
+function filterBenchEmployees(search: string): BenchEmployee[] {
+  if (!search) return employeesCache;
+  const searchLower = search.toLowerCase();
+  return employeesCache.filter((employee) =>
+    [employee.name, employee.department, employee.designation].join(' ').toLowerCase().includes(searchLower),
+  );
+}
+
+export const benchService = {
+  getBenchEmployees,
+  getBenchStats,
+  getBenchSkills,
+  filterBenchEmployees,
+};

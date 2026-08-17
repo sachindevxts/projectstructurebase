@@ -3,8 +3,6 @@ import { normalizeApiError } from '@/api/errorHandler';
 import type { LoginPayload } from '@/types/auth.types';
 import type { AppThunk } from '../store';
 import { AUTH_ACTION_TYPES } from '../actionTypes';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
-import { storage } from '@/utils/storage.utils';
 export const login =
   (payload: LoginPayload): AppThunk<Promise<boolean>> =>
   async (dispatch) => {
@@ -31,9 +29,7 @@ export const fetchCurrentUser = (): AppThunk => async (dispatch) => {
     dispatch({ type: AUTH_ACTION_TYPES.CURRENT_USER_FAILURE, payload: normalizeApiError(error) });
   }
 };
-export const logout = (): AppThunk => (dispatch) => {
-  storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
-  storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-  storage.remove(STORAGE_KEYS.USER);
+export const logout = (): AppThunk<Promise<void>> => async (dispatch) => {
+  await authService.logout();
   dispatch({ type: AUTH_ACTION_TYPES.LOGOUT });
 };

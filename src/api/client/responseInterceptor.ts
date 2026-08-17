@@ -20,6 +20,10 @@ export const responseInterceptor = (client: AxiosInstance) => {
         
         // Redirect to login if not already there
         if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+          window.sessionStorage.setItem(
+            STORAGE_KEYS.SESSION_EXPIRED_MESSAGE,
+            'Session got expired, please relogin',
+          );
           window.location.href = '/login';
         }
       }

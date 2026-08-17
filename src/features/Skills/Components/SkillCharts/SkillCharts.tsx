@@ -36,6 +36,9 @@ export const SkillCharts = ({ skills }: SkillChartsProps) => {
 
   const total = categoryData.reduce((sum, item) => sum + item.count, 0);
   let offset = 0;
+  const topCoverageSkills = [...skills]
+    .sort((a, b) => b.employees - a.employees)
+    .slice(0, 8);
 
   return (
     <Grid container spacing={2} className={styles.chartsContainer}>
@@ -54,7 +57,7 @@ export const SkillCharts = ({ skills }: SkillChartsProps) => {
               </FormControl>
             </Box>
             <Box className={styles.horizontalBars}>
-              {skills.map((skill) => (
+              {topCoverageSkills.map((skill) => (
                 <Box key={skill.id} className={styles.barItem}>
                   <Typography variant="body2" className={styles.barLabel}>
                     {skill.name}
@@ -95,7 +98,7 @@ export const SkillCharts = ({ skills }: SkillChartsProps) => {
                         fill="none"
                         stroke={item.color}
                         strokeWidth="8"
-                        strokeDasharray={`${length} ${100 - length}`}
+                        strokeDasharray={`${Number.isFinite(length) ? length : 0} ${Number.isFinite(length) ? 100 - length : 100}`}
                         strokeDashoffset={-offset}
                         onMouseEnter={() => setHoveredCategory(item.name)}
                         onMouseLeave={() => setHoveredCategory(null)}

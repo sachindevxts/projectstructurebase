@@ -14,7 +14,7 @@ export const useAllocations = () => {
   const loadAllocations = useCallback(async () => {
     try {
       setLoading(true);
-      const data = allocationService.getAllAllocations();
+      const data = await allocationService.getAllAllocations();
       setAllocations(data);
       setError(null);
     } catch (err) {
@@ -27,7 +27,7 @@ export const useAllocations = () => {
 
   const createAllocation = useCallback(async (data: any) => {
     try {
-      const newAllocation = allocationService.createAllocation(data);
+      const newAllocation = await allocationService.createAllocation(data);
       setAllocations((prev) => [newAllocation, ...prev]);
       return newAllocation;
     } catch (err) {
@@ -39,7 +39,7 @@ export const useAllocations = () => {
 
   const updateAllocation = useCallback(async (id: string, updates: Partial<Allocation>) => {
     try {
-      const updatedAllocation = allocationService.updateAllocation(id, updates);
+      const updatedAllocation = await allocationService.updateAllocation(id, updates);
       if (updatedAllocation) {
         setAllocations((prev) => prev.map((a) => (a.id === id ? updatedAllocation : a)));
       }
@@ -53,7 +53,7 @@ export const useAllocations = () => {
 
   const deleteAllocation = useCallback(async (id: string) => {
     try {
-      const success = allocationService.deleteAllocation(id);
+      const success = await allocationService.deleteAllocation(id);
       if (success) {
         setAllocations((prev) => prev.filter((a) => a.id !== id));
       }

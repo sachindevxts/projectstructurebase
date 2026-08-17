@@ -10,9 +10,16 @@ import styles from './AllocationTable.module.scss';
 interface AllocationTableProps {
   allocations: Allocation[];
   loading?: boolean;
+  canUpdate?: boolean;
+  canRelease?: boolean;
 }
 
-export const AllocationTable = ({ allocations, loading = false }: AllocationTableProps) => {
+export const AllocationTable = ({
+  allocations,
+  loading = false,
+  canUpdate = false,
+  canRelease = false,
+}: AllocationTableProps) => {
   const getStatusColor = (status: string): ChipProps['color'] => {
     switch (status) {
       case 'Active':
@@ -91,21 +98,27 @@ export const AllocationTable = ({ allocations, loading = false }: AllocationTabl
       align: 'center',
       renderCell: () => (
         <Box className={styles.actions}>
-          <Tooltip title="Edit">
-            <IconButton size="small" color="primary" aria-label="Edit allocation">
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Release">
-            <IconButton size="small" color="warning" aria-label="Release allocation">
-              <Block fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="More">
-            <IconButton size="small" aria-label="More allocation actions">
-              <MoreVert fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          {canUpdate && (
+            <Tooltip title="Edit">
+              <IconButton size="small" color="primary" aria-label="Edit allocation">
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {canRelease && (
+            <Tooltip title="Release">
+              <IconButton size="small" color="warning" aria-label="Release allocation">
+                <Block fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {(canUpdate || canRelease) && (
+            <Tooltip title="More">
+              <IconButton size="small" aria-label="More allocation actions">
+                <MoreVert fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       ),
     },

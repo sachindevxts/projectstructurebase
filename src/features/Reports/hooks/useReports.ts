@@ -10,14 +10,19 @@ const defaultFilters: ReportFilters = {
 
 export const useReports = () => {
   const [filters, setFilters] = useState<ReportFilters>(defaultFilters);
-  const [data, setData] = useState<ReportData>(() => reportService.getReportData(defaultFilters));
+  const [data, setData] = useState<ReportData>({
+    metrics: { headcount: 0, billable: 0, bench: 0, utilization: 0 },
+    departmentUtilization: [],
+    monthlyTrend: [],
+    allocationMix: [],
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const loadReports = useCallback(async () => {
     try {
       setLoading(true);
-      setData(reportService.getReportData(filters));
+      setData(await reportService.getReportData(filters));
       setError(null);
     } catch (err) {
       setError('Failed to load reports');

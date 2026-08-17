@@ -13,7 +13,7 @@ export const fetchUsers = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const deleteUser = (id: number) => async (dispatch: AppDispatch) => {
+export const deleteUser = (id: string) => async (dispatch: AppDispatch) => {
   dispatch({ type: USER_ACTION_TYPES.DELETE_USER_REQUEST, payload: id });
   try {
     await userService.deleteUser(id);

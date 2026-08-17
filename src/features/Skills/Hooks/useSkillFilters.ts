@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useDebounce } from '@/hooks';
 import { skillService } from '../Services/skillService';
+import type { Skill } from '../Types/skill.types';
 
 interface FilterState {
   search: string;
@@ -8,7 +9,7 @@ interface FilterState {
   demand: string;
 }
 
-export const useSkillFilters = (initialFilters?: Partial<FilterState>) => {
+export const useSkillFilters = (skills: Skill[], initialFilters?: Partial<FilterState>) => {
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     category: 'All',
@@ -23,8 +24,8 @@ export const useSkillFilters = (initialFilters?: Partial<FilterState>) => {
       search: debouncedSearch,
       category: filters.category,
       demand: filters.demand,
-    });
-  }, [debouncedSearch, filters.category, filters.demand]);
+    }, skills);
+  }, [debouncedSearch, filters.category, filters.demand, skills]);
 
   const updateFilter = useCallback(<K extends keyof FilterState>(key: K, value: FilterState[K]) => {
     setFilters(prev => ({ ...prev, [key]: value }));

@@ -14,7 +14,7 @@ import {
   Typography,
   Divider,
 } from '@mui/material';
-import { Close as CloseIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Close as CloseIcon, Edit as EditIcon } from '@mui/icons-material';
 import type { Skill } from '../../Types/skill.types';
 import { SkillTags } from './SkillTags/SkillTags';
 import styles from './SkillDetailsModal.module.scss';
@@ -24,8 +24,8 @@ interface SkillDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
   skill: Skill;
-  onEdit: () => void;
-  onDeactivate: () => void;
+  onEdit?: () => void;
+  onDeactivate?: () => void;
 }
 
 export const SkillDetailsModal = ({
@@ -167,14 +167,18 @@ export const SkillDetailsModal = ({
       </DialogContent>
 
       <DialogActions className={styles.dialogFooter}>
-        <Button color="error" onClick={onDeactivate} variant="outlined">
-          Deactivate Skill
-        </Button>
+        {onDeactivate && (
+          <Button color="error" onClick={onDeactivate} variant="outlined">
+            Deactivate Skill
+          </Button>
+        )}
         <Box className={styles.footerActions}>
           <Button onClick={onClose}>Close</Button>
-          <Button variant="contained" onClick={onEdit} startIcon={<EditIcon />}>
-            Edit Skill
-          </Button>
+          {onEdit && (
+            <Button variant="contained" onClick={onEdit} startIcon={<EditIcon />}>
+              Edit Skill
+            </Button>
+          )}
         </Box>
       </DialogActions>
     </Dialog>

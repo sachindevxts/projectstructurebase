@@ -10,9 +10,10 @@ interface PlannerFiltersProps {
   onFilterChange: <K extends keyof FiltersType>(key: K, value: FiltersType[K]) => void;
   onReset: () => void;
   resultCount?: number;
+  canCreateAllocation?: boolean;
 }
 
-export const PlannerFilters = ({ filters, onFilterChange }: PlannerFiltersProps) => (
+export const PlannerFilters = ({ filters, onFilterChange, canCreateAllocation = false }: PlannerFiltersProps) => (
   <Box className={styles.filtersContainer}>
     <FormControl size="small" className={styles.filterItem}>
       <Select value={filters.department} onChange={(event) => onFilterChange('department', event.target.value)}>
@@ -32,9 +33,11 @@ export const PlannerFilters = ({ filters, onFilterChange }: PlannerFiltersProps)
         ))}
       </Select>
     </FormControl>
-    <Button variant="contained" startIcon={<AddIcon />} className={styles.addButton}>
-      Add Allocation
-    </Button>
+    {canCreateAllocation && (
+      <Button variant="contained" startIcon={<AddIcon />} className={styles.addButton}>
+        Add Allocation
+      </Button>
+    )}
   </Box>
 );
 

@@ -31,6 +31,8 @@ import {
 import { employeeService } from '../../Services/employeeService';
 import type { Employee } from '../../Types/employee.types';
 import { ReusableTable, type TableColumn } from '@/components/common';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './EmployeeDetail.module.scss';
 
 interface TabPanelProps {
@@ -175,7 +177,13 @@ const AllocationItem = ({
   <Paper elevation={0} className={styles.allocationCard}>
     <Box>
       <Typography className={styles.allocationTitle}>{title}</Typography>
-      <Stack direction="row" spacing={0.75} alignItems="center" flexWrap="wrap" className={styles.allocationMeta}>
+      <Stack
+        direction="row"
+        spacing={0.75}
+        alignItems="center"
+        flexWrap="wrap"
+        className={styles.allocationMeta}
+      >
         <Typography variant="body2">{meta}</Typography>
         <Chip
           label={billable ? 'Billable' : 'Non-Billable'}
@@ -197,6 +205,10 @@ const AllocationItem = ({
 export const EmployeeDetail = () => {
   const { employeeId } = useParams<{ employeeId: string }>();
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
+  const canUpdateEmployee = hasPermission(user, ['employees:update']);
+  const canCreateAllocation = hasPermission(user, ['allocations:create']);
+  const canCreateSkill = hasPermission(user, ['skills:create']);
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState(0);
@@ -242,7 +254,10 @@ export const EmployeeDetail = () => {
       id: 'action',
       label: 'Action',
       renderCell: (row) => (
-        <Chip label={row.action} className={row.action === 'Updated' ? styles.blueSkill : styles.greenSkill} />
+        <Chip
+          label={row.action}
+          className={row.action === 'Updated' ? styles.blueSkill : styles.greenSkill}
+        />
       ),
     },
     { id: 'field', label: 'Field', field: 'field' },
@@ -259,7 +274,7 @@ export const EmployeeDetail = () => {
     const loadEmployee = async () => {
       try {
         setLoading(true);
-        const data = employeeService.getEmployeeById(employeeId || '');
+        const data = await employeeService.getEmployeeById(employeeId || '');
         setEmployee(data || null);
       } finally {
         setLoading(false);
@@ -308,7 +323,11 @@ export const EmployeeDetail = () => {
           alignItems={{ xs: 'stretch', md: 'flex-start' }}
           spacing={2}
         >
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2.5} alignItems={{ xs: 'flex-start', sm: 'center' }}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2.5}
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
+          >
             <Box className={styles.avatarWrap}>
               <Avatar className={styles.avatar}>{employee.name.charAt(0)}</Avatar>
               <span />
@@ -324,31 +343,62 @@ export const EmployeeDetail = () => {
                   {employee.id}
                 </Typography>
               </Stack>
-              <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" className={styles.metaLine}>
-                <span><WorkIcon fontSize="small" /> Senior React Developer</span>
-                <span><PeopleIcon fontSize="small" /> {employee.department}</span>
-                <span><LocationOnIcon fontSize="small" /> Bangalore, India</span>
-                <span><EmailIcon fontSize="small" /> {employee.email}</span>
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                flexWrap="wrap"
+                className={styles.metaLine}
+              >
+                <span>
+                  <WorkIcon fontSize="small" /> Senior React Developer
+                </span>
+                <span>
+                  <PeopleIcon fontSize="small" /> {employee.department}
+                </span>
+                <span>
+                  <LocationOnIcon fontSize="small" /> Bangalore, India
+                </span>
+                <span>
+                  <EmailIcon fontSize="small" /> {employee.email}
+                </span>
               </Stack>
-              <Stack direction="row" spacing={1.5} alignItems="center" className={styles.allocationLine}>
+              <Stack
+                direction="row"
+                spacing={1.5}
+                alignItems="center"
+                className={styles.allocationLine}
+              >
                 <Typography>Allocation: 100%</Typography>
                 <Box className={styles.allocationBar}>
                   <Box className={styles.primaryBar} />
                   <Box className={styles.secondaryBar} />
                 </Box>
-                <span><i className={styles.primaryDot} />NovaBank 70%</span>
-                <span><i className={styles.secondaryDot} />Internal 30%</span>
+                <span>
+                  <i className={styles.primaryDot} />
+                  NovaBank 70%
+                </span>
+                <span>
+                  <i className={styles.secondaryDot} />
+                  Internal 30%
+                </span>
               </Stack>
             </Box>
           </Stack>
 
           <Stack direction="row" spacing={1} justifyContent="flex-end">
-            <Button variant="outlined" startIcon={<AllocationIcon />} className={styles.outlineButton}>
+            <Button
+              variant="outlined"
+              startIcon={<AllocationIcon />}
+              className={styles.outlineButton}
+            >
               Allocations
             </Button>
-            <Button variant="contained" startIcon={<EditIcon />} className={styles.editButton}>
-              Edit
-            </Button>
+            {canUpdateEmployee && (
+              <Button variant="contained" startIcon={<EditIcon />} className={styles.editButton}>
+                Edit
+              </Button>
+            )}
             <IconButton className={styles.moreButton}>
               <MoreVertIcon />
             </IconButton>
@@ -375,8 +425,20 @@ export const EmployeeDetail = () => {
                 <Box className={styles.summaryGrid}>
                   <DetailPair label="Employee ID" value="EMP-001" />
                   <DetailPair label="Department" value="Engineering" />
-                  <DetailPair label="Designation" value={<>Senior React<br />Developer</>} />
-                  <DetailPair label="Reporting Manager" value={<Button variant="text">Arjun Kapoor</Button>} />
+                  <DetailPair
+                    label="Designation"
+                    value={
+                      <>
+                        Senior React
+                        <br />
+                        Developer
+                      </>
+                    }
+                  />
+                  <DetailPair
+                    label="Reporting Manager"
+                    value={<Button variant="text">Arjun Kapoor</Button>}
+                  />
                   <DetailPair label="Employment Type" value="Full-Time" />
                   <DetailPair label="Work Mode" value="Hybrid" />
                   <DetailPair label="Joining Date" value="Jan 12, 2022" />
@@ -387,11 +449,20 @@ export const EmployeeDetail = () => {
 
             <Card elevation={0} className={styles.card}>
               <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" className={styles.cardHeader}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  className={styles.cardHeader}
+                >
                   <Typography variant="h6" className={styles.cardTitle}>
                     Current Allocation
                   </Typography>
-                  <Button variant="text" className={styles.addButton}>+ Add Allocation</Button>
+                  {canCreateAllocation && (
+                    <Button variant="text" className={styles.addButton}>
+                      + Add Allocation
+                    </Button>
+                  )}
                 </Stack>
                 <Stack spacing={1.5}>
                   <AllocationItem
@@ -434,7 +505,10 @@ export const EmployeeDetail = () => {
                   </Typography>
                   <DetailPair label="Joined" value="Jan 12, 2022" />
                   <DetailPair label="Probation End" value="Jul 12, 2022" />
-                  <DetailPair label="Next Release" value={<span className={styles.releaseDate}>Aug 15, 2025</span>} />
+                  <DetailPair
+                    label="Next Release"
+                    value={<span className={styles.releaseDate}>Aug 15, 2025</span>}
+                  />
                 </CardContent>
               </Card>
 
@@ -444,9 +518,15 @@ export const EmployeeDetail = () => {
                     Contact
                   </Typography>
                   <Stack spacing={1.25} className={styles.contactList}>
-                    <span><EmailIcon fontSize="small" /> {employee.email}</span>
-                    <span><PhoneIcon fontSize="small" /> +91 98765 43210</span>
-                    <span><LinkedInIcon fontSize="small" /> linkedin.com/in/aditi</span>
+                    <span>
+                      <EmailIcon fontSize="small" /> {employee.email}
+                    </span>
+                    <span>
+                      <PhoneIcon fontSize="small" /> +91 98765 43210
+                    </span>
+                    <span>
+                      <LinkedInIcon fontSize="small" /> linkedin.com/in/aditi
+                    </span>
                   </Stack>
                 </CardContent>
               </Card>
@@ -458,10 +538,15 @@ export const EmployeeDetail = () => {
       <TabPanel value={tabValue} index={1}>
         <Card elevation={0} className={styles.cardNarrow}>
           <CardContent>
-            <Typography variant="h6" className={styles.cardTitle}>Employment Details</Typography>
+            <Typography variant="h6" className={styles.cardTitle}>
+              Employment Details
+            </Typography>
             <DetailPair label="Department" value="Engineering" />
             <DetailPair label="Designation" value="Senior React Developer" />
-            <DetailPair label="Reporting Manager" value={<Button variant="text">Arjun Kapoor</Button>} />
+            <DetailPair
+              label="Reporting Manager"
+              value={<Button variant="text">Arjun Kapoor</Button>}
+            />
             <DetailPair label="Employment Type" value="Full-Time" />
             <DetailPair label="Work Mode" value="Hybrid" />
             <DetailPair label="Joining Date" value="Jan 12, 2022" />
@@ -474,15 +559,34 @@ export const EmployeeDetail = () => {
       <TabPanel value={tabValue} index={2}>
         <Card elevation={0} className={styles.cardNarrow}>
           <CardContent>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" className={styles.cardHeader}>
-              <Typography variant="h6" className={styles.cardTitle}>Skills & Expertise</Typography>
-              <Button variant="text" className={styles.addButton}>+ Add Skill</Button>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              className={styles.cardHeader}
+            >
+              <Typography variant="h6" className={styles.cardTitle}>
+                Skills & Expertise
+              </Typography>
+              {canCreateSkill && (
+                <Button variant="text" className={styles.addButton}>
+                  + Add Skill
+                </Button>
+              )}
             </Stack>
             <Typography className={styles.skillLabel}>PRIMARY SKILL</Typography>
-            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" className={styles.skillRow}>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              flexWrap="wrap"
+              className={styles.skillRow}
+            >
               <Chip label="React.js" className={styles.blueSkill} />
               <Chip label="Advanced" className={styles.blueSkill} />
-              <Typography variant="body2" className={styles.muted}>4 years exp.</Typography>
+              <Typography variant="body2" className={styles.muted}>
+                4 years exp.
+              </Typography>
               <Chip label="Verified" className={styles.greenSkill} />
             </Stack>
             <Typography className={styles.skillLabel}>SECONDARY SKILLS</Typography>
@@ -492,10 +596,22 @@ export const EmployeeDetail = () => {
               ['Tailwind CSS', 'Advanced', '2 yrs'],
               ['Node.js', 'Intermediate', '1 yr'],
             ].map(([skill, level, years]) => (
-              <Stack key={skill} direction="row" spacing={1} alignItems="center" flexWrap="wrap" className={styles.skillRow}>
+              <Stack
+                key={skill}
+                direction="row"
+                spacing={1}
+                alignItems="center"
+                flexWrap="wrap"
+                className={styles.skillRow}
+              >
                 <Chip label={skill} className={styles.greenSkill} />
-                <Chip label={level} className={level === 'Advanced' ? styles.blueSkill : styles.orangeSkill} />
-                <Typography variant="body2" className={styles.muted}>{years}</Typography>
+                <Chip
+                  label={level}
+                  className={level === 'Advanced' ? styles.blueSkill : styles.orangeSkill}
+                />
+                <Typography variant="body2" className={styles.muted}>
+                  {years}
+                </Typography>
               </Stack>
             ))}
           </CardContent>
@@ -521,7 +637,9 @@ export const EmployeeDetail = () => {
       <TabPanel value={tabValue} index={5}>
         <Card elevation={0} className={styles.cardNarrow}>
           <CardContent>
-            <Typography variant="h6" className={styles.cardTitle}>Documents</Typography>
+            <Typography variant="h6" className={styles.cardTitle}>
+              Documents
+            </Typography>
             <Paper elevation={0} className={styles.documentRow}>
               <Typography>Resume_AditiMehra.pdf</Typography>
               <Button variant="text">Download</Button>
@@ -546,4 +664,3 @@ export const EmployeeDetail = () => {
 };
 
 export default EmployeeDetail;
-

@@ -13,10 +13,16 @@ import { SkillGapAlert } from '../SkillGapAlert/SkillGapAlert';
 import { SkillCharts } from '../SkillCharts/SkillCharts';
 import { PfPageHeader } from '@/pages/PeopleFlow/shared';
 import { skillService } from '../../Services/skillService';
-import { CHART_SKILLS } from '../../Constants/skill.constants';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './SkillsPage.module.scss';
 
 export const SkillsPage = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateSkill = hasPermission(user, ['skills:create']);
+  const canUpdateSkill = hasPermission(user, ['skills:update']);
+  const canDeleteSkill = hasPermission(user, ['skills:delete']);
+  const canExportSkills = hasPermission(user, ['skills:export']);
   const {
     skills,
     loading,
@@ -33,7 +39,7 @@ export const SkillsPage = () => {
     toggleAllSelection,
   } = useSkills();
 
-  const { filters, filteredSkills, updateFilter, resetFilters } = useSkillFilters();
+  const { filters, filteredSkills, updateFilter, resetFilters } = useSkillFilters(skills);
 
   const {
     formData,
@@ -45,8 +51,6 @@ export const SkillsPage = () => {
     populateForm,
     setIsSubmitting,
   } = useSkillForm();
-
-  const chartSkills = skillService.getCoverageChartSkills(CHART_SKILLS);
 
   const handleSaveSkill = useCallback(async () => {
     if (!validateForm()) return;
@@ -146,19 +150,23 @@ export const SkillsPage = () => {
         title="Skills"
         subtitle="Manage the organization's skill taxonomy, track employee coverage and demand gaps."
       >
-        <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExportCsv}>
-          Export
-        </Button>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddSkill}>
-          Add Skill
-        </Button>
+        {canExportSkills && (
+          <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExportCsv}>
+            Export
+          </Button>
+        )}
+        {canCreateSkill && (
+          <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddSkill}>
+            Add Skill
+          </Button>
+        )}
       </PfPageHeader>
 
       <SkillStats stats={stats} />
 
       <SkillGapAlert skills={filteredSkills} />
 
-      <SkillCharts skills={chartSkills} />
+      <SkillCharts skills={skills} />
 
       <Paper elevation={0} className={styles.filtersWrapper}>
         <SkillFilters
@@ -180,8 +188,8 @@ export const SkillsPage = () => {
         onToggleSelection={toggleSelection}
         onToggleAll={toggleAllSelection}
         onView={handleViewSkill}
-        onEdit={handleEditSkill}
-        onDelete={handleDeleteSkill}
+        onEdit={canUpdateSkill ? handleEditSkill : undefined}
+        onDelete={canDeleteSkill ? handleDeleteSkill : undefined}
       />
 
       {dialogMode === 'view' && selectedSkill && (
@@ -189,11 +197,11 @@ export const SkillsPage = () => {
           isOpen={true}
           onClose={closeDialog}
           skill={selectedSkill}
-          onEdit={() => {
+          onEdit={canUpdateSkill ? () => {
             populateForm(selectedSkill);
             openDialog('edit', selectedSkill);
-          }}
-          onDeactivate={() => handleDeactivateSkill(selectedSkill.id)}
+          } : undefined}
+          onDeactivate={canDeleteSkill ? () => handleDeactivateSkill(selectedSkill.id) : undefined}
         />
       )}
 

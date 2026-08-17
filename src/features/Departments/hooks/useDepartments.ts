@@ -14,7 +14,7 @@ export const useDepartments = () => {
   const loadDepartments = useCallback(async () => {
     try {
       setLoading(true);
-      const data = departmentService.getAllDepartments();
+      const data = await departmentService.getAllDepartments();
       setDepartments(data);
       setError(null);
     } catch (err) {
@@ -27,8 +27,8 @@ export const useDepartments = () => {
 
   const createDepartment = useCallback(async (departmentData: Omit<Department, 'id'>) => {
     try {
-      const newDepartment = departmentService.createDepartment(departmentData);
-      setDepartments(prev => [newDepartment, ...prev]);
+      const newDepartment = await departmentService.createDepartment(departmentData);
+      setDepartments((prev) => [newDepartment, ...prev]);
       return newDepartment;
     } catch (err) {
       setError('Failed to create department');
@@ -39,9 +39,9 @@ export const useDepartments = () => {
 
   const updateDepartment = useCallback(async (id: string, updates: Partial<Department>) => {
     try {
-      const updatedDepartment = departmentService.updateDepartment(id, updates);
+      const updatedDepartment = await departmentService.updateDepartment(id, updates);
       if (updatedDepartment) {
-        setDepartments(prev => prev.map(d => d.id === id ? updatedDepartment : d));
+        setDepartments((prev) => prev.map((d) => (d.id === id ? updatedDepartment : d)));
       }
       return updatedDepartment;
     } catch (err) {
@@ -53,9 +53,9 @@ export const useDepartments = () => {
 
   const deleteDepartment = useCallback(async (id: string) => {
     try {
-      const success = departmentService.deleteDepartment(id);
+      const success = await departmentService.deleteDepartment(id);
       if (success) {
-        setDepartments(prev => prev.filter(d => d.id !== id));
+        setDepartments((prev) => prev.filter((d) => d.id !== id));
       }
       return success;
     } catch (err) {

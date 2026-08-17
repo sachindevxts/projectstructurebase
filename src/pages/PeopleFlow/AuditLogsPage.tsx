@@ -21,6 +21,8 @@ import {
   Search as SearchIcon,
 } from '@mui/icons-material';
 import { ReusableTable, type TableColumn } from '@/components/common';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './AuditLogsPage.module.scss';
 
 type AuditAction = 'Override' | 'Updated' | 'Created' | 'Status Change';
@@ -153,6 +155,8 @@ const DetailRow = ({ label, value }: { label: string; value: React.ReactNode }) 
 );
 
 const AuditLogsPage = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const canExportAuditLogs = hasPermission(user, ['audit-logs:export']);
   const [selectedLog, setSelectedLog] = useState<AuditLog | null>(null);
   const [page, setPage] = useState(0);
   const columns: TableColumn<AuditLog>[] = [
@@ -235,9 +239,11 @@ const AuditLogsPage = () => {
             Immutable activity log - all changes are permanently recorded
           </Typography>
         </Box>
-        <Button variant="outlined" startIcon={<DownloadIcon />} className={styles.exportButton}>
-          Export CSV
-        </Button>
+        {canExportAuditLogs && (
+          <Button variant="outlined" startIcon={<DownloadIcon />} className={styles.exportButton}>
+            Export CSV
+          </Button>
+        )}
       </Stack>
 
       <Paper elevation={0} className={styles.filtersCard}>

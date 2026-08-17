@@ -1,43 +1,42 @@
 import { API_ENDPOINTS } from '@/constants/api.constants';
+import { unwrapApiData, type ApiEnvelope } from '@/api/apiResponse';
 import { api } from '@/api/client/apiClient';
 
 export interface UserSummary {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   role: string;
 }
 
-class UserService {
-  async getUsers(): Promise<UserSummary[]> {
-    try {
-      // Mock data for development
-      return [
-        { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', role: 'Admin' },
-        { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'jane.smith@example.com', role: 'User' },
-        { id: 3, firstName: 'Bob', lastName: 'Johnson', email: 'bob.johnson@example.com', role: 'Manager' },
-      ];
-      
-      // When backend is ready:
-      // const response = await api.get<{ users: UserSummary[] }>(API_ENDPOINTS.USERS.LIST);
-      // return response.data.users;
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw error;
-    }
-  }
-
-  async deleteUser(id: number): Promise<void> {
-    try {
-      console.log(`Deleting user ${id}`);
-      // When backend is ready:
-      // await api.delete(`${API_ENDPOINTS.USERS.LIST}/${id}`);
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      throw error;
-    }
-  }
+interface BackendUser {
+  id: string;
+  email: string;
+  role: string;
 }
 
-export const userService = new UserService();
+function mapUser(user: BackendUser): UserSummary {
+  const [firstName = user.email, ...rest] = user.email.split('@')[0].split(/[._-]/);
+  return {
+    id: user.id,
+    firstName,
+    lastName: rest.join(' '),
+    email: user.email,
+    role: user.role,
+  };
+}
+
+async function getUsers(): Promise<UserSummary[]> {
+  const response = await api.get<ApiEnvelope<BackendUser[]>>(API_ENDPOINTS.USERS.LIST);
+  return unwrapApiData(response.data).map(mapUser);
+}
+
+async function deleteUser(id: string): Promise<void> {
+  await api.delete(`${API_ENDPOINTS.USERS.LIST}/${id}`);
+}
+
+export const userService = {
+  getUsers,
+  deleteUser,
+};

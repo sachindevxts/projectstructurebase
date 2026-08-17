@@ -4,9 +4,13 @@ import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useResourcePlanner } from '../../hooks/useResourcePlanner';
 import { PlannerFilters } from '../PlannerFilters/PlannerFilters';
 import { PlannerTimeline } from '../PlannerTimeline/PlannerTimeline';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './ResourcePlannerPage.module.scss';
 
 export const ResourcePlannerPage = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateAllocation = hasPermission(user, ['allocations:create']);
   const { filteredAllocations, filters, loading, updateFilter, resetFilters } = useResourcePlanner();
 
   return (
@@ -45,7 +49,13 @@ export const ResourcePlannerPage = () => {
           </Box>
 
           <Box className={styles.filtersRow}>
-            <PlannerFilters filters={filters} onFilterChange={updateFilter} onReset={resetFilters} resultCount={filteredAllocations.length} />
+            <PlannerFilters
+              filters={filters}
+              onFilterChange={updateFilter}
+              onReset={resetFilters}
+              resultCount={filteredAllocations.length}
+              canCreateAllocation={canCreateAllocation}
+            />
           </Box>
         </Box>
 

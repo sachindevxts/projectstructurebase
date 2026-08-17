@@ -7,9 +7,13 @@ import { useReports } from '../../hooks/useReports';
 import { ReportCharts } from '../ReportCharts/ReportCharts';
 import { ReportFilters } from '../ReportFilters/ReportFilters';
 import { ReportStats } from '../ReportStats/ReportStats';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './ReportsPage.module.scss';
 
 export const ReportsPage = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const canExportReports = hasPermission(user, ['reports:export']);
   const { data, stats, filters, loading, error, updateFilter, resetFilters } = useReports();
 
   const handleExport = useCallback(() => {
@@ -25,7 +29,9 @@ export const ReportsPage = () => {
   return (
     <Box className={styles.page}>
       <PfPageHeader title="Reports" subtitle="Analyze utilization, bench, allocation mix, and workforce trends.">
-        <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExport}>Export</Button>
+        {canExportReports && (
+          <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExport}>Export</Button>
+        )}
       </PfPageHeader>
 
       <ReportStats stats={stats} />

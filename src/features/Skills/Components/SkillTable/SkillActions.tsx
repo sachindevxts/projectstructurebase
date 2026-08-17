@@ -5,8 +5,8 @@ import styles from './SkillTable.module.scss';
 
 interface SkillActionsProps {
   onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 export const SkillActions = ({ onView, onEdit, onDelete }: SkillActionsProps) => {
@@ -17,16 +17,20 @@ export const SkillActions = ({ onView, onEdit, onDelete }: SkillActionsProps) =>
           <Visibility fontSize="small" />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Edit Skill">
-        <IconButton size="small" onClick={onEdit} color="secondary">
-          <Edit fontSize="small" />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Delete Skill">
-        <IconButton size="small" onClick={onDelete} color="error">
-          <DeleteOutline fontSize="small" />
-        </IconButton>
-      </Tooltip>
+      {onEdit && (
+        <Tooltip title="Edit Skill">
+          <IconButton size="small" onClick={onEdit} color="secondary">
+            <Edit fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
+      {onDelete && (
+        <Tooltip title="Delete Skill">
+          <IconButton size="small" onClick={onDelete} color="error">
+            <DeleteOutline fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
     </Box>
   );
 };

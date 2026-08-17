@@ -6,8 +6,9 @@ import styles from './ClientForm.module.scss';
 
 interface ClientFormProps {
   initialValue?: Client;
-  onSubmit: (client: Omit<Client, 'id'>) => void;
+  onSubmit: (client: Omit<Client, 'id'>) => void | Promise<void>;
   onCancel?: () => void;
+  submitting?: boolean;
 }
 
 const emptyClient: Omit<Client, 'id'> = {
@@ -21,15 +22,22 @@ const emptyClient: Omit<Client, 'id'> = {
   status: 'Active',
   health: 'Healthy',
   location: '',
-  startDate: '',
+  startDate: new Date().toISOString().split('T')[0],
 };
 
-export const ClientForm = ({ initialValue, onSubmit, onCancel }: ClientFormProps) => {
-  const [form, setForm] = useState<Omit<Client, 'id'>>(initialValue ?? emptyClient);
+export const ClientForm = ({ initialValue, onSubmit, onCancel, submitting = false }: ClientFormProps) => {
+  const [form, setForm] = useState<Omit<Client, 'id'>>(
+    initialValue
+      ? {
+          ...initialValue,
+          startDate: new Date(initialValue.startDate).toISOString().split('T')[0],
+        }
+      : emptyClient,
+  );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(form);
+    await onSubmit(form);
   };
 
   return (
@@ -54,6 +62,16 @@ export const ClientForm = ({ initialValue, onSubmit, onCancel }: ClientFormProps
         <TextField label="Location" value={form.location} onChange={(event) => setForm((prev) => ({ ...prev, location: event.target.value }))} fullWidth />
       </Stack>
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+        <FormControl fullWidth>
+          <InputLabel>Status</InputLabel>
+          <Select value={form.status} label="Status" onChange={(event) => setForm((prev) => ({ ...prev, status: event.target.value as Client['status'] }))}>
+            <MenuItem value="Active">Active</MenuItem>
+            <MenuItem value="Inactive">Inactive</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField label="Start Date" type="date" value={form.startDate} onChange={(event) => setForm((prev) => ({ ...prev, startDate: event.target.value }))} required fullWidth InputLabelProps={{ shrink: true }} />
+      </Stack>
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
         <TextField label="Projects" type="number" value={form.projects} onChange={(event) => setForm((prev) => ({ ...prev, projects: Number(event.target.value) }))} fullWidth />
         <TextField label="Active Projects" type="number" value={form.activeProjects} onChange={(event) => setForm((prev) => ({ ...prev, activeProjects: Number(event.target.value) }))} fullWidth />
         <TextField label="Allocated Employees" type="number" value={form.employeesAllocated} onChange={(event) => setForm((prev) => ({ ...prev, employeesAllocated: Number(event.target.value) }))} fullWidth />
@@ -61,7 +79,9 @@ export const ClientForm = ({ initialValue, onSubmit, onCancel }: ClientFormProps
       <TextField label="Revenue" type="number" value={form.revenue} onChange={(event) => setForm((prev) => ({ ...prev, revenue: Number(event.target.value) }))} fullWidth />
       <Stack direction="row" spacing={1} justifyContent="flex-end">
         {onCancel && <Button onClick={onCancel}>Cancel</Button>}
-        <Button type="submit" variant="contained">Save Client</Button>
+        <Button type="submit" variant="contained" disabled={submitting}>
+          {submitting ? 'Saving...' : 'Save Client'}
+        </Button>
       </Stack>
     </Box>
   );

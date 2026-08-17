@@ -7,11 +7,16 @@ import { ProjectFilters } from '../ProjectFilters/ProjectFilters';
 import { ProjectTable } from '../ProjectTable/ProjectTable';
 import { ProjectStats } from '../ProjectStats/ProjectStats';
 import { PfPageHeader } from '@/features/Shared';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import styles from './ProjectsPage.module.scss';
 import { useProjects } from '../../Hooks/useProjects';
 
 export const ProjectsPage = () => {
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateProject = hasPermission(user, ['projects:create']);
+  const canExportProjects = hasPermission(user, ['projects:export']);
   const { projects, loading, stats } = useProjects();
   const [search, setSearch] = useState('');
 
@@ -38,12 +43,16 @@ export const ProjectsPage = () => {
   return (
     <Box className={styles.page}>
       <PfPageHeader title="Projects" subtitle={`${stats.active} active · ${stats.total} total`}>
-        <Button variant="outlined" startIcon={<DownloadIcon />}>
-          Export
-        </Button>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddProject}>
-          Add Project
-        </Button>
+        {canExportProjects && (
+          <Button variant="outlined" startIcon={<DownloadIcon />}>
+            Export
+          </Button>
+        )}
+        {canCreateProject && (
+          <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddProject}>
+            Add Project
+          </Button>
+        )}
       </PfPageHeader>
 
       <ProjectStats stats={stats} />

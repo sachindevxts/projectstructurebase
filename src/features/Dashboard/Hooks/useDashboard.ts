@@ -12,12 +12,9 @@ export const useDashboard = () => {
 
   const loadDashboard = useCallback(async () => {
     try {
-      setState(prev => ({ ...prev, loading: true, error: null }));
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const data = dashboardService.getDashboardData();
+      setState((prev) => ({ ...prev, loading: true, error: null }));
+
+      const data = await dashboardService.getDashboardData();
       setState({
         data,
         loading: false,
@@ -42,11 +39,20 @@ export const useDashboard = () => {
   }, [state.initialized, loadDashboard]);
 
   const stats = useMemo(() => state.data?.stats || [], [state.data]);
-  const billableData = useMemo(() => state.data?.billableVsNonBillable || { billable: 0, nonBillable: 0 }, [state.data]);
+  const billableData = useMemo(
+    () => state.data?.billableVsNonBillable || { billable: 0, nonBillable: 0 },
+    [state.data],
+  );
   const departmentData = useMemo(() => state.data?.employeesByDepartment || [], [state.data]);
-  const allocationData = useMemo(() => state.data?.allocationDistribution || { active: 0, total: 0 }, [state.data]);
+  const allocationData = useMemo(
+    () => state.data?.allocationDistribution || { active: 0, total: 0 },
+    [state.data],
+  );
   const upcomingReleases = useMemo(() => state.data?.upcomingReleases || [], [state.data]);
-  const overallocatedEmployees = useMemo(() => state.data?.overallocatedEmployees || [], [state.data]);
+  const overallocatedEmployees = useMemo(
+    () => state.data?.overallocatedEmployees || [],
+    [state.data],
+  );
   const recentActivity = useMemo(() => state.data?.recentActivity || [], [state.data]);
 
   return {

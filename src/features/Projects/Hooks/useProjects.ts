@@ -14,7 +14,7 @@ export const useProjects = () => {
   const loadProjects = useCallback(async () => {
     try {
       setLoading(true);
-      const data = projectService.getAllProjects();
+      const data = await projectService.getAllProjects();
       setProjects(data);
       setError(null);
     } catch (err) {
@@ -27,8 +27,8 @@ export const useProjects = () => {
 
   const createProject = useCallback(async (projectData: Omit<Project, 'id'>) => {
     try {
-      const newProject = projectService.createProject(projectData);
-      setProjects(prev => [newProject, ...prev]);
+      const newProject = await projectService.createProject(projectData);
+      setProjects((prev) => [newProject, ...prev]);
       return newProject;
     } catch (err) {
       setError('Failed to create project');
@@ -39,9 +39,9 @@ export const useProjects = () => {
 
   const updateProject = useCallback(async (id: string, updates: Partial<Project>) => {
     try {
-      const updatedProject = projectService.updateProject(id, updates);
+      const updatedProject = await projectService.updateProject(id, updates);
       if (updatedProject) {
-        setProjects(prev => prev.map(p => p.id === id ? updatedProject : p));
+        setProjects((prev) => prev.map((p) => (p.id === id ? updatedProject : p)));
       }
       return updatedProject;
     } catch (err) {
@@ -53,9 +53,9 @@ export const useProjects = () => {
 
   const deleteProject = useCallback(async (id: string) => {
     try {
-      const success = projectService.deleteProject(id);
+      const success = await projectService.deleteProject(id);
       if (success) {
-        setProjects(prev => prev.filter(p => p.id !== id));
+        setProjects((prev) => prev.filter((p) => p.id !== id));
       }
       return success;
     } catch (err) {

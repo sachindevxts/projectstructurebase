@@ -20,7 +20,7 @@ export const useResourcePlanner = () => {
   const loadPlanner = useCallback(async () => {
     try {
       setLoading(true);
-      setAllocations(plannerService.getAllAllocations());
+      setAllocations(await plannerService.getAllAllocations());
       setError(null);
     } catch (err) {
       setError('Failed to load resource planner');
@@ -39,12 +39,25 @@ export const useResourcePlanner = () => {
     [allocations, debouncedSearch, filters],
   );
 
-  const updateFilter = useCallback(<K extends keyof PlannerFilters>(key: K, value: PlannerFilters[K]) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateFilter = useCallback(
+    <K extends keyof PlannerFilters>(key: K, value: PlannerFilters[K]) => {
+      setFilters((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const resetFilters = useCallback(() => setFilters(defaultFilters), []);
   const stats = useMemo(() => plannerService.getStats(), [allocations]);
 
-  return { allocations, filteredAllocations, filters, loading, error, stats, loadPlanner, updateFilter, resetFilters };
+  return {
+    allocations,
+    filteredAllocations,
+    filters,
+    loading,
+    error,
+    stats,
+    loadPlanner,
+    updateFilter,
+    resetFilters,
+  };
 };

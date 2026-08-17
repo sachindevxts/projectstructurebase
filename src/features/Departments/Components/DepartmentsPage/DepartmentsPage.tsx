@@ -57,6 +57,8 @@ import { PfPageHeader } from '@/features/Shared/Components/PfPageHeader/PfPageHe
 import { CapacityBar } from '@/features/Shared/Components/CapacityBar/CapacityBar';
 import { ReusableTable, type TableColumn } from '@/components/common';
 import { radius } from '@/styles/theme';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import type { Department } from '../../types/department.types';
 import { DepartmentStats } from '../DepartmentStats/DepartmentStats';
 import { useDepartments } from '../../hooks/useDepartments';
@@ -99,6 +101,10 @@ const emptyDepartment: Omit<Department, 'id'> = {
 const avatarColors = ['var(--color-primary)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-accent-purple)'];
 
 export const DepartmentsPage = () => {
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateDepartment = hasPermission(user, ['departments:create']);
+  const canUpdateDepartment = hasPermission(user, ['departments:update']);
+  const canDeleteDepartment = hasPermission(user, ['departments:delete']);
   const { departments, loading, stats, createDepartment, deleteDepartment } = useDepartments();
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<'All' | Department['status']>('All');
@@ -163,6 +169,7 @@ export const DepartmentsPage = () => {
   );
 
   const handleOpenAdd = () => {
+    if (!canCreateDepartment) return;
     setForm(emptyDepartment);
     setSkillsInput('');
     setIsAddOpen(true);
@@ -170,6 +177,7 @@ export const DepartmentsPage = () => {
 
   const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!canCreateDepartment) return;
     const employees = Number(form.employees);
     const billable = Number(form.billable);
     const created = await createDepartment({
@@ -243,16 +251,20 @@ export const DepartmentsPage = () => {
       align: 'right',
       renderCell: (department) => (
         <Stack direction="row" spacing={0.25} justifyContent="flex-end">
-          <Tooltip title="Edit">
-            <IconButton size="small" aria-label={`Edit ${department.name}`}>
-              <EditOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton size="small" aria-label={`Delete ${department.name}`} onClick={() => handleDelete(department)}>
-              <DeleteOutline fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          {canUpdateDepartment && (
+            <Tooltip title="Edit">
+              <IconButton size="small" aria-label={`Edit ${department.name}`}>
+                <EditOutlined fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {canDeleteDepartment && (
+            <Tooltip title="Delete">
+              <IconButton size="small" aria-label={`Delete ${department.name}`} onClick={() => handleDelete(department)}>
+                <DeleteOutline fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Stack>
       ),
     },
@@ -277,9 +289,11 @@ export const DepartmentsPage = () => {
             List
           </Button>
         </Stack>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd}>
-          Add Department
-        </Button>
+        {canCreateDepartment && (
+          <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd}>
+            Add Department
+          </Button>
+        )}
       </PfPageHeader>
 
       <DepartmentStats stats={stats} />
@@ -405,18 +419,24 @@ export const DepartmentsPage = () => {
                           </Typography>
                         </Box>
                       </Stack>
-                      <Stack direction="row" spacing={0.25}>
-                        <Tooltip title="Edit">
-                          <IconButton size="small" aria-label={`Edit ${department.name}`}>
-                            <EditOutlined fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete">
-                          <IconButton size="small" aria-label={`Delete ${department.name}`} onClick={() => handleDelete(department)}>
-                            <DeleteOutline fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-                      </Stack>
+                      {(canUpdateDepartment || canDeleteDepartment) && (
+                        <Stack direction="row" spacing={0.25}>
+                          {canUpdateDepartment && (
+                            <Tooltip title="Edit">
+                              <IconButton size="small" aria-label={`Edit ${department.name}`}>
+                                <EditOutlined fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {canDeleteDepartment && (
+                            <Tooltip title="Delete">
+                              <IconButton size="small" aria-label={`Delete ${department.name}`} onClick={() => handleDelete(department)}>
+                                <DeleteOutline fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                        </Stack>
+                      )}
                     </Box>
 
                     <Box className={styles.metrics}>

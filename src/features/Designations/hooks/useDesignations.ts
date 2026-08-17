@@ -10,7 +10,7 @@ export const useDesignations = () => {
   const loadDesignations = useCallback(async () => {
     try {
       setLoading(true);
-      setDesignations(designationService.getAllDesignations());
+      setDesignations(await designationService.getAllDesignations());
       setError(null);
     } catch (err) {
       setError('Failed to load designations');
@@ -26,7 +26,7 @@ export const useDesignations = () => {
 
   const createDesignation = useCallback(async (designation: Omit<Designation, 'id'>) => {
     try {
-      const created = designationService.createDesignation(designation);
+      const created = await designationService.createDesignation(designation);
       setDesignations((prev) => [created, ...prev]);
       return created;
     } catch (err) {
@@ -38,7 +38,7 @@ export const useDesignations = () => {
 
   const updateDesignation = useCallback(async (id: string, updates: Partial<Designation>) => {
     try {
-      const updated = designationService.updateDesignation(id, updates);
+      const updated = await designationService.updateDesignation(id, updates);
       if (updated) setDesignations((prev) => prev.map((item) => (item.id === id ? updated : item)));
       return updated;
     } catch (err) {
@@ -50,7 +50,7 @@ export const useDesignations = () => {
 
   const deleteDesignation = useCallback(async (id: string) => {
     try {
-      const deleted = designationService.deleteDesignation(id);
+      const deleted = await designationService.deleteDesignation(id);
       if (deleted) setDesignations((prev) => prev.filter((item) => item.id !== id));
       return deleted;
     } catch (err) {
@@ -62,5 +62,14 @@ export const useDesignations = () => {
 
   const stats = useMemo(() => designationService.getDesignationStats(), [designations]);
 
-  return { designations, loading, error, stats, loadDesignations, createDesignation, updateDesignation, deleteDesignation };
+  return {
+    designations,
+    loading,
+    error,
+    stats,
+    loadDesignations,
+    createDesignation,
+    updateDesignation,
+    deleteDesignation,
+  };
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   Divider,
   FormControlLabel,
   Link,
+  Snackbar,
   TextField,
   Typography,
   Alert,
@@ -19,6 +20,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { login } from '@/redux/actions';
 import { useAppDispatch, useAppSelector } from '@/hooks';
+import { STORAGE_KEYS } from '@/constants/storage.constants';
 import styles from './LoginPage.module.scss';
 
 export const LoginPage = () => {
@@ -27,11 +29,20 @@ export const LoginPage = () => {
   const loading = useAppSelector((state) => state.auth.isLoading);
   const error = useAppSelector((state) => state.auth.error?.message ?? null);
   const [showPassword, setShowPassword] = useState(false);
+  const [sessionMessage, setSessionMessage] = useState('');
   const [formData, setFormData] = useState({
     email: 'admin@peopleflow.local',
     password: 'PeopleFlow@123',
     rememberMe: true,
   });
+
+  useEffect(() => {
+    const message = window.sessionStorage.getItem(STORAGE_KEYS.SESSION_EXPIRED_MESSAGE);
+    if (message) {
+      setSessionMessage(message);
+      window.sessionStorage.removeItem(STORAGE_KEYS.SESSION_EXPIRED_MESSAGE);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -169,6 +180,17 @@ export const LoginPage = () => {
           </CardContent>
         </Card>
       </Box>
+
+      <Snackbar
+        open={Boolean(sessionMessage)}
+        autoHideDuration={5000}
+        onClose={() => setSessionMessage('')}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert severity="warning" variant="filled" onClose={() => setSessionMessage('')}>
+          {sessionMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

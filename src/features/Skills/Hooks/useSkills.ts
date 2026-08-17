@@ -17,7 +17,7 @@ export const useSkills = () => {
   const loadSkills = useCallback(async () => {
     try {
       setLoading(true);
-      const data = skillService.getAllSkills();
+      const data = await skillService.getAllSkills();
       setSkills(data);
       setError(null);
     } catch (err) {
@@ -30,7 +30,7 @@ export const useSkills = () => {
 
   const createSkill = useCallback(async (skillData: Omit<Skill, 'id'>) => {
     try {
-      const newSkill = skillService.createSkill(skillData);
+      const newSkill = await skillService.createSkill(skillData);
       setSkills(prev => [newSkill, ...prev]);
       return newSkill;
     } catch (err) {
@@ -42,7 +42,7 @@ export const useSkills = () => {
 
   const updateSkill = useCallback(async (id: string, updates: Partial<Skill>) => {
     try {
-      const updatedSkill = skillService.updateSkill(id, updates);
+      const updatedSkill = await skillService.updateSkill(id, updates);
       if (updatedSkill) {
         setSkills(prev => prev.map(s => s.id === id ? updatedSkill : s));
       }
@@ -56,7 +56,7 @@ export const useSkills = () => {
 
   const deleteSkill = useCallback(async (id: string) => {
     try {
-      const success = skillService.deleteSkill(id);
+      const success = await skillService.deleteSkill(id);
       if (success) {
         setSkills(prev => prev.filter(s => s.id !== id));
         setSelectedRows(prev => prev.filter(rowId => rowId !== id));
@@ -102,7 +102,7 @@ export const useSkills = () => {
     setSelectedRows([]);
   }, []);
 
-  const stats = useMemo(() => skillService.getSkillStats(), [skills]);
+  const stats = useMemo(() => skillService.getSkillStats(skills), [skills]);
 
   return {
     skills,

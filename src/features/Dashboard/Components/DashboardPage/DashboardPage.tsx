@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Avatar,
   Box,
   Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
+  IconButton,
   LinearProgress,
   MenuItem,
   Paper,
   Select,
   Stack,
+  TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import {
   Add as AddIcon,
   BusinessCenter as BusinessIcon,
   CheckCircle as CheckCircleIcon,
+  DeleteOutline as DeleteIcon,
   Download as DownloadIcon,
   Groups as GroupsIcon,
   HourglassBottom as HourglassIcon,
@@ -26,6 +34,13 @@ import {
   Work as WorkIcon,
 } from '@mui/icons-material';
 import { ReusableTable, type TableColumn } from '@/components/common';
+import {
+  dashboardService as dashboardApiService,
+  type DashboardWidget,
+  type DashboardWidgetType,
+} from '@/api/services/dashboard.service';
+import { useAppSelector } from '@/hooks';
+import { hasPermission } from '@/utils/permission.utils';
 import { useDashboardData } from '../../Hooks/useDashboardData';
 import styles from './DashboardPage.module.scss';
 
@@ -125,6 +140,76 @@ const toneClass: Record<string, string> = {
   red: styles.redTone,
   slate: styles.slateTone,
 };
+
+const widgetOptions: Array<{
+  type: DashboardWidgetType;
+  label: string;
+  description: string;
+  tone: string;
+  icon: React.ReactNode;
+}> = [
+  {
+    type: 'TOTAL_EMPLOYEES',
+    label: 'Total Employees',
+    description: 'Current organization headcount',
+    tone: 'blue',
+    icon: <GroupsIcon />,
+  },
+  {
+    type: 'ACTIVE_EMPLOYEES',
+    label: 'Active Employees',
+    description: 'Employees currently available for delivery',
+    tone: 'green',
+    icon: <CheckCircleIcon />,
+  },
+  {
+    type: 'ACTIVE_PROJECTS',
+    label: 'Active Projects',
+    description: 'Projects currently in execution',
+    tone: 'blue',
+    icon: <WorkIcon />,
+  },
+  {
+    type: 'BILLABLE_EMPLOYEES',
+    label: 'Billable Employees',
+    description: 'Active employees mapped to billable work',
+    tone: 'green',
+    icon: <PaidIcon />,
+  },
+  {
+    type: 'BENCH_EMPLOYEES',
+    label: 'Bench Employees',
+    description: 'Available capacity for upcoming client demand',
+    tone: 'slate',
+    icon: <BusinessIcon />,
+  },
+  {
+    type: 'RELEASING_SOON',
+    label: 'Releasing Soon',
+    description: 'Allocations ending soon and needing action',
+    tone: 'orange',
+    icon: <HourglassIcon />,
+  },
+  {
+    type: 'BILLABLE_SPLIT',
+    label: 'Billable Split',
+    description: 'Billable vs non-billable employee count',
+    tone: 'blue',
+    icon: <PaidIcon />,
+  },
+  {
+    type: 'ALLOCATION_DISTRIBUTION',
+    label: 'Allocation Distribution',
+    description: 'Allocated employees against total headcount',
+    tone: 'green',
+    icon: <WorkIcon />,
+  },
+];
+
+const widgetOptionMap = widgetOptions.reduce(
+  (acc, option) => ({ ...acc, [option.type]: option }),
+  {} as Record<DashboardWidgetType, (typeof widgetOptions)[number]>,
+);
 
 const DonutChart = ({
   data,
@@ -306,7 +391,108 @@ const MiniTable = ({
 };
 
 export const DashboardPage = () => {
-  const { loading, error, refresh } = useDashboardData();
+  const user = useAppSelector((state) => state.auth.user);
+  const canCreateWidget = hasPermission(user, ['dashboard:create']);
+  const canDeleteWidget = hasPermission(user, ['dashboard:delete']);
+  const canExportDashboard = hasPermission(user, ['dashboard:export']);
+  const {
+    loading,
+    error,
+    refresh,
+    summaryStats,
+    billableData: liveBillableData,
+    allocationStats,
+  } = useDashboardData();
+  const [widgets, setWidgets] = useState<DashboardWidget[]>([]);
+  const [widgetDialogOpen, setWidgetDialogOpen] = useState(false);
+  const [selectedWidgetType, setSelectedWidgetType] =
+    useState<DashboardWidgetType>('TOTAL_EMPLOYEES');
+  const [widgetTitle, setWidgetTitle] = useState(widgetOptionMap.TOTAL_EMPLOYEES.label);
+  const [widgetError, setWidgetError] = useState('');
+  const [savingWidget, setSavingWidget] = useState(false);
+  const [deletingWidgetId, setDeletingWidgetId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    dashboardApiService
+      .getWidgets()
+      .then((items) => {
+        if (mounted) setWidgets(items);
+      })
+      .catch(() => {
+        if (mounted) setWidgetError('Unable to load dashboard widgets');
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const widgetMetrics = useMemo<Record<DashboardWidgetType, string | number>>(
+    () => ({
+      TOTAL_EMPLOYEES: summaryStats.totalEmployees,
+      ACTIVE_EMPLOYEES: summaryStats.activeEmployees,
+      ACTIVE_PROJECTS: allocationStats.active,
+      BILLABLE_EMPLOYEES: liveBillableData.billable,
+      BENCH_EMPLOYEES: liveBillableData.nonBillable,
+      RELEASING_SOON: allocationStats.inactive,
+      BILLABLE_SPLIT: `${liveBillableData.billable}/${liveBillableData.nonBillable}`,
+      ALLOCATION_DISTRIBUTION: `${allocationStats.active}/${allocationStats.total}`,
+    }),
+    [allocationStats, liveBillableData, summaryStats],
+  );
+
+  const visibleWidgets = useMemo(
+    () => widgets.filter((widget) => widget.enabled).sort((a, b) => a.sortOrder - b.sortOrder),
+    [widgets],
+  );
+
+  const handleOpenWidgetDialog = () => {
+    setSelectedWidgetType('TOTAL_EMPLOYEES');
+    setWidgetTitle(widgetOptionMap.TOTAL_EMPLOYEES.label);
+    setWidgetError('');
+    setWidgetDialogOpen(true);
+  };
+
+  const handleWidgetTypeChange = (type: DashboardWidgetType) => {
+    setSelectedWidgetType(type);
+    setWidgetTitle(widgetOptionMap[type].label);
+  };
+
+  const handleCreateWidget = async () => {
+    setSavingWidget(true);
+    setWidgetError('');
+
+    try {
+      const widget = await dashboardApiService.createWidget({
+        type: selectedWidgetType,
+        title: widgetTitle.trim() || widgetOptionMap[selectedWidgetType].label,
+        size: 'sm',
+        enabled: true,
+      });
+      setWidgets((current) => [...current, widget]);
+      setWidgetDialogOpen(false);
+    } catch {
+      setWidgetError('Unable to add widget');
+    } finally {
+      setSavingWidget(false);
+    }
+  };
+
+  const handleDeleteWidget = async (id: string) => {
+    setDeletingWidgetId(id);
+    setWidgetError('');
+
+    try {
+      await dashboardApiService.deleteWidget(id);
+      setWidgets((current) => current.filter((widget) => widget.id !== id));
+    } catch {
+      setWidgetError('Unable to remove widget');
+    } finally {
+      setDeletingWidgetId(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -359,32 +545,103 @@ export const DashboardPage = () => {
               <MenuItem value="All departments">All departments</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="outlined" startIcon={<DownloadIcon />} className={styles.outlineButton}>
-            Export report
-          </Button>
-          <Button variant="contained" startIcon={<AddIcon />} className={styles.primaryButton}>
-            Add widget
-          </Button>
+          {canExportDashboard && (
+            <Button variant="outlined" startIcon={<DownloadIcon />} className={styles.outlineButton}>
+              Export report
+            </Button>
+          )}
+          {canCreateWidget && (
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              className={styles.primaryButton}
+              onClick={handleOpenWidgetDialog}
+            >
+              Add widget
+            </Button>
+          )}
         </Stack>
       </Stack>
 
       <Box className={styles.kpiGrid}>
-        {kpis.map((kpi) => (
-          <Paper elevation={0} key={kpi.label} className={styles.kpiCard}>
-            <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
-              <Avatar className={`${styles.kpiIcon} ${toneClass[kpi.tone]}`}>{kpi.icon}</Avatar>
-              <Chip
-                icon={<TrendingUpIcon />}
-                label={kpi.delta}
-                size="small"
-                className={toneClass[kpi.tone]}
-              />
-            </Stack>
-            <Typography className={styles.kpiValue}>{kpi.value}</Typography>
-            <Typography className={styles.kpiLabel}>{kpi.label}</Typography>
-          </Paper>
-        ))}
+        {kpis
+          .map((kpi) => {
+            const liveValues: Record<string, string | number> = {
+              'Total Employees': summaryStats.totalEmployees,
+              'Active Employees': summaryStats.activeEmployees,
+              'Active Projects': allocationStats.active,
+              'Billable Employees': liveBillableData.billable,
+              'Bench Employees': liveBillableData.nonBillable,
+              'Releasing Soon': allocationStats.inactive,
+              Overallocated: summaryStats.overallocated,
+            };
+            return { ...kpi, value: liveValues[kpi.label] ?? kpi.value };
+          })
+          .map((kpi) => (
+            <Paper elevation={0} key={kpi.label} className={styles.kpiCard}>
+              <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+                <Avatar className={`${styles.kpiIcon} ${toneClass[kpi.tone]}`}>{kpi.icon}</Avatar>
+                <Chip
+                  icon={<TrendingUpIcon />}
+                  label={kpi.delta}
+                  size="small"
+                  className={toneClass[kpi.tone]}
+                />
+              </Stack>
+              <Typography className={styles.kpiValue}>{kpi.value}</Typography>
+              <Typography className={styles.kpiLabel}>{kpi.label}</Typography>
+            </Paper>
+          ))}
       </Box>
+
+      {visibleWidgets.length > 0 && (
+        <Box className={styles.widgetSection}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            className={styles.widgetSectionHeader}
+          >
+            <Typography className={styles.cardTitle}>Added Widgets</Typography>
+            <Typography className={styles.widgetDescription}>
+              Personalized dashboard metrics
+            </Typography>
+          </Stack>
+          <Box className={styles.kpiGrid}>
+            {visibleWidgets.map((widget) => {
+              const option = widgetOptionMap[widget.type];
+              return (
+                <Paper elevation={0} key={widget.id} className={styles.kpiCard}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+                    <Avatar className={`${styles.kpiIcon} ${toneClass[option.tone]}`}>
+                      {option.icon}
+                    </Avatar>
+                    {canDeleteWidget && (
+                      <Tooltip title="Remove widget">
+                        <span>
+                          <IconButton
+                            size="small"
+                            className={styles.deleteButton}
+                            disabled={deletingWidgetId === widget.id}
+                            onClick={() => handleDeleteWidget(widget.id)}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                    )}
+                  </Stack>
+                  <Typography className={styles.kpiValue}>{widgetMetrics[widget.type]}</Typography>
+                  <Typography className={styles.kpiLabel}>{widget.title}</Typography>
+                  <Typography className={styles.widgetMetricCaption}>
+                    {option.description}
+                  </Typography>
+                </Paper>
+              );
+            })}
+          </Box>
+        </Box>
+      )}
 
       <Box className={styles.chartGrid}>
         <Paper elevation={0} className={styles.chartCard}>
@@ -440,7 +697,7 @@ export const DashboardPage = () => {
         <MiniTable
           title="Upcoming Releases"
           action="View all"
-          headers={['Employee' , 'Project', 'Release Date', 'Action']}
+          headers={['Employee', 'Project', 'Release Date', 'Action']}
           rows={upcomingReleases}
         />
         <MiniTable
@@ -492,9 +749,54 @@ export const DashboardPage = () => {
           </div>
         </Paper>
       </Box>
+
+      <Dialog
+        open={widgetDialogOpen}
+        onClose={() => setWidgetDialogOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Add dashboard widget</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} className={styles.dialogContent}>
+            <TextField
+              select
+              label="Widget"
+              value={selectedWidgetType}
+              onChange={(event) =>
+                handleWidgetTypeChange(event.target.value as DashboardWidgetType)
+              }
+              fullWidth
+            >
+              {widgetOptions.map((option) => (
+                <MenuItem key={option.type} value={option.type}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              label="Title"
+              value={widgetTitle}
+              onChange={(event) => setWidgetTitle(event.target.value)}
+              fullWidth
+            />
+            <Typography className={styles.widgetDescription}>
+              {widgetOptionMap[selectedWidgetType].description}
+            </Typography>
+            {widgetError && <Typography className={styles.widgetError}>{widgetError}</Typography>}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setWidgetDialogOpen(false)} disabled={savingWidget}>
+            Cancel
+          </Button>
+          <Button variant="contained" onClick={handleCreateWidget} disabled={savingWidget}>
+            {savingWidget ? 'Adding...' : 'Add widget'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
 
 export default DashboardPage;
-

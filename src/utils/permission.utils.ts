@@ -10,6 +10,7 @@ export function hasPermission(
   if (!user) return false;
   if (!requiredPermissions.length) return true;
   const userPermissions = new Set(user.permissions ?? []);
+  if (userPermissions.has('*')) return true;
   if (mode === 'any') {
     return requiredPermissions.some((permission) => userPermissions.has(permission));
   }

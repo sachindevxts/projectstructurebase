@@ -18,17 +18,13 @@ interface AccessTokenPayload {
   sub: string;
   email: string;
   role: 'ADMIN' | 'HR' | 'MANAGER' | 'EMPLOYEE';
+  roleId?: string | null;
+  roleName?: string;
+  permissions?: string[];
 }
 
-const ROLE_PERMISSIONS: Record<AccessTokenPayload['role'], string[]> = {
-  ADMIN: ['dashboard:view', 'user:manage', 'allocation:manage', 'settings:manage'],
-  HR: ['dashboard:view', 'user:manage', 'allocation:manage'],
-  MANAGER: ['dashboard:view', 'user:view', 'allocation:manage'],
-  EMPLOYEE: ['dashboard:view', 'user:view'],
-};
-
 const ROLE_LABELS: Record<AccessTokenPayload['role'], string> = {
-  ADMIN: 'admin',
+  ADMIN: 'Super Admin',
   HR: 'hr',
   MANAGER: 'manager',
   EMPLOYEE: 'employee',
@@ -59,45 +55,53 @@ function toDisplayName(email: string): string {
     .join(' ');
 }
 
-class AuthService {
-  async login(payload: LoginPayload): Promise<AuthUser> {
-    const response = await api.post<ApiEnvelope<AuthResponse>>(API_ENDPOINTS.AUTH.LOGIN, {
-      email: payload.email.trim().toLowerCase(),
-      password: payload.password,
-    });
+async function login(payload: LoginPayload): Promise<AuthUser> {
+  const response = await api.post<ApiEnvelope<AuthResponse>>(API_ENDPOINTS.AUTH.LOGIN, {
+    email: payload.email.trim().toLowerCase(),
+    password: payload.password,
+  });
 
-    const { accessToken, refreshToken } = response.data.data;
-    const tokenPayload = decodeAccessToken(accessToken);
-    const user: AuthUser = {
-      id: tokenPayload.sub,
-      email: tokenPayload.email,
-      name: toDisplayName(tokenPayload.email),
-      role: ROLE_LABELS[tokenPayload.role],
-      permissions: ROLE_PERMISSIONS[tokenPayload.role],
-    };
+  const { accessToken, refreshToken } = response.data.data;
+  const tokenPayload = decodeAccessToken(accessToken);
+  const user: AuthUser = {
+    id: tokenPayload.sub,
+    email: tokenPayload.email,
+    name: toDisplayName(tokenPayload.email),
+    role: tokenPayload.roleName ?? ROLE_LABELS[tokenPayload.role],
+    roleId: tokenPayload.roleId ?? null,
+    permissions: tokenPayload.permissions ?? [],
+  };
 
-    storage.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-    storage.set(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
-    storage.set(STORAGE_KEYS.USER, user);
+  storage.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+  storage.set(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+  storage.set(STORAGE_KEYS.USER, user);
 
-    return user;
-  }
+  return user;
+}
 
-  async getCurrentUser(): Promise<AuthUser | null> {
-    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-    const user = storage.get<AuthUser>(STORAGE_KEYS.USER);
-    return token && user ? user : null;
-  }
+async function getCurrentUser(): Promise<AuthUser | null> {
+  const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+  const user = storage.get<AuthUser>(STORAGE_KEYS.USER);
+  return token && user ? user : null;
+}
 
-  async logout(): Promise<void> {
+async function logout(): Promise<void> {
+  try {
+    await api.post('/auth/logout');
+  } finally {
     storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
     storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
     storage.remove(STORAGE_KEYS.USER);
   }
-
-  isAuthenticated(): boolean {
-    return !!storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-  }
 }
 
-export const authService = new AuthService();
+function isAuthenticated(): boolean {
+  return !!storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+}
+
+export const authService = {
+  login,
+  getCurrentUser,
+  logout,
+  isAuthenticated,
+};

@@ -31,12 +31,15 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
       storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
       storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
       storage.remove(STORAGE_KEYS.USER);
-      // Redirect to login if needed
+
       if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+        window.sessionStorage.setItem(
+          STORAGE_KEYS.SESSION_EXPIRED_MESSAGE,
+          'Session got expired, please relogin',
+        );
         window.location.href = '/login';
       }
     }

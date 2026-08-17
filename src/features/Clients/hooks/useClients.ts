@@ -20,7 +20,7 @@ export const useClients = () => {
   const loadClients = useCallback(async () => {
     try {
       setLoading(true);
-      setClients(clientService.getAllClients());
+      setClients(await clientService.getAllClients());
       setError(null);
     } catch (err) {
       setError('Failed to load clients');
@@ -35,7 +35,7 @@ export const useClients = () => {
   }, [loadClients]);
 
   const filteredClients = useMemo(
-    () => clientService.filterClients({ ...filters, search: debouncedSearch }),
+    () => clientService.filterClients({ ...filters, search: debouncedSearch }, clients),
     [clients, debouncedSearch, filters],
   );
 
@@ -47,7 +47,7 @@ export const useClients = () => {
 
   const createClient = useCallback(async (client: Omit<Client, 'id'>) => {
     try {
-      const created = clientService.createClient(client);
+      const created = await clientService.createClient(client);
       setClients((prev) => [created, ...prev]);
       return created;
     } catch (err) {
@@ -59,7 +59,7 @@ export const useClients = () => {
 
   const updateClient = useCallback(async (id: string, updates: Partial<Client>) => {
     try {
-      const updated = clientService.updateClient(id, updates);
+      const updated = await clientService.updateClient(id, updates);
       if (updated) setClients((prev) => prev.map((client) => (client.id === id ? updated : client)));
       return updated;
     } catch (err) {
@@ -71,7 +71,7 @@ export const useClients = () => {
 
   const deleteClient = useCallback(async (id: string) => {
     try {
-      const deleted = clientService.deleteClient(id);
+      const deleted = await clientService.deleteClient(id);
       if (deleted) setClients((prev) => prev.filter((client) => client.id !== id));
       return deleted;
     } catch (err) {
@@ -81,7 +81,7 @@ export const useClients = () => {
     }
   }, []);
 
-  const stats = useMemo(() => clientService.getClientStats(), [clients]);
+  const stats = useMemo(() => clientService.getClientStats(clients), [clients]);
 
   return { clients, filteredClients, filters, loading, error, stats, loadClients, updateFilter, resetFilters, createClient, updateClient, deleteClient };
 };

@@ -81,26 +81,30 @@ export const ClientTable = ({ clients, loading = false, onView, onEdit, onDelete
               <Visibility fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Edit">
-            <IconButton
-              size="small"
-              onClick={() => onEdit?.(client)}
-              color="secondary"
-              aria-label={`Edit ${client.name}`}
-            >
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton
-              size="small"
-              onClick={() => onDelete?.(client.id)}
-              color="error"
-              aria-label={`Delete ${client.name}`}
-            >
-              <DeleteOutline fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          {onEdit && (
+            <Tooltip title="Edit">
+              <IconButton
+                size="small"
+                onClick={() => onEdit(client)}
+                color="secondary"
+                aria-label={`Edit ${client.name}`}
+              >
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {onDelete && (
+            <Tooltip title="Delete">
+              <IconButton
+                size="small"
+                onClick={() => onDelete(client.id)}
+                color="error"
+                aria-label={`Delete ${client.name}`}
+              >
+                <DeleteOutline fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       ),
     },
