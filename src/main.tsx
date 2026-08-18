@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Analytics } from '@vercel/analytics/react';
 import { store } from '@/redux/store';
 import { App } from '@/App';
 import '@/utils/css/main.scss';
@@ -20,5 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </ThemeProvider>
       </Provider>
     </ErrorBoundary>
+    <Analytics />
   </React.StrictMode>,
 );
