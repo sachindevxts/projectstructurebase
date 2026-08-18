@@ -49,7 +49,32 @@ function formatDate(value: string | null): string {
   });
 }
 
+function toDateInputValue(value: string | null): string {
+  if (!value) return '';
+  return new Date(value).toISOString().split('T')[0];
+}
+
+function createCode(name: string): string {
+  const base = name.replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase();
+  return `${base || 'PROJ'}${Math.floor(Date.now() / 1000).toString().slice(-4)}`;
+}
+
+function toBackendStatus(status?: Project['status']): BackendProject['status'] | undefined {
+  if (status === 'Completed') return 'COMPLETED';
+  if (status === 'On Hold') return 'ON_HOLD';
+  if (status === 'Active') return 'ACTIVE';
+  return undefined;
+}
+
+function toBackendBilling(billing?: string): BackendProject['billingType'] | undefined {
+  if (billing === 'Internal') return 'INTERNAL';
+  if (billing === 'Fixed Price') return 'FIXED_PRICE';
+  if (billing === 'Time & Material') return 'TIME_AND_MATERIAL';
+  return undefined;
+}
+
 let projectsCache: Project[] = [];
+let employeesCache: BackendEmployee[] = [];
 
 async function getAllProjects(): Promise<Project[]> {
   const [projectsResponse, employeesResponse, allocationsResponse] = await Promise.all([
@@ -58,8 +83,9 @@ async function getAllProjects(): Promise<Project[]> {
     api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATIONS),
   ]);
 
+  employeesCache = unwrapApiData(employeesResponse.data);
   const employees = new Map(
-    unwrapApiData(employeesResponse.data).map((employee) => [
+    employeesCache.map((employee) => [
       employee.id,
       `${employee.firstName} ${employee.lastName}`,
     ]),
@@ -81,15 +107,21 @@ async function getAllProjects(): Promise<Project[]> {
     const allocation = allocationsByProject[project.id] ?? { team: 0, billable: 0 };
     return {
       id: project.id,
+      code: project.code,
       name: project.name,
       client: project.billingType === 'INTERNAL' ? 'Internal' : 'External Client',
+      managerId: project.managerId ?? null,
       manager: project.managerId ? (employees.get(project.managerId) ?? 'Unassigned') : 'Unassigned',
       start: formatDate(project.startDate),
       end: formatDate(project.endDate),
+      startDate: toDateInputValue(project.startDate),
+      endDate: toDateInputValue(project.endDate),
       team: allocation.team,
       billable: allocation.billable,
       billing: billingMap[project.billingType],
+      billingType: project.billingType,
       status: statusMap[project.status],
+      backendStatus: project.status,
     };
   });
 
@@ -118,33 +150,34 @@ function filterProjects(search: string): Project[] {
   );
 }
 
+function getManagers(): BackendEmployee[] {
+  return employeesCache;
+}
+
 async function createProject(project: Omit<Project, 'id'>): Promise<Project> {
-  await api.post(API_ENDPOINTS.PROJECTS, {
+  const response = await api.post<ApiEnvelope<BackendProject>>(API_ENDPOINTS.PROJECTS, {
     name: project.name,
-    code: project.name
-      .replace(/[^a-z0-9]/gi, '')
-      .slice(0, 8)
-      .toUpperCase(),
-    billingType: project.billing === 'Internal' ? 'INTERNAL' : 'TIME_AND_MATERIAL',
-    startDate: new Date().toISOString(),
-    endDate: undefined,
+    code: project.code || createCode(project.name),
+    billingType: project.billingType ?? toBackendBilling(project.billing) ?? 'TIME_AND_MATERIAL',
+    status: project.backendStatus ?? toBackendStatus(project.status) ?? 'ACTIVE',
+    startDate: project.startDate || new Date().toISOString().split('T')[0],
+    endDate: project.endDate || undefined,
+    managerId: project.managerId || undefined,
   });
-  const projects = await getAllProjects();
-  return projects[0];
+  await getAllProjects();
+  const created = unwrapApiData(response.data);
+  return projectsCache.find((item) => item.id === created.id) ?? projectsCache[0];
 }
 
 async function updateProject(id: string, updates: Partial<Project>): Promise<Project | null> {
   await api.patch(`${API_ENDPOINTS.PROJECTS}/${id}`, {
     name: updates.name,
-    billingType: updates.billing === 'Internal' ? 'INTERNAL' : undefined,
-    status:
-      updates.status === 'Completed'
-        ? 'COMPLETED'
-        : updates.status === 'On Hold'
-          ? 'ON_HOLD'
-          : updates.status === 'Active'
-            ? 'ACTIVE'
-            : undefined,
+    code: updates.code,
+    billingType: updates.billingType ?? toBackendBilling(updates.billing),
+    status: updates.backendStatus ?? toBackendStatus(updates.status),
+    startDate: updates.startDate,
+    endDate: updates.endDate || undefined,
+    managerId: updates.managerId || undefined,
   });
   await getAllProjects();
   return projectsCache.find((project) => project.id === id) ?? null;
@@ -161,6 +194,7 @@ export const projectService = {
   getProjectById,
   getProjectStats,
   filterProjects,
+  getManagers,
   createProject,
   updateProject,
   deleteProject,

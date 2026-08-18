@@ -95,6 +95,8 @@ async function getAllAllocations(): Promise<Allocation[]> {
       role,
       start: formatDate(allocation.startDate),
       end: formatDate(allocation.endDate),
+      startDate: new Date(allocation.startDate).toISOString().split('T')[0],
+      endDate: allocation.endDate ? new Date(allocation.endDate).toISOString().split('T')[0] : '',
       allocation: allocation.percentage,
       capacity: `${Math.max(0, 100 - allocation.percentage)}%`,
       billability: employee?.billable ? 'Billable' : 'Non-Billable',

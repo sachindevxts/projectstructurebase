@@ -7,6 +7,8 @@ export interface Allocation {
   role: string;
   start: string;
   end: string;
+  startDate: string;
+  endDate: string;
   allocation: number;
   capacity: string;
   billability: 'Billable' | 'Non-Billable';

@@ -26,3 +26,11 @@ export interface PlannerStats {
   tentative: number;
   atRisk: number;
 }
+
+export type PlannerViewMode = 'month' | 'week' | 'day';
+export type PlannerGroupBy = 'employee' | 'project' | 'heatmap';
+
+export interface PlannerRange {
+  startDate: string;
+  endDate: string;
+}

@@ -65,7 +65,7 @@ export const useProjects = () => {
     }
   }, []);
 
-  const stats = useMemo(() => projectService.getProjectStats(), [projects]);
+  const stats = useMemo(() => projectService.getProjectStats(projects), [projects]);
 
   return {
     projects,

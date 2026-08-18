@@ -1,20 +1,25 @@
 import { allocationService } from '@/features/allocations/Services/allocationService';
-import type { PlannerAllocation, PlannerFilters, PlannerStats } from '../types/planner.types';
+import { employeeService } from '@/features/Employees/Services/employeeService';
+import type { PlannerAllocation, PlannerFilters, PlannerRange, PlannerStats } from '../types/planner.types';
 
 let allocationsCache: PlannerAllocation[] = [];
 
 async function getAllAllocations(): Promise<PlannerAllocation[]> {
-  const allocations = await allocationService.getAllAllocations();
+  const [allocations, employees] = await Promise.all([
+    allocationService.getAllAllocations(),
+    employeeService.getAllEmployees(),
+  ]);
+  const employeesById = new Map(employees.map((employee) => [employee.id, employee]));
   allocationsCache = allocations.map((allocation) => ({
     id: allocation.id,
     employeeId: allocation.employeeId,
     employee: allocation.employee,
-    department: 'Live allocation',
+    department: employeesById.get(allocation.employeeId)?.department ?? 'Unassigned',
     role: allocation.role,
-    skill: allocation.role,
+    skill: employeesById.get(allocation.employeeId)?.designation ?? allocation.role,
     project: allocation.project,
-    startDate: allocation.start,
-    endDate: allocation.end,
+    startDate: allocation.startDate,
+    endDate: allocation.endDate || allocation.startDate,
     allocation: allocation.allocation,
     billability: allocation.billability,
     status:
@@ -37,9 +42,20 @@ function getStats(allocations = allocationsCache): PlannerStats {
   };
 }
 
-function filterAllocations(filters: PlannerFilters): PlannerAllocation[] {
+function overlapsRange(allocation: PlannerAllocation, range?: PlannerRange): boolean {
+  if (!range) return true;
+  const allocationStart = new Date(`${allocation.startDate}T00:00:00`).getTime();
+  const allocationEnd = new Date(`${allocation.endDate || allocation.startDate}T00:00:00`).getTime();
+  const rangeStart = new Date(`${range.startDate}T00:00:00`).getTime();
+  const rangeEnd = new Date(`${range.endDate}T00:00:00`).getTime();
+  return allocationStart <= rangeEnd && allocationEnd >= rangeStart;
+}
+
+function filterAllocations(filters: PlannerFilters, range?: PlannerRange): PlannerAllocation[] {
   let filtered = [...allocationsCache];
   const search = filters.search.trim().toLowerCase();
+
+  filtered = filtered.filter((allocation) => overlapsRange(allocation, range));
 
   if (search) {
     filtered = filtered.filter((allocation) =>
@@ -60,8 +76,17 @@ function filterAllocations(filters: PlannerFilters): PlannerAllocation[] {
   return filtered;
 }
 
+function getFilterOptions(allocations = allocationsCache) {
+  return {
+    departments: ['All', ...Array.from(new Set(allocations.map((allocation) => allocation.department))).sort()],
+    skills: ['All', ...Array.from(new Set(allocations.map((allocation) => allocation.skill))).sort()],
+    statuses: ['All', ...Array.from(new Set(allocations.map((allocation) => allocation.status))).sort()],
+  };
+}
+
 export const plannerService = {
   getAllAllocations,
   getStats,
   filterAllocations,
+  getFilterOptions,
 };

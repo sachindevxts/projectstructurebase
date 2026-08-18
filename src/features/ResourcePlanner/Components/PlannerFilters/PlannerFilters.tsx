@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, FormControl, MenuItem, Select } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { PLANNER_DEPARTMENTS, PLANNER_SKILLS } from '../../constants/planner.constants';
 import type { PlannerFilters as FiltersType } from '../../types/planner.types';
 import styles from './PlannerFilters.module.scss';
 
@@ -11,13 +10,25 @@ interface PlannerFiltersProps {
   onReset: () => void;
   resultCount?: number;
   canCreateAllocation?: boolean;
+  departments: string[];
+  skills: string[];
+  statuses: string[];
+  onAddAllocation?: () => void;
 }
 
-export const PlannerFilters = ({ filters, onFilterChange, canCreateAllocation = false }: PlannerFiltersProps) => (
+export const PlannerFilters = ({
+  filters,
+  onFilterChange,
+  canCreateAllocation = false,
+  departments,
+  skills,
+  statuses,
+  onAddAllocation,
+}: PlannerFiltersProps) => (
   <Box className={styles.filtersContainer}>
     <FormControl size="small" className={styles.filterItem}>
       <Select value={filters.department} onChange={(event) => onFilterChange('department', event.target.value)}>
-        {PLANNER_DEPARTMENTS.map((department) => (
+        {departments.map((department) => (
           <MenuItem key={department} value={department}>
             {department === 'All' ? 'All Departments' : department}
           </MenuItem>
@@ -26,15 +37,24 @@ export const PlannerFilters = ({ filters, onFilterChange, canCreateAllocation = 
     </FormControl>
     <FormControl size="small" className={styles.filterItem}>
       <Select value={filters.skill} onChange={(event) => onFilterChange('skill', event.target.value)}>
-        {PLANNER_SKILLS.map((skill) => (
+        {skills.map((skill) => (
           <MenuItem key={skill} value={skill}>
             {skill === 'All' ? 'All Skills' : skill}
           </MenuItem>
         ))}
       </Select>
     </FormControl>
+    <FormControl size="small" className={styles.filterItem}>
+      <Select value={filters.status} onChange={(event) => onFilterChange('status', event.target.value)}>
+        {statuses.map((status) => (
+          <MenuItem key={status} value={status}>
+            {status === 'All' ? 'All Statuses' : status}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
     {canCreateAllocation && (
-      <Button variant="contained" startIcon={<AddIcon />} className={styles.addButton}>
+      <Button variant="contained" startIcon={<AddIcon />} className={styles.addButton} onClick={onAddAllocation}>
         Add Allocation
       </Button>
     )}

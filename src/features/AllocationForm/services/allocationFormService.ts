@@ -1,5 +1,6 @@
 import { employeeService } from '@/features/Employees/Services/employeeService';
 import { projectService } from '@/features/Projects/Services/projectService';
+import { allocationService } from '@/features/allocations/Services/allocationService';
 import type {
   AllocationFormEmployee,
   AllocationFormProject,
@@ -65,7 +66,17 @@ function validate(values: AllocationFormValues): string[] {
   return errors;
 }
 
-function save(values: AllocationFormValues): AllocationFormValues {
+async function save(values: AllocationFormValues): Promise<AllocationFormValues> {
+  await allocationService.createAllocation({
+    employeeId: values.employeeId,
+    projectId: values.projectId,
+    role: values.role,
+    allocationPercentage: values.allocationPercentage,
+    startDate: values.startDate,
+    endDate: values.endDate,
+    billability: values.billability,
+    notes: values.notes,
+  });
   return values;
 }
 

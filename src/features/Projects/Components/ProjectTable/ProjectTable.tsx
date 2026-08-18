@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import type { ChipProps } from '@mui/material/Chip';
-import { Visibility } from '@mui/icons-material';
+import { DeleteOutline, Edit, Visibility } from '@mui/icons-material';
 import type { Project } from '../../Types/project.types';
 import { ReusableTable, type TableColumn } from '@/components/common';
 import styles from './ProjectTable.module.scss';
@@ -10,9 +10,11 @@ interface ProjectTableProps {
   projects: Project[];
   loading?: boolean;
   onView: (project: Project) => void;
+  onEdit?: (project: Project) => void;
+  onDelete?: (project: Project) => void;
 }
 
-export const ProjectTable = ({ projects, loading = false, onView }: ProjectTableProps) => {
+export const ProjectTable = ({ projects, loading = false, onView, onEdit, onDelete }: ProjectTableProps) => {
   const getStatusColor = (status: string): ChipProps['color'] => {
     switch (status) {
       case 'Active':
@@ -82,16 +84,42 @@ export const ProjectTable = ({ projects, loading = false, onView }: ProjectTable
       label: 'Actions',
       align: 'center',
       renderCell: (project) => (
-        <Tooltip title="View Details">
-          <IconButton
-            size="small"
-            onClick={() => onView(project)}
-            color="primary"
-            aria-label={`View ${project.name}`}
-          >
-            <Visibility fontSize="small" />
-          </IconButton>
-        </Tooltip>
+        <Box className={styles.actions}>
+          <Tooltip title="View Details">
+            <IconButton
+              size="small"
+              onClick={() => onView(project)}
+              color="primary"
+              aria-label={`View ${project.name}`}
+            >
+              <Visibility fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          {onEdit && (
+            <Tooltip title="Edit Project">
+              <IconButton
+                size="small"
+                onClick={() => onEdit(project)}
+                color="secondary"
+                aria-label={`Edit ${project.name}`}
+              >
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {onDelete && (
+            <Tooltip title="Delete Project">
+              <IconButton
+                size="small"
+                onClick={() => onDelete(project)}
+                color="error"
+                aria-label={`Delete ${project.name}`}
+              >
+                <DeleteOutline fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box>
       ),
     },
   ];
