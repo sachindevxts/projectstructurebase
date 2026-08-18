@@ -27,6 +27,7 @@
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.20",
     "@reduxjs/toolkit": "^2.2.7",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "axios": "^1.6.2",
     "lucide-react": "^1.31.0",

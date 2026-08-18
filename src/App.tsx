@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { store } from '@/redux/store';
 import { AppRoutes } from '@/routes/AppRoutes';
@@ -17,6 +18,7 @@ export const App = () => {
             <Suspense fallback={<RouteFallback />}>
               <AppRoutes />
             </Suspense>
+            <Analytics />
             <SpeedInsights />
           </BrowserRouter>
         </ToastProvider>
