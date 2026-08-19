@@ -71,7 +71,12 @@ export const useResourcePlanner = () => {
   }, [anchorDate, viewMode]);
 
   const filteredAllocations = useMemo(
-    () => plannerService.filterAllocations({ ...filters, search: debouncedSearch }, visibleRange),
+    () =>
+      plannerService.filterAllocations(
+        { ...filters, search: debouncedSearch },
+        visibleRange,
+        allocations,
+      ),
     [allocations, debouncedSearch, filters, visibleRange],
   );
 

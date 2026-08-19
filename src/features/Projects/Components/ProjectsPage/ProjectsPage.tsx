@@ -83,7 +83,7 @@ export const ProjectsPage = () => {
   const [form, setForm] = useState<ProjectFormValues>(emptyProjectForm);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
-  const managers = useMemo(() => projectService.getManagers(), [projects]);
+  const managers = projectService.getManagers();
 
   const filteredProjects = useMemo(() => {
     if (!search) return projects;

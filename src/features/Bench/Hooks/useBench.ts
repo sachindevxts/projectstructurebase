@@ -7,10 +7,6 @@ export const useBench = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadBenchEmployees();
-  }, []);
-
   const loadBenchEmployees = useCallback(async () => {
     try {
       setLoading(true);
@@ -25,8 +21,12 @@ export const useBench = () => {
     }
   }, []);
 
-  const stats = useMemo(() => benchService.getBenchStats(), [employees]);
-  const skills = useMemo(() => benchService.getBenchSkills(), []);
+  useEffect(() => {
+    loadBenchEmployees();
+  }, [loadBenchEmployees]);
+
+  const stats = useMemo(() => benchService.getBenchStats(employees), [employees]);
+  const skills = useMemo(() => benchService.getBenchSkills(employees), [employees]);
 
   return {
     employees,

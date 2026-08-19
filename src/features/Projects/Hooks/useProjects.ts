@@ -7,10 +7,6 @@ export const useProjects = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadProjects();
-  }, []);
-
   const loadProjects = useCallback(async () => {
     try {
       setLoading(true);
@@ -24,6 +20,10 @@ export const useProjects = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
 
   const createProject = useCallback(async (projectData: Omit<Project, 'id'>) => {
     try {

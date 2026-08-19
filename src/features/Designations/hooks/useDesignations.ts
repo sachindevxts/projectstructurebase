@@ -60,7 +60,7 @@ export const useDesignations = () => {
     }
   }, []);
 
-  const stats = useMemo(() => designationService.getDesignationStats(), [designations]);
+  const stats = useMemo(() => designationService.getDesignationStats(designations), [designations]);
 
   return {
     designations,

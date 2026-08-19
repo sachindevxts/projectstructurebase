@@ -10,10 +10,6 @@ export const useSkills = () => {
   const [dialogMode, setDialogMode] = useState<DialogMode>(null);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  useEffect(() => {
-    loadSkills();
-  }, []);
-
   const loadSkills = useCallback(async () => {
     try {
       setLoading(true);
@@ -27,6 +23,10 @@ export const useSkills = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    loadSkills();
+  }, [loadSkills]);
 
   const createSkill = useCallback(async (skillData: Omit<Skill, 'id'>) => {
     try {

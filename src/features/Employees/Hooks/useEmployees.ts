@@ -10,10 +10,6 @@ export const useEmployees = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [dialogMode, setDialogMode] = useState<'add' | 'edit' | 'view' | null>(null);
 
-  useEffect(() => {
-    loadEmployees();
-  }, []);
-
   const loadEmployees = useCallback(async () => {
     try {
       setLoading(true);
@@ -27,6 +23,10 @@ export const useEmployees = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    loadEmployees();
+  }, [loadEmployees]);
 
   const createEmployee = useCallback(async (employeeData: Omit<Employee, 'id'>) => {
     try {
@@ -69,7 +69,7 @@ export const useEmployees = () => {
     }
   }, []);
 
-  const stats = useMemo(() => employeeService.getEmployeeStats(), [employees]);
+  const stats = useMemo(() => employeeService.getEmployeeStats(employees), [employees]);
 
   const toggleSelection = useCallback((id: string) => {
     setSelectedRows(prev =>

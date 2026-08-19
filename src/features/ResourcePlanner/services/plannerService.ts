@@ -51,8 +51,12 @@ function overlapsRange(allocation: PlannerAllocation, range?: PlannerRange): boo
   return allocationStart <= rangeEnd && allocationEnd >= rangeStart;
 }
 
-function filterAllocations(filters: PlannerFilters, range?: PlannerRange): PlannerAllocation[] {
-  let filtered = [...allocationsCache];
+function filterAllocations(
+  filters: PlannerFilters,
+  range?: PlannerRange,
+  allocations = allocationsCache,
+): PlannerAllocation[] {
+  let filtered = [...allocations];
   const search = filters.search.trim().toLowerCase();
 
   filtered = filtered.filter((allocation) => overlapsRange(allocation, range));

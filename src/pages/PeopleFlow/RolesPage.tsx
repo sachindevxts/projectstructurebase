@@ -321,7 +321,7 @@ const RolesPage = () => {
       : permissionGroups;
     setDraftPermissionGroups(clonePermissionGroups(groups));
     setPermissionSearch('');
-  }, [selectedRole?.id]);
+  }, [permissionGroups, selectedRole?.id, selectedRole?.permissionGroups]);
 
   const updateRoleInState = (updated: RoleRow) => {
     setRoles((current) =>

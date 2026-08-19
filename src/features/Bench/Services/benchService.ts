@@ -42,8 +42,8 @@ function getBenchStats(employees = employeesCache): BenchStats {
   };
 }
 
-function getBenchSkills(): BenchSkill[] {
-  const counts = employeesCache.reduce(
+function getBenchSkills(employees = employeesCache): BenchSkill[] {
+  const counts = employees.reduce(
     (acc, employee) => {
       for (const skill of employee.primarySkills) acc[skill] = (acc[skill] ?? 0) + 1;
       return acc;

@@ -7,10 +7,6 @@ export const useDepartments = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadDepartments();
-  }, []);
-
   const loadDepartments = useCallback(async () => {
     try {
       setLoading(true);
@@ -24,6 +20,10 @@ export const useDepartments = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    loadDepartments();
+  }, [loadDepartments]);
 
   const createDepartment = useCallback(async (departmentData: Omit<Department, 'id'>) => {
     try {
@@ -65,7 +65,7 @@ export const useDepartments = () => {
     }
   }, []);
 
-  const stats = useMemo(() => departmentService.getDepartmentStats(), [departments]);
+  const stats = useMemo(() => departmentService.getDepartmentStats(departments), [departments]);
 
   return {
     departments,

@@ -7,10 +7,6 @@ export const useAllocations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadAllocations();
-  }, []);
-
   const loadAllocations = useCallback(async () => {
     try {
       setLoading(true);
@@ -24,6 +20,10 @@ export const useAllocations = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    loadAllocations();
+  }, [loadAllocations]);
 
   const createAllocation = useCallback(async (data: any) => {
     try {
@@ -65,7 +65,7 @@ export const useAllocations = () => {
     }
   }, []);
 
-  const stats = useMemo(() => allocationService.getAllocationStats(), [allocations]);
+  const stats = useMemo(() => allocationService.getAllocationStats(allocations), [allocations]);
 
   return {
     allocations,
