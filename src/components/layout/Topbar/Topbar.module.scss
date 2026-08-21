@@ -113,6 +113,138 @@
   }
 }
 
+.notificationPanel {
+  width: min(420px, 100vw);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.notificationTitle {
+  color: var(--color-text-primary);
+  font-weight: $font-weight-semibold !important;
+}
+
+.notificationSubtitle {
+  color: var(--color-text-muted);
+  font-size: $font-size-xs !important;
+  margin-top: $spacing-xs !important;
+}
+
+.notificationActions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.markAllButton {
+  white-space: nowrap;
+}
+
+.notificationCloseButton {
+  color: var(--color-text-secondary) !important;
+}
+
+.notificationList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.notificationItem {
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: $spacing-md;
+  min-height: 96px;
+  padding: $spacing-md !important;
+  border-left: 3px solid transparent !important;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-surface-muted) !important;
+  }
+}
+
+.unread {
+  border-left-color: var(--color-primary) !important;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent) !important;
+}
+
+.notificationBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificationReadButton {
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.notificationItemTitle {
+  color: var(--color-text-primary);
+  font-size: $font-size-sm !important;
+  font-weight: $font-weight-semibold !important;
+  line-height: 1.35 !important;
+}
+
+.notificationMessage {
+  color: var(--color-text-secondary);
+  font-size: $font-size-xs !important;
+  line-height: 1.45 !important;
+  margin-top: $spacing-xs !important;
+  white-space: normal;
+}
+
+.notificationMeta {
+  color: var(--color-text-muted);
+  font-size: 0.7rem !important;
+  margin-top: $spacing-xs !important;
+}
+
+.notificationActor {
+  color: var(--color-text-secondary);
+  font-size: 0.72rem !important;
+  font-weight: $font-weight-medium !important;
+  margin-top: $spacing-xs !important;
+}
+
+.notificationEmpty {
+  flex: 1;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  color: var(--color-text-muted);
+  font-size: $font-size-sm;
+}
+
+.notificationFooter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-lg;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.notificationFooterButton {
+  min-height: 40px;
+  white-space: nowrap;
+}
+
 .themeSwitch {
   .MuiSwitch-switchBase {
     color: var(--color-text-muted);

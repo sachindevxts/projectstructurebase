@@ -7,22 +7,31 @@ export const useDepartments = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadDepartments = useCallback(async () => {
+  const loadDepartments = useCallback(async (isActive: () => boolean = () => true) => {
     try {
       setLoading(true);
       const data = await departmentService.getAllDepartments();
+      if (!isActive()) return;
       setDepartments(data);
       setError(null);
     } catch (err) {
+      if (!isActive()) return;
       setError('Failed to load departments');
       console.error('Error loading departments:', err);
     } finally {
-      setLoading(false);
+      if (isActive()) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    loadDepartments();
+    let active = true;
+    void loadDepartments(() => active);
+
+    return () => {
+      active = false;
+    };
   }, [loadDepartments]);
 
   const createDepartment = useCallback(async (departmentData: Omit<Department, 'id'>) => {

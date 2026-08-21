@@ -7,22 +7,31 @@ export const useAllocations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadAllocations = useCallback(async () => {
+  const loadAllocations = useCallback(async (isActive: () => boolean = () => true) => {
     try {
       setLoading(true);
       const data = await allocationService.getAllAllocations();
+      if (!isActive()) return;
       setAllocations(data);
       setError(null);
     } catch (err) {
+      if (!isActive()) return;
       setError('Failed to load allocations');
       console.error('Error loading allocations:', err);
     } finally {
-      setLoading(false);
+      if (isActive()) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    loadAllocations();
+    let active = true;
+    void loadAllocations(() => active);
+
+    return () => {
+      active = false;
+    };
   }, [loadAllocations]);
 
   const createAllocation = useCallback(async (data: any) => {

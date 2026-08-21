@@ -7,22 +7,31 @@ export const useProjects = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadProjects = useCallback(async () => {
+  const loadProjects = useCallback(async (isActive: () => boolean = () => true) => {
     try {
       setLoading(true);
       const data = await projectService.getAllProjects();
+      if (!isActive()) return;
       setProjects(data);
       setError(null);
     } catch (err) {
+      if (!isActive()) return;
       setError('Failed to load projects');
       console.error('Error loading projects:', err);
     } finally {
-      setLoading(false);
+      if (isActive()) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    loadProjects();
+    let active = true;
+    void loadProjects(() => active);
+
+    return () => {
+      active = false;
+    };
   }, [loadProjects]);
 
   const createProject = useCallback(async (projectData: Omit<Project, 'id'>) => {

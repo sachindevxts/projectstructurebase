@@ -56,9 +56,9 @@ async function getAllAllocations(): Promise<Allocation[]> {
   const [allocationsResponse, employeesResponse, projectsResponse, designationsResponse] =
     await Promise.all([
       api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATIONS),
-      api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
-      api.get<ApiEnvelope<BackendProject[]>>(API_ENDPOINTS.PROJECTS),
-      api.get<ApiEnvelope<BackendDesignation[]>>(API_ENDPOINTS.DESIGNATIONS),
+      api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEE_LOOKUP),
+      api.get<ApiEnvelope<BackendProject[]>>(API_ENDPOINTS.PROJECT_LOOKUP),
+      api.get<ApiEnvelope<BackendDesignation[]>>(API_ENDPOINTS.DESIGNATION_LOOKUP),
     ]);
 
   employeesCache = unwrapApiData(employeesResponse.data);

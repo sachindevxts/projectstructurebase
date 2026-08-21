@@ -1,0 +1,134 @@
+.page {
+  padding: 16px;
+}
+
+.pageTitle {
+  margin-bottom: 12px;
+}
+
+.kpiRow {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.kpiCard {
+  min-width: 200px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--card-background, #fff);
+  box-shadow: var(--shadow-card);
+}
+
+.kpiLabel {
+  color: var(--color-text-muted, #6b7280);
+}
+
+.kpiValue {
+  margin-top: 6px;
+}
+
+.kpiSub {
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.chartPanel {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--card-background, #fff);
+  box-shadow: var(--shadow-card);
+}
+
+.chartTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cardList {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--card-background, #fff);
+  box-shadow: var(--shadow-card);
+  height: 100%;
+}
+
+.cardTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.attentionRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+}
+
+.attentionTone {
+  color: var(--color-error, #ef4444);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.funnelPanel {
+  width: 100%;
+  max-width: 760px;
+  aspect-ratio: 546 / 350;
+  min-height: 260px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.funnelSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.funnelShadow {
+  background: #52B946;
+  fill: #52B946;
+}
+
+.pipelineShadow {
+  background: #AED19B;
+  fill: #AED19B;
+}
+
+.funnelTitle {
+  fill: #454545;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  font-weight: 200;
+}
+
+.funnelVs {
+  fill: #454545;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+//   font-weight: 800;
+  text-anchor: middle;
+}
+
+.funnelLabel {
+  fill: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  text-anchor: middle;
+}
+
+.pipelinePill {
+  background: #52B946;
+  fill: #52B946;
+}
+
+.salesFunnelPill {
+  background: #AED19B;
+  fill: #AED19B;
+}

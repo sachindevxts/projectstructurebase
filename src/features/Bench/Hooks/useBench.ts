@@ -7,22 +7,31 @@ export const useBench = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadBenchEmployees = useCallback(async () => {
+  const loadBenchEmployees = useCallback(async (isActive: () => boolean = () => true) => {
     try {
       setLoading(true);
       const data = await benchService.getBenchEmployees();
+      if (!isActive()) return;
       setEmployees(data);
       setError(null);
     } catch (err) {
+      if (!isActive()) return;
       setError('Failed to load bench data');
       console.error('Error loading bench data:', err);
     } finally {
-      setLoading(false);
+      if (isActive()) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    loadBenchEmployees();
+    let active = true;
+    void loadBenchEmployees(() => active);
+
+    return () => {
+      active = false;
+    };
   }, [loadBenchEmployees]);
 
   const stats = useMemo(() => benchService.getBenchStats(employees), [employees]);

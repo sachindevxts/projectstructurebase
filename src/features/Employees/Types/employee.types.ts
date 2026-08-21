@@ -7,6 +7,7 @@ export interface Employee {
   manager: string;
   type: 'Full-Time' | 'Contract' | 'Part-Time';
   joined: string;
+  joinedDate?: string;
   allocation: number;
   billability: 'Billable' | 'Non-Billable';
   status: 'Active' | 'Inactive' | 'On Leave' | 'Overallocated' | 'Releasing Soon';

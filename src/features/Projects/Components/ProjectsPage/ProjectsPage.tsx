@@ -210,7 +210,12 @@ export const ProjectsPage = () => {
         onDelete={canDeleteProject ? handleDeleteProject : undefined}
       />
 
-      <Dialog open={dialogMode === 'add' || dialogMode === 'edit'} onClose={closeDialog} maxWidth="sm" fullWidth>
+      <Dialog
+        open={dialogMode === 'add' || dialogMode === 'edit'}
+        onClose={closeDialog}
+        maxWidth="sm"
+        fullWidth
+      >
         <DialogTitle>{dialogMode === 'edit' ? 'Edit project' : 'Add project'}</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ pt: 1 }}>
@@ -226,7 +231,9 @@ export const ProjectsPage = () => {
               label="Project code"
               helperText="Leave empty to auto-generate for new projects"
               value={form.code}
-              onChange={(event) => setForm((prev) => ({ ...prev, code: event.target.value.toUpperCase() }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, code: event.target.value.toUpperCase() }))
+              }
               fullWidth
             />
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -237,11 +244,16 @@ export const ProjectsPage = () => {
                   label="Billing"
                   value={form.billingType}
                   onChange={(event) =>
-                    setForm((prev) => ({ ...prev, billingType: event.target.value as Project['billingType'] }))
+                    setForm((prev) => ({
+                      ...prev,
+                      billingType: event.target.value as Project['billingType'],
+                    }))
                   }
                 >
                   {Object.entries(billingLabels).map(([value, label]) => (
-                    <MenuItem key={value} value={value}>{label}</MenuItem>
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -252,7 +264,10 @@ export const ProjectsPage = () => {
                   label="Status"
                   value={form.status}
                   onChange={(event) =>
-                    setForm((prev) => ({ ...prev, status: event.target.value as Project['backendStatus'] }))
+                    setForm((prev) => ({
+                      ...prev,
+                      status: event.target.value as Project['backendStatus'],
+                    }))
                   }
                 >
                   <MenuItem value="PLANNED">Planned</MenuItem>
@@ -268,7 +283,9 @@ export const ProjectsPage = () => {
                 labelId="project-manager-label"
                 label="Manager"
                 value={form.managerId}
-                onChange={(event) => setForm((prev) => ({ ...prev, managerId: event.target.value }))}
+                onChange={(event) =>
+                  setForm((prev) => ({ ...prev, managerId: event.target.value }))
+                }
               >
                 <MenuItem value="">Unassigned</MenuItem>
                 {managers.map((manager) => (
@@ -283,7 +300,9 @@ export const ProjectsPage = () => {
                 label="Start date"
                 type="date"
                 value={form.startDate}
-                onChange={(event) => setForm((prev) => ({ ...prev, startDate: event.target.value }))}
+                onChange={(event) =>
+                  setForm((prev) => ({ ...prev, startDate: event.target.value }))
+                }
                 InputLabelProps={{ shrink: true }}
                 fullWidth
               />
@@ -299,7 +318,9 @@ export const ProjectsPage = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} disabled={saving}>Cancel</Button>
+          <Button onClick={closeDialog} disabled={saving}>
+            Cancel
+          </Button>
           <Button variant="contained" onClick={saveProject} disabled={saving}>
             {saving ? 'Saving...' : dialogMode === 'edit' ? 'Save project' : 'Create project'}
           </Button>
@@ -313,7 +334,9 @@ export const ProjectsPage = () => {
             <Stack spacing={2} sx={{ pt: 1 }}>
               <Box>
                 <Typography variant="h6">{selectedProject.name}</Typography>
-                <Typography variant="body2" color="text.secondary">{selectedProject.code}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {selectedProject.code}
+                </Typography>
               </Box>
               <Stack direction="row" spacing={1} flexWrap="wrap">
                 <Chip label={selectedProject.status} />
@@ -333,7 +356,9 @@ export const ProjectsPage = () => {
         <DialogActions>
           <Button onClick={closeDialog}>Close</Button>
           {canUpdateProject && selectedProject && (
-            <Button variant="contained" onClick={() => openEditProject(selectedProject)}>Edit</Button>
+            <Button variant="contained" onClick={() => openEditProject(selectedProject)}>
+              Edit
+            </Button>
           )}
         </DialogActions>
       </Dialog>
@@ -342,4 +367,3 @@ export const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
-

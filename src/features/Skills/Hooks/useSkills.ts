@@ -10,22 +10,31 @@ export const useSkills = () => {
   const [dialogMode, setDialogMode] = useState<DialogMode>(null);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const loadSkills = useCallback(async () => {
+  const loadSkills = useCallback(async (isActive: () => boolean = () => true) => {
     try {
       setLoading(true);
       const data = await skillService.getAllSkills();
+      if (!isActive()) return;
       setSkills(data);
       setError(null);
     } catch (err) {
+      if (!isActive()) return;
       setError('Failed to load skills');
       console.error('Error loading skills:', err);
     } finally {
-      setLoading(false);
+      if (isActive()) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    loadSkills();
+    let active = true;
+    void loadSkills(() => active);
+
+    return () => {
+      active = false;
+    };
   }, [loadSkills]);
 
   const createSkill = useCallback(async (skillData: Omit<Skill, 'id'>) => {

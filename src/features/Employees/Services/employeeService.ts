@@ -51,15 +51,19 @@ function formatDate(value: string): string {
   });
 }
 
+function toDateInputValue(value: string): string {
+  return new Date(value).toISOString().split('T')[0];
+}
+
 let employeesCache: Employee[] = [];
 
 async function getAllEmployees(): Promise<Employee[]> {
   const [employeesResponse, departmentsResponse, designationsResponse, allocationsResponse] =
     await Promise.all([
       api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
-      api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DEPARTMENTS),
-      api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DESIGNATIONS),
-      api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATIONS),
+      api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DEPARTMENT_LOOKUP),
+      api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DESIGNATION_LOOKUP),
+      api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATION_LOOKUP),
     ]);
 
   const departments = new Map(
@@ -93,6 +97,7 @@ async function getAllEmployees(): Promise<Employee[]> {
       manager: employee.reportingManagerId ?? 'Unassigned',
       type: typeMap[employee.employmentType],
       joined: formatDate(employee.joiningDate),
+      joinedDate: toDateInputValue(employee.joiningDate),
       allocation,
       billability: employee.billable ? 'Billable' : 'Non-Billable',
       status: allocation > 100 ? 'Overallocated' : statusMap[employee.status],
@@ -173,7 +178,7 @@ async function createEmployee(employee: Omit<Employee, 'id'>): Promise<Employee>
 async function updateEmployee(id: string, updates: Partial<Employee>): Promise<Employee | null> {
   const [firstName, ...lastNameParts] = updates.name?.split(' ') ?? [];
   await api.patch(`${API_ENDPOINTS.EMPLOYEES}/${id}`, {
-    firstName,
+    firstName: firstName || undefined,
     lastName: lastNameParts.length ? lastNameParts.join(' ') : undefined,
     workEmail: updates.email,
     employmentType:
@@ -183,6 +188,15 @@ async function updateEmployee(id: string, updates: Partial<Employee>): Promise<E
           ? 'PART_TIME'
           : updates.type === 'Contract'
             ? 'CONTRACT'
+            : undefined,
+    joiningDate: updates.joinedDate,
+    status:
+      updates.status === 'Active'
+        ? 'ACTIVE'
+        : updates.status === 'Inactive'
+          ? 'INACTIVE'
+          : updates.status === 'On Leave'
+            ? 'ON_LEAVE'
             : undefined,
     billable:
       updates.billability === 'Billable'

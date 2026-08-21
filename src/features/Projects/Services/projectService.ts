@@ -79,8 +79,8 @@ let employeesCache: BackendEmployee[] = [];
 async function getAllProjects(): Promise<Project[]> {
   const [projectsResponse, employeesResponse, allocationsResponse] = await Promise.all([
     api.get<ApiEnvelope<BackendProject[]>>(API_ENDPOINTS.PROJECTS),
-    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
-    api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATIONS),
+    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEE_LOOKUP),
+    api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATION_LOOKUP),
   ]);
 
   employeesCache = unwrapApiData(employeesResponse.data);

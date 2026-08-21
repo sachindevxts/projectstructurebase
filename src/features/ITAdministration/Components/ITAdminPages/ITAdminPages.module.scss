@@ -1,0 +1,380 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.title {
+  font-weight: 800;
+}
+
+.subtitle {
+  color: #667085;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+}
+
+.metric {
+  font-size: 28px;
+  font-weight: 800;
+  color: #101828;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.opsDashboard {
+  background: #f6f8fb;
+}
+
+.rangeSelect {
+  min-width: 136px;
+  border-radius: 8px;
+  background: #fff;
+
+  :global(.MuiSelect-select) {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+.primaryGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 18px;
+}
+
+.secondaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(190px, 1fr));
+  gap: 20px;
+}
+
+.kpiCard,
+.secondaryCard,
+.chartCard,
+.chartWide,
+.tableCard,
+.sideCard {
+  border: 1px solid #dfe5ee;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.kpiCard {
+  min-height: 102px;
+  padding: 18px 20px;
+  cursor: pointer;
+}
+
+.kpiHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpiLabel {
+  color: #53627c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.kpiValue {
+  margin-top: 14px;
+  color: #06132b;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.kpiNote {
+  margin-top: 10px;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.kpiIcon,
+.secondaryIcon,
+.productIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #4b55bf;
+  background: #eef0ff;
+}
+
+.kpiIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.indigo .kpiIcon {
+  color: #4b55bf;
+  background: #eef0ff;
+}
+
+.orange .kpiIcon {
+  color: #dc6803;
+  background: #fff4e5;
+}
+
+.red .kpiIcon,
+.redStrong .kpiIcon {
+  color: #ef4444;
+  background: #feeceb;
+}
+
+.redStrong {
+  border-left: 3px solid #ef4444;
+}
+
+.teal .kpiIcon {
+  color: #0f766e;
+  background: #e8f6f4;
+}
+
+.secondaryCard {
+  min-height: 70px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.secondaryIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #667085;
+  background: #f1f4f8;
+}
+
+.secondaryValue {
+  color: #06132b;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+
+.chartWide,
+.chartCard,
+.tableCard,
+.sideCard {
+  padding: 22px;
+}
+
+.lowerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ticketTable {
+  border-top: 1px solid #edf1f7;
+}
+
+.ticketHeader,
+.ticketRow {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr .7fr .9fr .8fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.ticketHeader {
+  padding: 14px 0;
+  color: #53627c;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ticketRow {
+  min-height: 62px;
+  border-top: 1px solid #edf1f7;
+  cursor: pointer;
+
+  small {
+    display: block;
+    max-width: 240px;
+    overflow: hidden;
+    color: #53627c;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.requester,
+.licenceItem,
+.alertItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.requester :global(.MuiAvatar-root) {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.statusChip {
+  background: #eef2f7;
+  color: #344054;
+  font-weight: 800;
+}
+
+.chipCRITICAL {
+  background: #feeceb;
+  color: #dc2626;
+  font-weight: 800;
+}
+
+.chipHIGH {
+  background: #fff4e5;
+  color: #dc6803;
+  font-weight: 800;
+}
+
+.overdue {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.productIcon {
+  width: 34px;
+  height: 34px;
+}
+
+.licenceItem,
+.alertItem {
+  justify-content: space-between;
+  cursor: pointer;
+
+  small {
+    display: block;
+    color: #667085;
+  }
+}
+
+.sectionMini {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1f7;
+  color: #53627c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.empty,
+.updated {
+  color: #667085;
+  font-size: 13px;
+}
+
+.updated {
+  align-self: flex-end;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .primaryGrid,
+  .secondaryGrid,
+  .chartGrid,
+  .lowerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ticketTable {
+    overflow-x: auto;
+  }
+
+  .ticketHeader,
+  .ticketRow {
+    min-width: 760px;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1200px) {
+  .primaryGrid,
+  .secondaryGrid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+
+  .chartGrid,
+  .lowerGrid {
+    grid-template-columns: 1fr;
+  }
+}

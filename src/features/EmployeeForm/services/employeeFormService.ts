@@ -1,4 +1,5 @@
 import { employeeService } from '@/features/Employees/Services/employeeService';
+import type { Employee } from '@/features/Employees/Types/employee.types';
 import type { EmployeeFormValues } from '../types/employeeForm.types';
 
 async function getEmployee(id: string): Promise<EmployeeFormValues | null> {
@@ -12,7 +13,7 @@ async function getEmployee(id: string): Promise<EmployeeFormValues | null> {
     designation: employee.designation,
     manager: employee.manager,
     type: employee.type,
-    joined: employee.joined,
+    joined: employee.joinedDate ?? new Date(employee.joined).toISOString().split('T')[0],
     allocation: employee.allocation,
     billability: employee.billability,
     phone: employee.phone ?? '',
@@ -35,8 +36,8 @@ function validate(values: EmployeeFormValues): string[] {
   return errors;
 }
 
-async function save(values: EmployeeFormValues): Promise<EmployeeFormValues> {
-  await employeeService.createEmployee({
+function toEmployeePayload(values: EmployeeFormValues): Omit<Employee, 'id'> {
+  return {
     name: values.name,
     email: values.email,
     department: values.department,
@@ -58,7 +59,19 @@ async function save(values: EmployeeFormValues): Promise<EmployeeFormValues> {
           ? values.status
           : 'Active',
     skills: values.skills,
-  });
+    joinedDate: values.joined,
+  };
+}
+
+async function save(values: EmployeeFormValues, employeeId?: string): Promise<EmployeeFormValues> {
+  const payload = toEmployeePayload(values);
+
+  if (employeeId) {
+    await employeeService.updateEmployee(employeeId, payload);
+  } else {
+    await employeeService.createEmployee(payload);
+  }
+
   return values;
 }
 
