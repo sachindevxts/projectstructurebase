@@ -46,6 +46,12 @@ export { default as LoginPage } from './Auth/Components/LoginPage/LoginPage';
 export * from './Reports';
 export { default as ReportsPage } from './Reports/Components/ReportsPage/ReportsPage';
 
+// Sales
+export * from './Sales';
+
+// Users
+export * from './users';
+
 // Resource Planner
 export * from './ResourcePlanner';
 export { default as ResourcePlannerPage } from './ResourcePlanner/Components/ResourcePlannerPage/ResourcePlannerPage';

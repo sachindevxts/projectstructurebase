@@ -1,0 +1,315 @@
+@use '../../../../utils/css/abstracts/index' as *;
+
+.page {
+  padding: $spacing-lg;
+
+  @include respond-to(md) {
+    padding: $spacing-xl;
+  }
+}
+
+.period {
+  min-width: 160px;
+  height: 36px;
+  border-radius: $radius-md !important;
+  background: var(--card-background, #fff);
+}
+
+.periodValue {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: var(--color-text-primary);
+  font-size: $font-size-xs;
+  font-weight: 700;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.kpi {
+  min-height: 82px;
+  padding: $spacing-md $spacing-lg;
+  border: 1px solid var(--color-border) !important;
+  border-radius: $radius-lg !important;
+  background: var(--card-background, #fff) !important;
+  box-shadow: var(--shadow-card);
+
+  p {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  b {
+    display: block;
+    margin-top: $spacing-sm;
+    color: var(--color-text-primary);
+    font-size: $font-size-2xl;
+    line-height: 1;
+  }
+}
+
+.success b {
+  color: $color-success;
+}
+
+.warning b {
+  color: $color-warning;
+}
+
+.danger {
+  border-left: 3px solid $color-error !important;
+
+  b {
+    color: $color-error;
+  }
+}
+
+.middle {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.ageingCard,
+.insights,
+.tableCard {
+  border: 1px solid var(--color-border) !important;
+  border-radius: $radius-lg !important;
+  background: var(--card-background, #fff) !important;
+}
+
+.ageingCard {
+  padding: $spacing-lg;
+}
+
+.cardTitle {
+  color: var(--color-text-primary);
+  font-size: $font-size-sm;
+  font-weight: 800;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: center;
+  gap: $spacing-sm $spacing-lg;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  i {
+    width: 11px;
+    height: 11px;
+    display: inline-block;
+    border-radius: $radius-xs;
+  }
+}
+
+.insights {
+  min-height: 250px;
+  padding: $spacing-xl;
+  border: 2px dashed $color-primary !important;
+  background: color-mix(in srgb, var(--color-primary-light) 26%, #fff) !important;
+}
+
+.insightHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+
+  span {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-style: italic;
+  }
+}
+
+.insightRow {
+  display: grid;
+  grid-template-columns: 46px 1fr auto;
+  align-items: center;
+  gap: $spacing-lg;
+  min-height: 64px;
+  padding: $spacing-sm $spacing-lg;
+  margin-bottom: $spacing-md;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+  background: var(--card-background, #fff);
+
+  > b {
+    display: inline-flex;
+    width: 34px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, #ef4444 12%, #fff);
+    color: $color-error;
+    font-size: $font-size-sm;
+  }
+
+  p {
+    color: var(--color-text-primary);
+    font-size: $font-size-sm;
+    font-weight: 800;
+  }
+
+  span {
+    color: var(--color-text-secondary);
+    font-size: $font-size-xs;
+  }
+
+  button {
+    color: $color-primary;
+    font-size: $font-size-xs;
+    font-weight: 800;
+    text-transform: none;
+  }
+}
+
+.tableCard {
+  overflow: hidden;
+}
+
+.tableToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search {
+  width: min(360px, 100%);
+  background: var(--color-surface-muted);
+
+  :global(.MuiInputBase-input) {
+    font-size: $font-size-xs;
+  }
+
+  :global(.MuiInputBase-root) {
+    gap: $spacing-sm;
+  }
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+
+  span {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+}
+
+.invoiceTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    height: 48px;
+    padding: 0 $spacing-lg;
+    background: var(--color-surface-muted);
+    color: var(--color-text-secondary);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  td {
+    height: 76px;
+    padding: 0 $spacing-lg;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    font-size: $font-size-xs;
+    vertical-align: middle;
+
+    > b {
+      color: var(--color-text-primary);
+      font-weight: 800;
+    }
+
+    > span {
+      display: block;
+      color: var(--color-text-secondary);
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.due,
+.outstanding,
+.ageing {
+  color: $color-error !important;
+  font-weight: 800;
+}
+
+.current {
+  color: var(--color-text-secondary);
+  font-weight: 800;
+}
+
+.status {
+  border-radius: $radius-full !important;
+  background: color-mix(in srgb, var(--color-warning) 12%, #fff) !important;
+  color: #9a3412 !important;
+  font-weight: 800 !important;
+}
+
+.owner {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+
+  :global(.MuiAvatar-root) {
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+  }
+
+  span {
+    color: var(--color-text-primary);
+    font-size: $font-size-xs;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 900px) {
+  .tableToolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kpis,
+  .middle {
+    grid-template-columns: 1fr;
+  }
+
+  .tableCard {
+    overflow-x: auto;
+  }
+
+  .invoiceTable {
+    min-width: 920px;
+  }
+}

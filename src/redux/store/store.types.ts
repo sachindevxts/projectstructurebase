@@ -1,19 +1,21 @@
 import type { AuthState } from '@/types/auth.types';
-import type { ApiError, RequestStatus } from '@/types/common.types';
+import type { ApiError } from '@/types/common.types';
 import type { UserSummary } from '@/types/user.types';
-import type { Action, ThunkAction } from '@reduxjs/toolkit';
+import type { ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
 import type { RootState } from '../reducers/rootReducer';
 
 export interface DashboardState {
   data: { totalProducts: number; totalUsers: number };
-  status: RequestStatus;
+  loading: boolean;
   error: ApiError | null;
   initialized: boolean;
 }
 
 export interface UsersState {
-  data: UserSummary[];
-  status: RequestStatus;
+  users: UserSummary[];
+  selectedUser: UserSummary | null;
+  loading: boolean;
+  submitting: boolean;
   error: ApiError | null;
   initialized: boolean;
 }
@@ -34,9 +36,7 @@ export interface RootStateShape {
   users: UsersState;
   ui: UiState;
 }
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = (
+  dispatch: ThunkDispatch<RootState, unknown, UnknownAction>,
+  getState: () => RootState,
+) => ReturnType;

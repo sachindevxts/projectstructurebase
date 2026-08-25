@@ -1,4 +1,9 @@
-import { unwrapApiData, type ApiEnvelope } from '@/api/apiResponse';
+import {
+  unwrapApiData,
+  unwrapPaginatedApiData,
+  type ApiEnvelope,
+  type PaginatedEnvelope,
+} from '@/api/apiResponse';
 import { api } from '@/api/client/apiClient';
 import { API_ENDPOINTS } from '@/constants/api.constants';
 import type { Employee, EmployeeFilters, EmployeeStats } from '../Types/employee.types';
@@ -57,10 +62,28 @@ function toDateInputValue(value: string): string {
 
 let employeesCache: Employee[] = [];
 
+async function getBackendEmployees(): Promise<BackendEmployee[]> {
+  const employees: BackendEmployee[] = [];
+  let page = 1;
+  let totalPages = 1;
+
+  do {
+    const response = await api.get<PaginatedEnvelope<BackendEmployee>>(API_ENDPOINTS.EMPLOYEES, {
+      params: { page, limit: 100 },
+    });
+    const result = unwrapPaginatedApiData(response.data);
+    employees.push(...result.data);
+    totalPages = result.pagination.totalPages;
+    page += 1;
+  } while (page <= totalPages);
+
+  return employees;
+}
+
 async function getAllEmployees(): Promise<Employee[]> {
-  const [employeesResponse, departmentsResponse, designationsResponse, allocationsResponse] =
+  const [backendEmployees, departmentsResponse, designationsResponse, allocationsResponse] =
     await Promise.all([
-      api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
+      getBackendEmployees(),
       api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DEPARTMENT_LOOKUP),
       api.get<ApiEnvelope<BackendLookup[]>>(API_ENDPOINTS.DESIGNATION_LOOKUP),
       api.get<ApiEnvelope<BackendAllocation[]>>(API_ENDPOINTS.PROJECT_ALLOCATION_LOOKUP),
@@ -82,7 +105,7 @@ async function getAllEmployees(): Promise<Employee[]> {
     {} as Record<string, number>,
   );
 
-  employeesCache = unwrapApiData(employeesResponse.data).map((employee) => {
+  employeesCache = backendEmployees.map((employee) => {
     const allocation = allocationByEmployee[employee.id] ?? 0;
     return {
       id: employee.id,

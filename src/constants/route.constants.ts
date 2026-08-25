@@ -31,6 +31,7 @@ export const ROUTES = {
   DEPARTMENTS: '/departments',
   DESIGNATIONS: '/designations',
   SKILLS: '/skills',
+  USERS: '/users',
   ROLES: '/settings/roles',
   AUDIT_LOGS: '/audit-logs',
   IT_ADMIN: '/it-admin',
@@ -45,7 +46,7 @@ export const ROUTES = {
   SALES: '/sales',
   SALES_OVERVIEW: '/sales/overview',
   SALES_PIPELINE: '/sales/pipeline',
-  SALES_INVOICES: '/sales/invoices',
+  SALES_INVOICES_COLLECTIONS: '/sales/invoices-collections',
 
   // System
   UNAUTHORIZED: '/unauthorized',

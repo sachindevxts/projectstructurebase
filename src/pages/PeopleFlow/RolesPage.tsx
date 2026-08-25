@@ -123,6 +123,8 @@ const groupIcons: Record<string, React.ReactNode> = {
   Employees: <GroupsIcon fontSize="small" />,
   Allocations: <AllocationIcon fontSize="small" />,
   Reports: <AssessmentIcon fontSize="small" />,
+  'Sales & Revenue': <AssessmentIcon fontSize="small" />,
+  Administration: <LockIcon fontSize="small" />,
 };
 
 const roleTemplates: Record<RoleTemplate, { label: string; description: string }> = {

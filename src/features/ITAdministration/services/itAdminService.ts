@@ -1,4 +1,9 @@
-import { unwrapApiData, type ApiEnvelope } from '@/api/apiResponse';
+import {
+  unwrapApiData,
+  unwrapPaginatedApiData,
+  type ApiEnvelope,
+  type PaginatedEnvelope,
+} from '@/api/apiResponse';
 import { api } from '@/api/client/apiClient';
 import { API_ENDPOINTS } from '@/constants/api.constants';
 
@@ -140,22 +145,13 @@ export interface PaginatedResponse<T> {
   totalItems: number;
 }
 
-interface PaginatedEnvelope<T> extends ApiEnvelope<T[]> {
-  page: number;
-  limit: number;
-  totalRecords: number;
-  totalPages: number;
-  totalItems: number;
-}
-
-const toPaginated = <T>(response: PaginatedEnvelope<T>): PaginatedResponse<T> => ({
-  data: unwrapApiData(response),
-  page: response.page,
-  limit: response.limit,
-  totalRecords: response.totalRecords,
-  totalPages: response.totalPages,
-  totalItems: response.totalItems,
-});
+const toPaginated = <T>(response: PaginatedEnvelope<T>): PaginatedResponse<T> => {
+  const result = unwrapPaginatedApiData(response);
+  return {
+    data: result.data,
+    ...result.pagination,
+  };
+};
 
 const getDashboard = async (params?: Record<string, string>) => {
   const response = await api.get<ApiEnvelope<ITDashboard>>(API_ENDPOINTS.IT_ADMIN.DASHBOARD, { params });

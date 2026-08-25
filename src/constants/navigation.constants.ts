@@ -31,10 +31,11 @@ export const NAVIGATION_LABELS = {
   SALES_REVENUE: 'Sales & Revenue',
   SALES_OVERVIEW: 'Executive overview',
   SALES_PIPELINE: 'Sales pipeline',
-  SALES_INVOICES: 'Invoices',
+  SALES_INVOICES_COLLECTIONS: 'Invoices & collections',
   DEPARTMENTS: 'Departments',
   DESIGNATIONS: 'Designations',
   SKILLS: 'Skills',
+  USERS: 'Users',
   ROLES: 'Roles & Permissions',
   AUDIT_LOGS: 'Audit Logs',
 
@@ -73,7 +74,7 @@ export const SIDEBAR_ITEMS = [
     items: [
       ['sales-overview', NAVIGATION_LABELS.SALES_OVERVIEW, ROUTES.SALES_OVERVIEW],
       ['sales-pipeline', NAVIGATION_LABELS.SALES_PIPELINE, ROUTES.SALES_PIPELINE],
-      ['invoices', NAVIGATION_LABELS.SALES_INVOICES, ROUTES.SALES_INVOICES],
+      ['sales-invoices', NAVIGATION_LABELS.SALES_INVOICES_COLLECTIONS, ROUTES.SALES_INVOICES_COLLECTIONS],
     ],
   },
   {
@@ -93,6 +94,7 @@ export const SIDEBAR_ITEMS = [
       ['departments', NAVIGATION_LABELS.DEPARTMENTS, ROUTES.DEPARTMENTS],
       ['designations', NAVIGATION_LABELS.DESIGNATIONS, ROUTES.DESIGNATIONS],
       ['skills', NAVIGATION_LABELS.SKILLS, ROUTES.SKILLS],
+      ['users', NAVIGATION_LABELS.USERS, ROUTES.USERS],
       ['roles', NAVIGATION_LABELS.ROLES, ROUTES.ROLES],
       ['audit', NAVIGATION_LABELS.AUDIT_LOGS, ROUTES.AUDIT_LOGS],
     ],

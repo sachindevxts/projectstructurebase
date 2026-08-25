@@ -1,10 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { AsyncState, ApiError } from '@/types/common.types';
+import type { ApiError } from '@/types/common.types';
 import { dashboardService } from '@/api/services/dashboard.service';
 
-const initialState: AsyncState<{ totalProducts: number; totalUsers: number }> = {
+export interface DashboardReduxState {
+  data: { totalProducts: number; totalUsers: number };
+  loading: boolean;
+  initialized: boolean;
+  error: ApiError | null;
+}
+
+const initialState: DashboardReduxState = {
   data: { totalProducts: 0, totalUsers: 0 },
-  status: 'idle',
+  loading: false,
   error: null,
   initialized: false,
 };
@@ -24,23 +31,27 @@ export const fetchDashboardSummary = createAsyncThunk(
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
-  reducers: {},
+  reducers: {
+    clearDashboardState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDashboardSummary.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
         state.error = null;
-        state.initialized = true;
       })
       .addCase(fetchDashboardSummary.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.loading = false;
+        state.initialized = true;
         state.data = action.payload;
       })
       .addCase(fetchDashboardSummary.rejected, (state, action) => {
-        state.status = 'failed';
+        state.loading = false;
+        state.initialized = true;
         state.error = action.payload as ApiError;
       });
   },
 });
 
+export const { clearDashboardState } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

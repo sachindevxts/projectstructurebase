@@ -1,7 +1,9 @@
 export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: '/auth/login',
+    LOGOUT: '/auth/logout',
     ME: '/auth/me',
+    REFRESH: '/auth/refresh',
   },
   DASHBOARD: {
     SUMMARY: '/dashboard/summary',
@@ -30,6 +32,10 @@ export const API_ENDPOINTS = {
     CONFIGURATION: '/it-admin/configuration',
   },
   CLIENTS: '/clients',
+  SALES: {
+    PIPELINE: '/sales/pipeline',
+    INVOICES_COLLECTIONS: '/sales/invoices-collections',
+  },
   SKILLS: '/skills',
   ROLES: '/roles',
   NOTIFICATIONS: '/notifications',

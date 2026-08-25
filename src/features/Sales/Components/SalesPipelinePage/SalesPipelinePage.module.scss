@@ -1,0 +1,209 @@
+@use '../../../../utils/css/abstracts/index' as *;
+
+.page {
+  padding: $spacing-lg;
+
+  @include respond-to(md) {
+    padding: $spacing-xl;
+  }
+}
+
+.weighted {
+  color: var(--color-text-secondary);
+  font-size: $font-size-sm;
+
+  b {
+    color: var(--color-text-primary);
+    font-weight: 800;
+  }
+}
+
+.filtersWrapper {
+  padding: $spacing-sm $spacing-md !important;
+  margin-bottom: $spacing-lg !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: $radius-lg !important;
+  background: var(--card-background, #fff) !important;
+}
+
+.filters {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.filter {
+  min-width: 150px;
+  height: 32px;
+  border-radius: $radius-md !important;
+  background: var(--card-background, #fff);
+
+  :global(.MuiSelect-select) {
+    padding: 6px 28px 6px 10px;
+    color: var(--color-text-primary);
+    font-size: $font-size-xs;
+    font-weight: 700;
+  }
+}
+
+.boardWrapper {
+  overflow: hidden;
+  border: 1px solid var(--color-border) !important;
+  border-radius: $radius-lg !important;
+  background: var(--color-background-subtle, #f7faff) !important;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(190px, 1fr));
+  min-height: 540px;
+  overflow-x: auto;
+}
+
+.column {
+  min-width: 190px;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-background-subtle, #f8fafc);
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.columnHeader {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md $spacing-xs;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+
+  p {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  span {
+    display: inline-flex;
+    min-width: 18px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-full;
+    background: var(--color-background-muted, #e9f0f8);
+    color: var(--color-text-secondary);
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  b {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: none;
+  }
+}
+
+.dealStack {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: 0 $spacing-sm $spacing-md;
+}
+
+.dealCard {
+  position: relative;
+  min-height: 104px;
+  padding: $spacing-sm $spacing-sm $spacing-sm $spacing-md;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md !important;
+  background: var(--card-background, #fff) !important;
+  box-shadow: var(--shadow-card);
+
+  &::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--color-border);
+    content: '';
+  }
+}
+
+.lead::before {
+  background: #64748b;
+}
+
+.qualified::before,
+.negotiation::before {
+  background: #2f9d91;
+}
+
+.proposal::before {
+  background: #6f5df6;
+}
+
+.won::before {
+  background: #9ad7cc;
+}
+
+.company {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dealTitle {
+  margin-top: 3px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.dealMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $spacing-sm;
+  color: var(--color-text-primary);
+  font-size: $font-size-xs;
+
+  span {
+    color: var(--color-text-secondary);
+    font-weight: 700;
+  }
+}
+
+.dealFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-sm;
+}
+
+.avatar {
+  width: 24px !important;
+  height: 24px !important;
+  border: 1px solid var(--color-border);
+  font-size: 9px !important;
+}
+
+.tag {
+  height: 20px !important;
+  border-radius: $radius-full !important;
+  background: rgba(47, 157, 145, .1) !important;
+  color: #0f766e !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: repeat(5, 190px);
+  }
+}

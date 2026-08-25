@@ -1,4 +1,10 @@
-import { unwrapApiData, type ApiEnvelope } from '@/api/apiResponse';
+import {
+  unwrapApiData,
+  unwrapPaginatedApiData,
+  type ApiEnvelope,
+  type PaginatedEnvelope,
+  type PaginationMeta,
+} from '@/api/apiResponse';
 import { api } from '@/api/client/apiClient';
 import { API_ENDPOINTS } from '@/constants/api.constants';
 
@@ -25,10 +31,20 @@ interface UnreadCountResponse {
 }
 
 async function getNotifications(limit = 10): Promise<NotificationItem[]> {
-  const response = await api.get<ApiEnvelope<NotificationItem[]>>(API_ENDPOINTS.NOTIFICATIONS, {
+  const response = await api.get<PaginatedEnvelope<NotificationItem>>(API_ENDPOINTS.NOTIFICATIONS, {
     params: { page: 1, limit },
   });
-  return unwrapApiData(response.data);
+  return unwrapPaginatedApiData(response.data).data;
+}
+
+async function getNotificationsPage(page = 1, limit = 10): Promise<{
+  data: NotificationItem[];
+  pagination: PaginationMeta;
+}> {
+  const response = await api.get<PaginatedEnvelope<NotificationItem>>(API_ENDPOINTS.NOTIFICATIONS, {
+    params: { page, limit },
+  });
+  return unwrapPaginatedApiData(response.data);
 }
 
 async function getUnreadCount(): Promise<number> {
@@ -59,6 +75,7 @@ async function clearAll(): Promise<number> {
 
 export const notificationService = {
   getNotifications,
+  getNotificationsPage,
   getUnreadCount,
   markRead,
   markAllRead,

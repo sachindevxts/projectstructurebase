@@ -41,10 +41,17 @@ const ReportsPage = React.lazy(
   () => import('@/features/Reports/Components/ReportsPage/ReportsPage'),
 );
 // Sales & Revenue pages
-const SalesOverviewPage = React.lazy(() => import('@/pages/Sales/ExecutiveOverviewPage'));
-// const SalesPipelinePage = React.lazy(() => import('@/pages/Sales/SalesPipelinePage'));
-// const InvoicesPage = React.lazy(() => import('@/pages/Sales/InvoicesPage'));
+const SalesOverviewPage = React.lazy(
+  () => import('@/features/Sales/Components/ExecutiveOverviewPage/ExecutiveOverviewPage'),
+);
+const SalesPipelinePage = React.lazy(
+  () => import('@/features/Sales/Components/SalesPipelinePage/SalesPipelinePage'),
+);
+const InvoicesCollectionsPage = React.lazy(
+  () => import('@/features/Sales/Components/InvoicesCollectionsPage/InvoicesCollectionsPage'),
+);
 const SkillsPage = React.lazy(() => import('@/features/Skills/Components/SkillsPage/SkillsPage'));
+const UsersPage = React.lazy(() => import('@/features/users/pages/UsersPage'));
 const DesignationsPage = React.lazy(
   () => import('@/features/Designations/Components/DesignationsPage/DesignationsPage'),
 );
@@ -222,7 +229,7 @@ export const AppRoutes = () => {
                 </PermissionRoute>
               }
             />
-            {/* <Route
+            <Route
               path={ROUTES.SALES_PIPELINE}
               element={
                 <PermissionRoute permissions={['sales:view']}>
@@ -231,14 +238,13 @@ export const AppRoutes = () => {
               }
             />
             <Route
-              path={ROUTES.SALES_INVOICES}
+              path={ROUTES.SALES_INVOICES_COLLECTIONS}
               element={
                 <PermissionRoute permissions={['sales:view']}>
-                  <InvoicesPage />
+                  <InvoicesCollectionsPage />
                 </PermissionRoute>
               }
-            /> */}
-
+            />
             {/* IT Administration */}
             <Route
               path={ROUTES.IT_ADMIN}
@@ -327,6 +333,14 @@ export const AppRoutes = () => {
               element={
                 <PermissionRoute permissions={['skills:view']}>
                   <SkillsPage />
+                </PermissionRoute>
+              }
+            />
+            <Route
+              path={ROUTES.USERS}
+              element={
+                <PermissionRoute permissions={['users:view']}>
+                  <UsersPage />
                 </PermissionRoute>
               }
             />

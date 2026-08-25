@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '@/constants/route.constants';
-import { useAuth } from '@/features/Auth/Hooks/useAuth';
+import { useAppSelector } from '@/hooks';
 
 export const PublicRoute = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const loading = useAppSelector((state) => state.auth.isLoading);
 
   if (loading) {
     return (

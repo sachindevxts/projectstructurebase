@@ -291,7 +291,9 @@ const getThemeOptions = (mode: ThemeMode): ThemeOptions => {
                 borderColor: brand.primary.main,
                 borderWidth: 2,
               },
+              padding: '0px 12px',
             },
+            
           },
         },
       },

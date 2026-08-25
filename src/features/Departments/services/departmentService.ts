@@ -22,7 +22,7 @@ let departmentsCache: Department[] = [];
 async function getAllDepartments(): Promise<Department[]> {
   const [departmentsResponse, employeesResponse] = await Promise.all([
     api.get<ApiEnvelope<BackendDepartment[]>>(API_ENDPOINTS.DEPARTMENTS),
-    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
+    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEE_LOOKUP),
   ]);
 
   const employeeStats = unwrapApiData(employeesResponse.data).reduce(

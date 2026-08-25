@@ -7,13 +7,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@/features': path.resolve(__dirname, './src/Features'),
-      '@/components': path.resolve(__dirname, './src/Components'),
-      '@/pages': path.resolve(__dirname, './src/Pages'),
-      '@/hooks': path.resolve(__dirname, './src/Hooks'),
-      '@/utils': path.resolve(__dirname, './src/Utils'),
-      '@/types': path.resolve(__dirname, './src/Types'),
-      '@/constants': path.resolve(__dirname, './src/Constants'),
+      '@/features': path.resolve(__dirname, './src/features'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/pages': path.resolve(__dirname, './src/pages'),
+      '@/hooks': path.resolve(__dirname, './src/hooks'),
+      '@/utils': path.resolve(__dirname, './src/utils'),
+      '@/types': path.resolve(__dirname, './src/types'),
+      '@/constants': path.resolve(__dirname, './src/constants'),
       '@/redux': path.resolve(__dirname, './src/redux'),
       '@/api': path.resolve(__dirname, './src/api'),
       '@/config': path.resolve(__dirname, './src/config'),
@@ -29,7 +29,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false,
   },
   test: {
     environment: 'jsdom',

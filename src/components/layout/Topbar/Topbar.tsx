@@ -27,7 +27,6 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setSidebarOpen } from '@/redux/actions';
 import { selectSidebarOpen } from '@/redux/selectors';
 import { NAVIGATION_LABELS } from '@/constants/navigation.constants';
-import { useAuth } from '@/features/Auth/Hooks/useAuth';
 import { useNotifications } from '@/features/Notifications/hooks/useNotifications';
 import { useTheme } from '@/providers/ThemeProvider';
 import styles from './Topbar.module.scss';
@@ -36,7 +35,7 @@ export const Topbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.auth.user);
   const { resolvedTheme, toggleTheme } = useTheme();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const sidebarOpen = useAppSelector(selectSidebarOpen);

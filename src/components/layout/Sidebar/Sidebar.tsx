@@ -19,6 +19,7 @@ import {
   LogOut,
   Monitor,
   Repeat2,
+  ReceiptText,
   Settings,
   ShieldCheck,
   SlidersHorizontal,
@@ -43,10 +44,11 @@ const icons: Record<string, React.ReactNode> = {
   reports: <BarChart3 size={16} />,
   'sales-overview': <BarChart3 size={16} />,
   'sales-pipeline': <FolderKanban size={16} />,
-  invoices: <ClipboardList size={16} />,
+  'sales-invoices': <ReceiptText size={16} />,
   departments: <Briefcase size={16} />,
   designations: <BadgeCheck size={16} />,
   skills: <Award size={16} />,
+  users: <Users size={16} />,
   roles: <ShieldCheck size={16} />,
   audit: <History size={16} />,
   'it-admin': <Monitor size={16} />,
@@ -69,6 +71,7 @@ const navigationPermissions: Record<string, string> = {
   departments: 'departments:view',
   designations: 'designations:view',
   skills: 'skills:view',
+  users: 'users:view',
   roles: 'roles:view',
   audit: 'audit-logs:view',
   'it-admin': 'it-admin:view',
@@ -79,7 +82,7 @@ const navigationPermissions: Record<string, string> = {
   'it-config': 'it-admin:configuration:view',
   'sales-overview': 'sales:view',
   'sales-pipeline': 'sales:view',
-  invoices: 'sales:view',
+  'sales-invoices': 'sales:view',
 };
 
 export const Sidebar = () => {

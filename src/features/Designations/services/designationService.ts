@@ -28,7 +28,7 @@ let designationsCache: Designation[] = [];
 async function getAllDesignations(): Promise<Designation[]> {
   const [designationsResponse, employeesResponse] = await Promise.all([
     api.get<ApiEnvelope<BackendDesignation[]>>(API_ENDPOINTS.DESIGNATIONS),
-    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEES),
+    api.get<ApiEnvelope<BackendEmployee[]>>(API_ENDPOINTS.EMPLOYEE_LOOKUP),
   ]);
 
   const employeesByDesignation = unwrapApiData(employeesResponse.data).reduce(

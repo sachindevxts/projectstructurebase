@@ -4,10 +4,13 @@ export interface LoginPayload {
 }
 
 import type { AuthUser } from './common.types';
+import type { ApiError } from './common.types';
 
 export interface AuthState {
   user: AuthUser | null;
+  loading: boolean;
   isAuthenticated: boolean;
   isLoading: boolean;
-  error: string | null;
+  initialized: boolean;
+  error: ApiError | null;
 }

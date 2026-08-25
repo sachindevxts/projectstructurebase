@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth.reducer';
-import dashboardReducer from './dashboard.reducer';
-import userReducer from './user.reducer';
-import uiReducer from './ui.reducer';
+import authReducer from '../slices/authSlice';
+import dashboardReducer from '../slices/dashboardSlice';
+import userReducer from '../slices/usersSlice';
+import uiReducer from '../slices/uiSlice';
 
 export const rootReducer = combineReducers({
   auth: authReducer,

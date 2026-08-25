@@ -1,44 +1,87 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { AsyncState, ApiError } from '@/types/common.types';
+import { normalizeApiError } from '@/api/errorHandler';
+import type { ApiError } from '@/types/common.types';
 import type { UserSummary } from '@/types/user.types';
 import { userService } from '@/api/services/user.service';
 
-const initialState: AsyncState<UserSummary[]> = {
-  data: [],
-  status: 'idle',
-  error: null,
+export interface UserState {
+  users: UserSummary[];
+  selectedUser: UserSummary | null;
+  loading: boolean;
+  initialized: boolean;
+  submitting: boolean;
+  error: ApiError | null;
+}
+
+const initialState: UserState = {
+  users: [],
+  selectedUser: null,
+  loading: false,
   initialized: false,
+  submitting: false,
+  error: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async (_, { rejectWithValue }) => {
+export const fetchUsersThunk = createAsyncThunk<
+  UserSummary[],
+  void,
+  { rejectValue: ApiError }
+>('users/fetchUsers', async (_, { rejectWithValue }) => {
   try {
     return await userService.getUsers();
   } catch (error) {
-    const apiError = error as ApiError;
-    return rejectWithValue(apiError);
+    return rejectWithValue(normalizeApiError(error));
   }
 });
+
+export const deleteUserThunk = createAsyncThunk<string, string, { rejectValue: ApiError }>(
+  'users/deleteUser',
+  async (id, { rejectWithValue }) => {
+    try {
+      await userService.deleteUser(id);
+      return id;
+    } catch (error) {
+      return rejectWithValue(normalizeApiError(error));
+    }
+  },
+);
 
 const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    clearUsersState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
-        state.status = 'loading';
+      .addCase(fetchUsersThunk.pending, (state) => {
+        state.loading = true;
         state.error = null;
+      })
+      .addCase(fetchUsersThunk.fulfilled, (state, action) => {
+        state.loading = false;
         state.initialized = true;
+        state.users = action.payload;
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
+      .addCase(fetchUsersThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.initialized = true;
+        state.error = action.payload as ApiError;
       })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = 'failed';
+      .addCase(deleteUserThunk.pending, (state) => {
+        state.submitting = true;
+        state.error = null;
+      })
+      .addCase(deleteUserThunk.fulfilled, (state, action) => {
+        state.submitting = false;
+        state.users = state.users.filter((user) => user.id !== action.payload);
+      })
+      .addCase(deleteUserThunk.rejected, (state, action) => {
+        state.submitting = false;
         state.error = action.payload as ApiError;
       });
   },
 });
 
+export const { clearUsersState } = usersSlice.actions;
 export default usersSlice.reducer;

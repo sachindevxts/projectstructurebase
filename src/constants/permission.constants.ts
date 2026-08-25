@@ -1,7 +1,8 @@
 export const PERMISSIONS = {
   DASHBOARD_VIEW: 'dashboard:view',
-  USER_VIEW: 'user:view',
-  USER_CREATE: 'user:create',
-  USER_EDIT: 'user:edit',
-  USER_DELETE: 'user:delete',
+  USERS_VIEW: 'users:view',
+  USERS_CREATE: 'users:create',
+  USERS_UPDATE: 'users:update',
+  USERS_DELETE: 'users:delete',
+  SALES_VIEW: 'sales:view',
 } as const;

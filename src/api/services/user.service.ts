@@ -1,5 +1,9 @@
 import { API_ENDPOINTS } from '@/constants/api.constants';
-import { unwrapApiData, type ApiEnvelope } from '@/api/apiResponse';
+import {
+  unwrapPaginatedApiData,
+  type PaginatedEnvelope,
+  type PaginationMeta,
+} from '@/api/apiResponse';
 import { api } from '@/api/client/apiClient';
 
 export interface UserSummary {
@@ -27,9 +31,22 @@ function mapUser(user: BackendUser): UserSummary {
   };
 }
 
+async function getUsersPage(page = 1, limit = 20): Promise<{
+  data: UserSummary[];
+  pagination: PaginationMeta;
+}> {
+  const response = await api.get<PaginatedEnvelope<BackendUser>>(API_ENDPOINTS.USERS.LIST, {
+    params: { page, limit },
+  });
+  const result = unwrapPaginatedApiData(response.data);
+  return {
+    data: result.data.map(mapUser),
+    pagination: result.pagination,
+  };
+}
+
 async function getUsers(): Promise<UserSummary[]> {
-  const response = await api.get<ApiEnvelope<BackendUser[]>>(API_ENDPOINTS.USERS.LIST);
-  return unwrapApiData(response.data).map(mapUser);
+  return (await getUsersPage()).data;
 }
 
 async function deleteUser(id: string): Promise<void> {
@@ -38,5 +55,6 @@ async function deleteUser(id: string): Promise<void> {
 
 export const userService = {
   getUsers,
+  getUsersPage,
   deleteUser,
 };

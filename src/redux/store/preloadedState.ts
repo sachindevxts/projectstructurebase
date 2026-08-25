@@ -3,19 +3,23 @@ import type { RootStateShape } from './store.types';
 export const preloadedState: RootStateShape = {
   auth: {
     user: null,
+    loading: false,
     isAuthenticated: false,
     isLoading: false,
+    initialized: true,
     error: null,
   },
   dashboard: {
     data: { totalProducts: 0, totalUsers: 0 },
-    status: 'idle',
+    loading: false,
     error: null,
     initialized: false,
   },
   users: {
-    data: [],
-    status: 'idle',
+    users: [],
+    selectedUser: null,
+    loading: false,
+    submitting: false,
     error: null,
     initialized: false,
   },
