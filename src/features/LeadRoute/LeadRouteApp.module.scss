@@ -215,14 +215,14 @@
 }
 
 .content {
-  width: min(1100px, calc(100vw - 300px));
+  // width: min(1100px, calc(100vw - 300px));
   margin: 0 auto;
-  padding: 38px 0 88px;
+  padding: 30px 30px;
 }
 
-.contentWide {
-  width: min(1220px, calc(100vw - 292px));
-}
+// .contentWide {
+//   width: min(1220px, calc(100vw - 292px));
+// }
 
 .pageHeader {
   display: flex;
