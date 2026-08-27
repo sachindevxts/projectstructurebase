@@ -1,9 +1,9 @@
+import type { AuthUser } from './common.types';
+
 export interface LoginPayload {
   username: string;
   password: string;
 }
-
-import type { AuthUser } from './common.types';
 
 export interface AuthState {
   user: AuthUser | null;

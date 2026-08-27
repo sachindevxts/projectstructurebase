@@ -31,9 +31,12 @@ export interface AuthUser {
 }
 
 export interface PaginatedResponse<T> {
-  items: T[];
+  success: boolean;
+  message: string;
+  data: T[];
   page: number;
-  pageSize: number;
-  totalItems: number;
+  limit: number;
+  totalRecords: number;
   totalPages: number;
+  totalItems: number;
 }

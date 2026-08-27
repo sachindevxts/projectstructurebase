@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -7,21 +7,25 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@/features': path.resolve(__dirname, './src/Features'),
-      '@/components': path.resolve(__dirname, './src/Components'),
-      '@/pages': path.resolve(__dirname, './src/Pages'),
-      '@/hooks': path.resolve(__dirname, './src/Hooks'),
-      '@/utils': path.resolve(__dirname, './src/Utils'),
-      '@/types': path.resolve(__dirname, './src/Types'),
-      '@/constants': path.resolve(__dirname, './src/Constants'),
+      '@/features': path.resolve(__dirname, './src/features'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/pages': path.resolve(__dirname, './src/pages'),
+      '@/hooks': path.resolve(__dirname, './src/hooks'),
+      '@/utils': path.resolve(__dirname, './src/utils'),
+      '@/types': path.resolve(__dirname, './src/types'),
+      '@/constants': path.resolve(__dirname, './src/constants'),
       '@/redux': path.resolve(__dirname, './src/redux'),
       '@/api': path.resolve(__dirname, './src/api'),
       '@/config': path.resolve(__dirname, './src/config'),
       '@/providers': path.resolve(__dirname, './src/providers'),
       '@/routes': path.resolve(__dirname, './src/routes'),
-      '@/dummyJson': path.resolve(__dirname, './src/dummyJson'),
       '@/styles': path.resolve(__dirname, './src/styles'),
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
   },
   server: {
     port: 5173,

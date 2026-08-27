@@ -1,6 +1,5 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
-import { storage } from '@/utils/storage.utils';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
+import axios, { type AxiosInstance } from 'axios';
+import { clearAuthSession, getAccessToken } from '@/api/authSession';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
@@ -12,36 +11,35 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
+    const token = getAccessToken();
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    config.headers['X-Request-Id'] =
+      globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error),
 );
 
-// Response interceptor
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      storage.remove(STORAGE_KEYS.USER);
-      // Redirect to login if needed
-      if (typeof window !== 'undefined') {
-        window.location.href = '/login';
+      clearAuthSession();
+
+      if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        window.location.href = '/login?reason=session-expired';
       }
     }
+
     return Promise.reject(error);
-  }
+  },
 );
 
 export const api = apiClient;

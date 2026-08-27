@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
@@ -19,27 +20,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.app.tsbuildinfo",
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": [
-    "src/main.tsx",
-    "src/App.tsx",
-    "src/vite-env.d.ts",
-    "src/styles/theme.ts",
-    "src/Features/LeadRoute/**/*",
-    "src/routes/AppRoutes.tsx",
-    "src/routes/RouteFallback.tsx",
-    "src/routes/routeConfig.tsx",
-    "src/types/route.types.ts",
-    "src/constants/route.constants.ts",
-    "src/constants/navigation.constants.ts",
-    "src/constants/storage.constants.ts",
-    "src/providers/ThemeProvider.tsx",
-    "src/components/common/Toast/ToastProvider.tsx",
-    "src/hooks/useAppDispatch.ts",
-    "src/hooks/useAppSelector.ts",
-    "src/hooks/index.ts",
-    "src/redux/**/*",
-    "src/utils/storage.utils.ts"
-  ]
+  "include": ["src"]
 }

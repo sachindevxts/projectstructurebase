@@ -1,13 +1,13 @@
-import { combineReducers } from 'redux';
-import authReducer from './auth.reducer';
-import dashboardReducer from './dashboard.reducer';
-import userReducer from './user.reducer';
-import uiReducer from './ui.reducer';
+import { combineReducers } from '@reduxjs/toolkit';
+import authReducer from '../slices/authSlice';
+import dashboardReducer from '../slices/dashboardSlice';
+import uiReducer from '../slices/uiSlice';
+import usersReducer from '../slices/usersSlice';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   dashboard: dashboardReducer,
-  users: userReducer,
+  users: usersReducer,
   ui: uiReducer,
 });
 

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/route.constants';
 import { RouteFallback } from './RouteFallback';
-import { LeadRouteLayout } from '@/Features/LeadRoute/LeadRouteLayout';
+import { LeadRouteLayout } from '@/features/LeadRoute/LeadRouteLayout';
 import {
   LearnRouteActiveSequencesPage,
   LearnRouteApprovalsPage,
@@ -16,7 +16,7 @@ import {
   LearnRouteSettingsPage,
   LearnRouteTemplatesPage,
   LearnRouteVerificationQueuePage,
-} from '@/Features/LeadRoute/LeadRouteApp';
+} from '@/features/LeadRoute/LeadRouteApp';
 
 export const AppRoutes = () => {
   return (

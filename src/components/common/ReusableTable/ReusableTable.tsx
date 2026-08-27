@@ -47,10 +47,22 @@ const getNextDirection = (current?: SortDirection): SortDirection =>
 const formatDefaultResultCount = ({ from, to, total }: { from: number; to: number; total: number }) =>
   total > 0 ? `${from}-${to} of ${total}` : '0 of 0';
 
-const asSelectValue = (value: TableFilterValue) => {
-  if (Array.isArray(value)) return value.map(String);
+const asTextValue = (value: TableFilterValue): string => {
+  if (Array.isArray(value)) return value.map(String).join(', ');
   if (value == null) return '';
   return String(value);
+};
+
+const asSingleSelectValue = (value: TableFilterValue): string => {
+  if (Array.isArray(value)) return value[0] == null ? '' : String(value[0]);
+  if (value == null) return '';
+  return String(value);
+};
+
+const asMultiSelectValue = (value: TableFilterValue): string[] => {
+  if (Array.isArray(value)) return value.map(String);
+  if (value == null || value === '') return [];
+  return [String(value)];
 };
 
 const renderFilterControl = (column: TableColumn<unknown>) => {
@@ -70,7 +82,7 @@ const renderFilterControl = (column: TableColumn<unknown>) => {
         size="small"
         fullWidth
         displayEmpty
-        value={asSelectValue(filter.value)}
+        value={asSingleSelectValue(filter.value)}
         className={styles.filterControl}
         onChange={(event: SelectChangeEvent<string>) => filter.onChange?.(event.target.value)}
         aria-label={filter.label ?? `${String(column.label)} filter`}
@@ -91,7 +103,7 @@ const renderFilterControl = (column: TableColumn<unknown>) => {
         size="small"
         fullWidth
         multiple
-        value={asSelectValue(filter.value)}
+        value={asMultiSelectValue(filter.value)}
         className={styles.filterControl}
         onChange={(event: SelectChangeEvent<string[]>) => {
           const value = event.target.value;
@@ -113,7 +125,7 @@ const renderFilterControl = (column: TableColumn<unknown>) => {
       size="small"
       fullWidth
       type={filter.type === 'date' ? 'date' : 'text'}
-      value={asSelectValue(filter.value)}
+      value={asTextValue(filter.value)}
       placeholder={filter.placeholder}
       onChange={(event) => filter.onChange?.(event.target.value)}
       aria-label={filter.label ?? `${String(column.label)} filter`}

@@ -1,8 +1,23 @@
+import {
+  BarChart3,
+  ClipboardCheck,
+  Clock3,
+  FileText,
+  Inbox,
+  Link2,
+  ListChecks,
+  Mail,
+  Megaphone,
+  Send,
+  Settings,
+  ShieldCheck,
+  type LucideIcon,
+} from 'lucide-react';
 import { ROUTES } from './route.constants';
 
 export const NAVIGATION_LABELS = {
   APP_NAME: 'LearnRoute',
-  APP_TAGLINE: 'INTENT · AUTOMATION',
+  APP_TAGLINE: 'INTENT / AUTOMATION',
   MAIN: 'MAIN',
   OUTBOUND: 'OUTBOUND',
   INFRASTRUCTURE: 'INFRASTRUCTURE',
@@ -22,32 +37,51 @@ export const NAVIGATION_LABELS = {
   OPEN_MENU: 'Open navigation menu',
 } as const;
 
-export const SIDEBAR_ITEMS = [
+export interface SidebarItem {
+  key: string;
+  path: string;
+  label: string;
+  icon: LucideIcon;
+  badge?: string;
+}
+
+export interface SidebarGroup {
+  label: string;
+  items: SidebarItem[];
+}
+
+export const SIDEBAR_GROUPS: SidebarGroup[] = [
   {
-    section: NAVIGATION_LABELS.MAIN,
+    label: NAVIGATION_LABELS.MAIN,
     items: [
-      ['dashboard', NAVIGATION_LABELS.DASHBOARD, ROUTES.DASHBOARD],
-      ['verification', NAVIGATION_LABELS.VERIFICATION_QUEUE, ROUTES.VERIFICATION_QUEUE, '11'],
-      ['approvals', NAVIGATION_LABELS.APPROVALS, ROUTES.APPROVALS],
-      ['audit', NAVIGATION_LABELS.AUDIT_LOG, ROUTES.AUDIT_LOG],
+      { key: 'dashboard', path: ROUTES.DASHBOARD, label: NAVIGATION_LABELS.DASHBOARD, icon: ListChecks },
+      {
+        key: 'verification',
+        path: ROUTES.VERIFICATION_QUEUE,
+        label: NAVIGATION_LABELS.VERIFICATION_QUEUE,
+        icon: ClipboardCheck,
+        badge: '11',
+      },
+      { key: 'approvals', path: ROUTES.APPROVALS, label: NAVIGATION_LABELS.APPROVALS, icon: ShieldCheck },
+      { key: 'audit', path: ROUTES.AUDIT_LOG, label: NAVIGATION_LABELS.AUDIT_LOG, icon: Clock3 },
     ],
   },
   {
-    section: NAVIGATION_LABELS.OUTBOUND,
+    label: NAVIGATION_LABELS.OUTBOUND,
     items: [
-      ['performance', NAVIGATION_LABELS.PERFORMANCE, ROUTES.PERFORMANCE],
-      ['campaigns', NAVIGATION_LABELS.CAMPAIGNS, ROUTES.CAMPAIGNS],
-      ['sequence', NAVIGATION_LABELS.SEQUENCE_BUILDER, ROUTES.SEQUENCE_BUILDER],
-      ['templates', NAVIGATION_LABELS.TEMPLATES, ROUTES.TEMPLATES],
-      ['active', NAVIGATION_LABELS.ACTIVE_SEQUENCES, ROUTES.ACTIVE_SEQUENCES],
+      { key: 'performance', path: ROUTES.PERFORMANCE, label: NAVIGATION_LABELS.PERFORMANCE, icon: BarChart3 },
+      { key: 'campaigns', path: ROUTES.CAMPAIGNS, label: NAVIGATION_LABELS.CAMPAIGNS, icon: Megaphone },
+      { key: 'sequence', path: ROUTES.SEQUENCE_BUILDER, label: NAVIGATION_LABELS.SEQUENCE_BUILDER, icon: Link2 },
+      { key: 'templates', path: ROUTES.TEMPLATES, label: NAVIGATION_LABELS.TEMPLATES, icon: FileText },
+      { key: 'active', path: ROUTES.ACTIVE_SEQUENCES, label: NAVIGATION_LABELS.ACTIVE_SEQUENCES, icon: Send },
     ],
   },
   {
-    section: NAVIGATION_LABELS.INFRASTRUCTURE,
+    label: NAVIGATION_LABELS.INFRASTRUCTURE,
     items: [
-      ['inboxes', NAVIGATION_LABELS.CONNECTED_INBOXES, ROUTES.CONNECTED_INBOXES],
-      ['hub', NAVIGATION_LABELS.INBOX_HUB, ROUTES.INBOX_HUB],
-      ['settings', NAVIGATION_LABELS.SETTINGS, ROUTES.SETTINGS],
+      { key: 'inboxes', path: ROUTES.CONNECTED_INBOXES, label: NAVIGATION_LABELS.CONNECTED_INBOXES, icon: Inbox },
+      { key: 'hub', path: ROUTES.INBOX_HUB, label: NAVIGATION_LABELS.INBOX_HUB, icon: Mail },
+      { key: 'settings', path: ROUTES.SETTINGS, label: NAVIGATION_LABELS.SETTINGS, icon: Settings },
     ],
   },
-] as const;
+];

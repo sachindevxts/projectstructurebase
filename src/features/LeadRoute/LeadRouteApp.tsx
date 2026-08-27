@@ -13,18 +13,18 @@ import {
   Typography,
 } from '@mui/material';
 import { Search, Upload, X } from 'lucide-react';
-import { ActiveSequencesScreen } from './screens/ActiveSequencesScreen';
-import { ApprovalsScreen } from './screens/ApprovalsScreen';
-import { AuditScreen } from './screens/AuditScreen';
-import { CampaignsScreen } from './screens/CampaignsScreen';
-import { ConnectedInboxesScreen } from './screens/ConnectedInboxesScreen';
-import { DashboardScreen } from './screens/DashboardScreen';
-import { InboxHubScreen } from './screens/InboxHubScreen';
-import { PerformanceScreen } from './screens/PerformanceScreen';
-import { SequenceScreen } from './screens/SequenceScreen';
-import { SettingsScreen } from './screens/SettingsScreen';
-import { TemplatesScreen } from './screens/TemplatesScreen';
-import { VerificationQueueScreen } from './screens/VerificationQueueScreen';
+import { ActiveSequencesScreen } from './screens/ActiveSequencesScreen/ActiveSequencesScreen';
+import { ApprovalsScreen } from './screens/ApprovalsScreen/ApprovalsScreen';
+import { AuditScreen } from './screens/AuditScreen/AuditScreen';
+import { CampaignsScreen } from './screens/CampaignsScreen/CampaignsScreen';
+import { ConnectedInboxesScreen } from './screens/ConnectedInboxesScreen/ConnectedInboxesScreen';
+import { DashboardScreen } from './screens/DashboardScreen/DashboardScreen';
+import { InboxHubScreen } from './screens/InboxHubScreen/InboxHubScreen';
+import { PerformanceScreen } from './screens/PerformanceScreen/PerformanceScreen';
+import { SequenceScreen } from './screens/SequenceScreen/SequenceScreen';
+import { SettingsScreen } from './screens/SettingsScreen/SettingsScreen';
+import { TemplatesScreen } from './screens/TemplatesScreen/TemplatesScreen';
+import { VerificationQueueScreen } from './screens/VerificationQueueScreen/VerificationQueueScreen';
 
 type DialogName =
   | 'templateCreate'
@@ -52,7 +52,12 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
   }[dialog || 'templateCreate'];
 
   return (
-    <Dialog open={Boolean(dialog)} onClose={close} maxWidth={dialog?.startsWith('csv') ? 'md' : 'sm'} fullWidth>
+    <Dialog
+      open={Boolean(dialog)}
+      onClose={close}
+      maxWidth={dialog?.startsWith('csv') ? 'md' : 'sm'}
+      fullWidth
+    >
       <DialogTitle display="flex" alignItems="center" justifyContent="space-between">
         <span>{title}</span>
         <IconButton onClick={close}>
@@ -98,7 +103,7 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
               fullWidth
               label="Sales Navigator URL"
               size="small"
-              defaultValue="https://www.linkedin.com/sales/lists/people/123456789  ·  /sales/search/people?keywords=..."
+              defaultValue="https://www.linkedin.com/sales/lists/people/123456789 /sales/search/people?keywords=..."
               autoFocus
             />
             <Typography color="text.secondary" fontSize={12} mt={1}>
@@ -119,7 +124,9 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
             </Box>
             <Box sx={{ border: '1px dashed #4285f4', borderRadius: 2, p: 3, textAlign: 'center' }}>
               <Upload size={34} />
-              <Typography fontWeight={800} mt={1}>Drop a CSV or click to browse</Typography>
+              <Typography fontWeight={800} mt={1}>
+                Drop a CSV or click to browse
+              </Typography>
               <Typography color="text.secondary" fontSize={12}>
                 We'll auto-detect common columns and let you remap on the next step.
               </Typography>
@@ -128,32 +135,40 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
         )}
         {dialog === 'csvMap' && (
           <Box>
-            {['Email *', 'First name', 'Last name', 'Company', 'Job title', 'LinkedIn URL'].map((field) => (
-              <Box
-                key={field}
-                display="grid"
-                gridTemplateColumns="150px 1fr 180px"
-                gap={2}
-                alignItems="center"
-                py={1}
-                borderBottom="1px solid var(--color-border)"
-              >
-                <Typography>{field}</Typography>
-                <TextField
-                  select
-                  size="small"
-                  defaultValue={field === 'LinkedIn URL' ? 'not' : field.toUpperCase().replace(' *', '').replace(' ', '')}
+            {['Email *', 'First name', 'Last name', 'Company', 'Job title', 'LinkedIn URL'].map(
+              (field) => (
+                <Box
+                  key={field}
+                  display="grid"
+                  gridTemplateColumns="150px 1fr 180px"
+                  gap={2}
+                  alignItems="center"
+                  py={1}
+                  borderBottom="1px solid var(--color-border)"
                 >
-                  <MenuItem value="EMAIL">EMAIL</MenuItem>
-                  <MenuItem value="FIRSTNAME">FIRSTNAME</MenuItem>
-                  <MenuItem value="LASTNAME">LASTNAME</MenuItem>
-                  <MenuItem value="COMPANY">COMPANY</MenuItem>
-                  <MenuItem value="TITLE">TITLE</MenuItem>
-                  <MenuItem value="not">-- Not mapped --</MenuItem>
-                </TextField>
-                <Typography color="text.secondary" fontSize={12}>sample: Sherry</Typography>
-              </Box>
-            ))}
+                  <Typography>{field}</Typography>
+                  <TextField
+                    select
+                    size="small"
+                    defaultValue={
+                      field === 'LinkedIn URL'
+                        ? 'not'
+                        : field.toUpperCase().replace(' *', '').replace(' ', '')
+                    }
+                  >
+                    <MenuItem value="EMAIL">EMAIL</MenuItem>
+                    <MenuItem value="FIRSTNAME">FIRSTNAME</MenuItem>
+                    <MenuItem value="LASTNAME">LASTNAME</MenuItem>
+                    <MenuItem value="COMPANY">COMPANY</MenuItem>
+                    <MenuItem value="TITLE">TITLE</MenuItem>
+                    <MenuItem value="not">-- Not mapped --</MenuItem>
+                  </TextField>
+                  <Typography color="text.secondary" fontSize={12}>
+                    sample: Sherry
+                  </Typography>
+                </Box>
+              ),
+            )}
           </Box>
         )}
         {dialog === 'csvPreview' && (
@@ -184,15 +199,29 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
               <MenuItem value="outlook">Outlook</MenuItem>
               <MenuItem value="smtp">SMTP / IMAP</MenuItem>
             </TextField>
-            <TextField fullWidth label="Email address" size="small" placeholder="name@yourdomain.com" sx={{ mt: 2 }} />
-            <TextField fullWidth label="Daily sending limit" size="small" defaultValue="50" sx={{ mt: 2 }} />
+            <TextField
+              fullWidth
+              label="Email address"
+              size="small"
+              placeholder="name@yourdomain.com"
+              sx={{ mt: 2 }}
+            />
+            <TextField
+              fullWidth
+              label="Daily sending limit"
+              size="small"
+              defaultValue="50"
+              sx={{ mt: 2 }}
+            />
           </Box>
         )}
         {dialog === 'prospectImport' && (
           <Box>
             <Box sx={{ border: '1px dashed #4285f4', borderRadius: 2, p: 3, textAlign: 'center' }}>
               <Upload size={34} />
-              <Typography fontWeight={800} mt={1}>Upload CSV or Excel</Typography>
+              <Typography fontWeight={800} mt={1}>
+                Upload CSV or Excel
+              </Typography>
               <Typography color="text.secondary" fontSize={12}>
                 .csv, .xlsx, .xls - columns: name, email, company (LinkedIn URL optional)
               </Typography>
@@ -214,8 +243,14 @@ function LeadRouteDialog({ dialog, close }: { dialog: DialogName; close: () => v
         {dialog === 'csvPreview' && <Button variant="contained">Import 870</Button>}
         {dialog === 'connectInbox' && <Button variant="contained">Authorize with Gmail</Button>}
         {dialog === 'prospectImport' && <Button variant="contained">Ingest</Button>}
-        {(dialog === 'templateCreate' || dialog === 'templateEdit') && <Button variant="contained">Save</Button>}
-        {dialog === 'addContacts' && <Button variant="contained" disabled>Add contacts</Button>}
+        {(dialog === 'templateCreate' || dialog === 'templateEdit') && (
+          <Button variant="contained">Save</Button>
+        )}
+        {dialog === 'addContacts' && (
+          <Button variant="contained" disabled>
+            Add contacts
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

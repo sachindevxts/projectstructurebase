@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { AuthState } from '@/types/auth.types';
-import type { ApiError } from '@/types/common.types';
 import { authService } from '@/api/services/auth.service';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
-import { storage } from '@/utils/storage.utils';
-
-interface LoginPayload {
-  username: string;
-  password: string;
-}
+import type { AuthState, LoginPayload } from '@/types/auth.types';
+import type { ApiError } from '@/types/common.types';
 
 const initialState: AuthState = {
   user: null,
@@ -17,14 +10,18 @@ const initialState: AuthState = {
   error: null,
 };
 
+const resetAuthState = (state: AuthState) => {
+  state.user = null;
+  state.isAuthenticated = false;
+  state.isLoading = false;
+  state.error = null;
+};
+
 export const login = createAsyncThunk(
   'auth/login',
   async (payload: LoginPayload, { rejectWithValue }) => {
     try {
-      const user = await authService.login(payload);
-      storage.set(STORAGE_KEYS.ACCESS_TOKEN, 'demo-token');
-      storage.set(STORAGE_KEYS.USER, user);
-      return user;
+      return await authService.login(payload);
     } catch (error) {
       const apiError = error as ApiError;
       return rejectWithValue(apiError.message);
@@ -34,29 +31,22 @@ export const login = createAsyncThunk(
 
 export const bootstrapAuth = createAsyncThunk('auth/bootstrap', async (_, { rejectWithValue }) => {
   try {
-    const storedUser = storage.get<any>(STORAGE_KEYS.USER, null);
-    if (!storedUser) {
-      return null;
-    }
-    return storedUser;
+    return await authService.getCurrentUser();
   } catch (error) {
     const apiError = error as ApiError;
     return rejectWithValue(apiError.message);
   }
 });
 
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout();
+});
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.error = null;
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      storage.remove(STORAGE_KEYS.USER);
-    },
+    clearAuthState: resetAuthState,
   },
   extraReducers: (builder) => {
     builder
@@ -74,13 +64,25 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload as string;
       })
+      .addCase(bootstrapAuth.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(bootstrapAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = !!action.payload;
+        state.isAuthenticated = Boolean(action.payload);
         state.user = action.payload;
+      })
+      .addCase(bootstrapAuth.rejected, (state) => {
+        resetAuthState(state);
+      })
+      .addCase(logout.fulfilled, (state) => {
+        resetAuthState(state);
+      })
+      .addCase(logout.rejected, (state) => {
+        resetAuthState(state);
       });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { clearAuthState } = authSlice.actions;
 export default authSlice.reducer;

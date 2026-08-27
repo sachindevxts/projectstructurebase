@@ -38,6 +38,8 @@ export default [
     rules: {
       ...tseslint.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'no-undef': 'off',

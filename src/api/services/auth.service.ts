@@ -1,89 +1,129 @@
 import { API_ENDPOINTS } from '@/constants/api.constants';
+import { PERMISSIONS } from '@/constants/permission.constants';
 import { api } from '@/api/client/apiClient';
-import { storage } from '@/utils/storage.utils';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
+import { clearAuthSession, getAccessToken, getStoredUser, storeAuthSession } from '@/api/authSession';
+import { unwrapApiResponse } from '@/api/apiResponse';
+import type { ApiResponse } from '@/types/api.types';
+import type { AuthUser } from '@/types/common.types';
 
 export interface LoginPayload {
   username: string;
   password: string;
 }
 
-export interface AuthUser {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-  permissions: string[];
-}
-
-interface AuthResponse {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
+interface LoginResponseData {
+  id?: number | string;
+  username?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
   role?: string;
-  accessToken: string;
-  refreshToken: string;
+  permissions?: string[];
+  accessToken?: string;
+  token?: string;
+  refreshToken?: string;
+  user?: AuthUser;
 }
 
-class AuthService {
-  async login(payload: LoginPayload): Promise<AuthUser> {
-    try {
-      // For development, mock login
-      // When backend is ready:
-      // const response = await api.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, payload);
-      
-      // Mock response for development
-      const mockUser: AuthUser = {
-        id: '1',
-        email: payload.username,
-        name: payload.username.includes('admin') ? 'Admin User' : 'Regular User',
-        role: payload.username.includes('admin') ? 'admin' : 'user',
-        permissions: payload.username.includes('admin') 
-          ? ['dashboard:view', 'user:manage', 'allocation:manage', 'settings:manage']
-          : ['dashboard:view', 'user:view'],
-      };
+const isApiConfigured = () => Boolean(import.meta.env.VITE_API_BASE_URL);
 
-      // Store token and user
-      storage.set(STORAGE_KEYS.ACCESS_TOKEN, 'mock-token-' + Date.now());
-      storage.set(STORAGE_KEYS.USER, mockUser);
-      
-      return mockUser;
-    } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+const createDemoUser = ({ username }: LoginPayload): AuthUser => {
+  const isAdmin = username.toLowerCase().includes('admin');
+
+  return {
+    id: isAdmin ? 'admin-demo' : 'user-demo',
+    email: username,
+    name: isAdmin ? 'Admin User' : 'Regular User',
+    role: isAdmin ? 'admin' : 'user',
+    permissions: isAdmin
+      ? [PERMISSIONS.ALL]
+      : [
+          PERMISSIONS.DASHBOARD_VIEW,
+          PERMISSIONS.LEADS_VIEW,
+          PERMISSIONS.CAMPAIGNS_VIEW,
+          PERMISSIONS.SETTINGS_VIEW,
+        ],
+  };
+};
+
+const toAuthUser = (payload: LoginResponseData, fallbackUsername: string): AuthUser => {
+  if (payload.user) {
+    return payload.user;
+  }
+
+  const email = payload.email ?? payload.username ?? fallbackUsername;
+  const fullName = [payload.firstName, payload.lastName].filter(Boolean).join(' ');
+
+  return {
+    id: String(payload.id ?? email),
+    email,
+    name: (payload.name ?? fullName) || email,
+    role: payload.role ?? 'user',
+    permissions: payload.permissions ?? [PERMISSIONS.DASHBOARD_VIEW],
+  };
+};
+
+export const login = async (payload: LoginPayload): Promise<AuthUser> => {
+  if (!isApiConfigured()) {
+    const user = createDemoUser(payload);
+    storeAuthSession(user, { accessToken: `demo-token-${Date.now()}` });
+    return user;
+  }
+
+  const response = await api.post<ApiResponse<LoginResponseData> | LoginResponseData>(
+    API_ENDPOINTS.AUTH.LOGIN,
+    payload,
+  );
+  const authData = unwrapApiResponse<LoginResponseData>(response.data);
+  const user = toAuthUser(authData, payload.username);
+  const accessToken = authData.accessToken ?? authData.token;
+
+  if (!accessToken) {
+    throw new Error('Login response did not include an access token');
+  }
+
+  storeAuthSession(user, {
+    accessToken,
+    refreshToken: authData.refreshToken,
+  });
+
+  return user;
+};
+
+export const getCurrentUser = async (): Promise<AuthUser> => {
+  const storedUser = getStoredUser();
+
+  if (!isApiConfigured() || !getAccessToken()) {
+    if (!storedUser) {
+      throw new Error('No user found');
     }
+
+    return storedUser;
   }
 
-  async getCurrentUser(): Promise<AuthUser> {
-    try {
-      const user = storage.get<AuthUser>(STORAGE_KEYS.USER);
-      if (!user) {
-        throw new Error('No user found');
-      }
-      return user;
-    } catch (error) {
-      console.error('Error getting current user:', error);
-      throw error;
+  const response = await api.get<ApiResponse<AuthUser> | AuthUser>(API_ENDPOINTS.AUTH.ME);
+  const user = unwrapApiResponse<AuthUser>(response.data);
+  storeAuthSession(user, { accessToken: getAccessToken() ?? '' });
+
+  return user;
+};
+
+export const logout = async (): Promise<void> => {
+  try {
+    if (isApiConfigured() && getAccessToken()) {
+      await api.post(API_ENDPOINTS.AUTH.LOGOUT);
     }
+  } finally {
+    clearAuthSession();
   }
+};
 
-  async logout(): Promise<void> {
-    try {
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      storage.remove(STORAGE_KEYS.USER);
-    } catch (error) {
-      console.error('Error logging out:', error);
-      throw error;
-    }
-  }
+export const isAuthenticated = () => Boolean(getAccessToken());
 
-  isAuthenticated(): boolean {
-    const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-    return !!token;
-  }
-}
-
-export const authService = new AuthService();
+export const authService = {
+  login,
+  getCurrentUser,
+  logout,
+  isAuthenticated,
+};

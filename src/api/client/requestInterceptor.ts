@@ -1,13 +1,10 @@
 import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import { storage } from '@/utils/storage.utils';
-import { STORAGE_KEYS } from '@/constants/storage.constants';
+import { getAccessToken } from '@/api/authSession';
 
 export const requestInterceptor = (client: AxiosInstance) => {
   client.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-      const token = storage.get<string>(STORAGE_KEYS.ACCESS_TOKEN, '');
-      
-      // Check if the request is public (login, register, etc.)
+      const token = getAccessToken();
       const isPublic =
         (config.url ?? '').includes('/auth/') ||
         (config.url ?? '').includes('/public/') ||
@@ -17,13 +14,11 @@ export const requestInterceptor = (client: AxiosInstance) => {
         config.headers.Authorization = `Bearer ${token}`;
       }
 
-      // Add request ID for tracking
-      config.headers['X-Request-Id'] = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
-      
+      config.headers['X-Request-Id'] =
+        globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+
       return config;
     },
-    (error) => {
-      return Promise.reject(error);
-    }
+    (error) => Promise.reject(error),
   );
 };

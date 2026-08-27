@@ -2,7 +2,6 @@ import type { AuthState } from '@/types/auth.types';
 import type { ApiError, RequestStatus } from '@/types/common.types';
 import type { UserSummary } from '@/types/user.types';
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
-import type { RootState } from '../reducers/rootReducer';
 
 export interface DashboardState {
   data: {
@@ -41,7 +40,7 @@ export interface RootStateShape {
 }
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  RootStateShape,
   unknown,
   Action<string>
 >;
